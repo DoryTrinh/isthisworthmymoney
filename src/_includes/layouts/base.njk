@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | Worth My Money? Blog</title>
+  <meta name="description" content="{{ description or 'Tips, guides, and calculators to help you make smarter spending decisions.' }}">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/blog/css/blog.css">
+</head>
+<body>
+
+  <header class="blog-header">
+    <div class="blog-header-inner">
+      <a href="/" class="blog-logo" aria-label="Back to app">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E85D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </a>
+      <a href="/blog/" class="blog-title-link">
+        <h1 class="blog-site-title">Worth My Money?</h1>
+      </a>
+      <nav class="blog-nav">
+        <a href="/blog/">Articles</a>
+        <a href="/">Calculator</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="blog-footer">
+    <div class="blog-footer-inner">
+      <p>&copy; {{ "" | readableDate | replace(", " + "2026", "") }} Worth My Money? &mdash; Make smarter spending decisions.</p>
+      <div class="blog-footer-links">
+        <a href="/">Calculator App</a>
+        <a href="/blog/">All Articles</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

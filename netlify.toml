@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+# Redirect the root to the app's index.html (handled by passthrough copy)
+# Blog lives at /blog/, CMS at /admin/
+
+[build.environment]
+  NODE_VERSION = "18"
