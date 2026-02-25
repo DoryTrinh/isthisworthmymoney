@@ -22,11 +22,11 @@ Here are five of the best free options available right now, what each one does w
 
 Before we compare tools, here's what separates a useful calculator from a forgettable one:
 
-- **It answers a specific question.** The best tools don't try to do everything. They help you answer one thing clearly — whether that's "how should I split my income?" or "is this purchase worth it?"
-- **It's fast.** If it takes more than 2 minutes to get a useful result, most people will close the tab.
-- **It doesn't require an account.** The lower the barrier, the better. You should be able to get value before signing up for anything.
-- **It gives you something actionable.** A number by itself isn't helpful. A good calculator tells you what to *do* with that number.
-- **It works on your phone.** Most money decisions happen on the go — standing in a store, scrolling through an online shop, splitting a bill with friends.
+* **It answers a specific question.** The best tools don't try to do everything. They help you answer one thing clearly — whether that's "how should I split my income?" or "is this purchase worth it?"
+* **It's fast.** If it takes more than 2 minutes to get a useful result, most people will close the tab.
+* **It doesn't require an account.** The lower the barrier, the better. You should be able to get value before signing up for anything.
+* **It gives you something actionable.** A number by itself isn't helpful. A good calculator tells you what to *do* with that number.
+* **It works on your phone.** Most money decisions happen on the go — standing in a store, scrolling through an online shop, splitting a bill with friends.
 
 With that in mind, here's how five popular free tools stack up.
 
@@ -42,15 +42,15 @@ What makes it different is the framing. Instead of showing you a pie chart of ca
 
 ### What's good
 
-- No account needed — you get results immediately
-- Three focused calculators instead of one generic tool
-- Shows long-term impact of purchases, not just the sticker price
-- Clean, simple interface that works well on mobile
+* No account needed — you get results immediately
+* Three focused calculators instead of one generic tool
+* Shows long-term impact of purchases, not just the sticker price
+* Clean, simple interface that works well on mobile
 
 ### What's missing
 
-- No bank syncing or automatic transaction tracking
-- Doesn't replace a full budgeting app if you need ongoing expense monitoring
+* No bank syncing or automatic transaction tracking
+* Doesn't replace a full budgeting app if you need ongoing expense monitoring
 
 <div class="blog-callout">
   <div class="blog-callout-title">Try it yourself</div>
@@ -58,8 +58,8 @@ What makes it different is the framing. Instead of showing you a pie chart of ca
 </div>
 
 <div class="calculator-embed">
-  <iframe src="https://isthisworthmymoney.com/embed/purchase" loading="lazy"></iframe>
-  <div class="calculator-embed-caption">Is This Worth My Money? — Purchase Calculator</div>
+  <iframe src="/" title="Worth My Money Calculator" loading="lazy"></iframe>
+  <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
 </div>
 
 ## 2. NerdWallet Budget Calculator
@@ -72,15 +72,15 @@ It's a good starting point if you've never budgeted before and want a baseline. 
 
 ### What's good
 
-- Extremely simple — takes less than a minute
-- No account required
-- Clear visual breakdown of your income
+* Extremely simple — takes less than a minute
+* No account required
+* Clear visual breakdown of your income
 
 ### What's missing
 
-- Doesn't help with specific purchase decisions
-- Very generic — same framework for everyone regardless of lifestyle
-- NerdWallet recently shut down some budgeting features in their app (August 2025), so the tool's future is uncertain
+* Doesn't help with specific purchase decisions
+* Very generic — same framework for everyone regardless of lifestyle
+* NerdWallet recently shut down some budgeting features in their app (August 2025), so the tool's future is uncertain
 
 ## 3. EveryDollar
 
@@ -92,15 +92,15 @@ The app relaunched in January 2026 with new features including personalized plan
 
 ### What's good
 
-- Strong methodology for people who want tight control over spending
-- Clean, well-designed app
-- Good educational content built in
+* Strong methodology for people who want tight control over spending
+* Clean, well-designed app
+* Good educational content built in
 
 ### What's missing
 
-- Manual transaction entry on the free plan (no bank syncing)
-- Philosophically rigid — the Ramsey method isn't for everyone
-- More of a full budgeting system than a quick calculator
+* Manual transaction entry on the free plan (no bank syncing)
+* Philosophically rigid — the Ramsey method isn't for everyone
+* More of a full budgeting system than a quick calculator
 
 ## 4. PocketGuard
 
@@ -112,15 +112,15 @@ It also includes a subscription manager that can flag recurring charges you migh
 
 ### What's good
 
-- Automatic bank syncing on the free plan
-- The "In My Pocket" number is genuinely useful
-- Subscription tracker catches forgotten charges
+* Automatic bank syncing on the free plan
+* The "In My Pocket" number is genuinely useful
+* Subscription tracker catches forgotten charges
 
 ### What's missing
 
-- Requires linking your bank accounts (some people aren't comfortable with that)
-- Doesn't help you evaluate specific purchases
-- Free tier is limited compared to what it used to be
+* Requires linking your bank accounts (some people aren't comfortable with that)
+* Doesn't help you evaluate specific purchases
+* Free tier is limited compared to what it used to be
 
 ## 5. Calculator.net Budget Calculator
 
@@ -132,28 +132,28 @@ It also offers a downloadable budget template if you want to track things monthl
 
 ### What's good
 
-- Completely free, no account, no app
-- Covers a wide range of expense categories
-- Good for people who prefer a spreadsheet-style approach
+* Completely free, no account, no app
+* Covers a wide range of expense categories
+* Good for people who prefer a spreadsheet-style approach
 
 ### What's missing
 
-- Dated interface — feels like it hasn't been updated in years
-- No mobile app
-- Purely a calculator — no ongoing tracking, no insights, no recommendations
+* Dated interface — feels like it hasn't been updated in years
+* No mobile app
+* Purely a calculator — no ongoing tracking, no insights, no recommendations
 
 ## Side-by-side comparison
 
-| Feature | Is This Worth My Money? | NerdWallet | EveryDollar | PocketGuard | Calculator.net |
-|---|---|---|---|---|---|
-| **No account needed** | Yes | Yes | No | No | Yes |
-| **Purchase decision help** | Yes | No | No | No | No |
-| **Monthly budget breakdown** | Yes | Yes | Yes | Yes | Yes |
-| **Bank syncing** | No | Limited | Paid only | Yes (free) | No |
-| **Mobile-friendly** | Yes | Yes | Yes (app) | Yes (app) | Limited |
-| **Long-term cost projection** | Yes | No | No | No | No |
-| **Subscription tracking** | No | No | No | Yes | No |
-| **Completely free** | Yes | Yes | Freemium | Freemium | Yes |
+| Feature                       | Is This Worth My Money? | NerdWallet | EveryDollar | PocketGuard | Calculator.net |
+| ----------------------------- | ----------------------- | ---------- | ----------- | ----------- | -------------- |
+| **No account needed**         | Yes                     | Yes        | No          | No          | Yes            |
+| **Purchase decision help**    | Yes                     | No         | No          | No          | No             |
+| **Monthly budget breakdown**  | Yes                     | Yes        | Yes         | Yes         | Yes            |
+| **Bank syncing**              | No                      | Limited    | Paid only   | Yes (free)  | No             |
+| **Mobile-friendly**           | Yes                     | Yes        | Yes (app)   | Yes (app)   | Limited        |
+| **Long-term cost projection** | Yes                     | No         | No          | No          | No             |
+| **Subscription tracking**     | No                      | No         | No          | Yes         | No             |
+| **Completely free**           | Yes                     | Yes        | Freemium    | Freemium    | Yes            |
 
 ## So which one should you use?
 
