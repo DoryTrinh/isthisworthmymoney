@@ -58,9 +58,14 @@ What makes it different is the framing. Instead of showing you a pie chart of ca
 </div>
 
 <div class="calculator-embed">
-  <iframe src="/" title="Worth My Money Calculator" loading="lazy"></iframe>
-  <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
+
+  <iframe src="https://isthisworthmymoney.com/?embed=true" loading="lazy"></iframe>
+
+  <div class="calculator-embed-caption">Is This Worth My Money? — Calculator</div>
+
 </div>
+
+
 
 ## 2. NerdWallet Budget Calculator
 
