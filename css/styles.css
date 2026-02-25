@@ -3982,3 +3982,28 @@ html, body {
     margin-right: auto;
   }
 }
+
+/* ============================================================
+   EMBED MODE — compact view for iframe embedding
+   ============================================================ */
+body.embed-mode .top-bar,
+body.embed-mode .home-title,
+body.embed-mode .home-tagline,
+body.embed-mode .home-illustration,
+body.embed-mode .feedback-link,
+body.embed-mode .onboarding-overlay {
+  display: none !important;
+}
+
+body.embed-mode .screen {
+  padding-top: 10px;
+}
+
+body.embed-mode .home-question {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+body.embed-mode .home-buttons {
+  margin-top: 12px;
+}

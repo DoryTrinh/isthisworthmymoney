@@ -1706,5 +1706,10 @@ Back
   <script src="js/currencies.js"></script>
   <script src="js/app.js"></script>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.location.search.indexOf("embed=true") !== -1) {
+      document.body.classList.add("embed-mode");
+    }
+  </script>
 </body>
 </html>
