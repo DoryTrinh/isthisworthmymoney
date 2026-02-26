@@ -9,7 +9,21 @@ tags:
   - budgeting
   - daily expenses
 ---
+That $5 coffee seems harmless, but over a year it becomes $1,825. Here's how to figure out which small purchases are actually worth it.*
 
+**Tags:** spending habits, budgeting, daily expenses
+
+A $5 latte every weekday doesn't feel like a financial decision. It feels like a Tuesday.
+
+But run the numbers and it gets uncomfortable fast:
+
+- **$5/day, 5 days a week** = $1,300/year
+- **$5/day, every day** = $1,825/year
+- **Over 10 years** (invested at 7%) = roughly **$25,000**
+
+That last one is the one that stings.
+
+Financial author David Bach came up with the term "latte factor" to describe this exact thing: small, daily purchases that feel like nothing but quietly add up to a lot. And coffee is just the obvious example. Here are a few others:
 
 | Daily habit                  | Cost   | Annual total |
 | ---------------------------- | ------ | ------------ |
