@@ -1,32 +1,41 @@
 ---
 title: "The Latte Factor: How Small Daily Purchases Add Up"
-description: "That $5 coffee seems harmless, but over a year it becomes $1,825. Here's how to figure out which small purchases are actually worth it."
+description: That $5 coffee seems harmless, but over a year it becomes $1,825.
+  Here's how to figure out which small purchases are actually worth it.
 date: 2026-02-20
+featuredImage: /blog/images/placeholder-coffee.svg
 tags:
   - spending habits
   - budgeting
   - daily expenses
-featuredImage: /blog/images/placeholder-coffee.svg
 ---
 
-We've all heard it before: "Just skip the latte and you'll be rich." While that's an oversimplification, the core idea has real merit. Small, repeated purchases are sneaky — they feel insignificant in the moment but compound into serious money over time.
 
-## What is the Latte Factor?
+| Daily habit                  | Cost   | Annual total |
+| ---------------------------- | ------ | ------------ |
+| Lunch out at work (5x/week)  | $14    | $3,640       |
+| Afternoon snack run          | $4     | $1,460       |
+| 4 streaming services         | $60/mo | $720         |
+| Bottled water instead of tap | $2     | $730         |
+| Parking instead of transit   | $8     | $2,080       |
 
-The term was coined by financial author David Bach. The concept is simple: identify small, recurring expenses you don't think about, and calculate their true annual cost.
+Add a few of those together and you're looking at $5,000-8,000 a year on things you barely think about.
 
-Here are some common examples:
+## So should you stop buying coffee?
 
-- **Daily coffee shop visit** ($5/day) = $1,825/year
-- **Lunch out at work** ($12/day, 5x/week) = $3,120/year
-- **Streaming services** ($15/month x 4 services) = $720/year
-- **Impulse snacks** ($3/day) = $1,095/year
+No. That's the wrong takeaway, and it's the reason people roll their eyes at the latte factor.
 
-> The point isn't that you should never buy coffee. It's that you should know what it's really costing you.
+The point isn't "stop spending money on things you enjoy." The point is "know what you're spending." Those are very different things.
 
-## Try it yourself
+If your morning coffee is genuinely the highlight of your day, keep buying it. Seriously. But if you're grabbing it out of habit and you'd be just as happy with the $0.50 cup you make at home, that's $1,200 a year you could put somewhere that matters more to you.
 
-Use our calculator below to see how your daily purchases add up. Enter what you spend, how often, and see the real cost in terms of your work hours.
+The only person who can make that call is you. You just need the numbers first.
+
+## A quick way to check
+
+Pick any small purchase you make regularly and run it through our [recurring expense calculator](https://isthisworthmymoney.com). It takes about 15 seconds and shows you the annual cost relative to your income.
+
+You might look at the number and think "yeah, totally worth it." Or you might think "wait, I'm spending *that* much on energy drinks?" Either way, you'll know.
 
 <div class="calculator-embed">
   <iframe src="/embed/regular.html" title="Regular Expense Calculator" loading="lazy"></iframe>
