@@ -43,6 +43,8 @@ The thing I appreciate most is that it doesn't lecture you. It's not trying to g
 
 </div>
 
+</div>
+
 ## **2. NerdWallet Budget Calculator**
 
 **Best for:** A quick starting point if you've literally never budgeted
