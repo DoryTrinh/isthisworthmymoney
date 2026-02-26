@@ -400,6 +400,15 @@ img {
   text-align: center;
 }
 
+.calculator-embed-caption a {
+  color: #D35233;
+  text-decoration: none;
+}
+
+.calculator-embed-caption a:hover {
+  text-decoration: underline;
+}
+
 /* --- Callout Box --- */
 .blog-callout {
   background: #bcffed;

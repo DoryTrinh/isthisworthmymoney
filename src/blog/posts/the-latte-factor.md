@@ -30,7 +30,7 @@ Use our calculator below to see how your daily purchases add up. Enter what you 
 
 <div class="calculator-embed">
   <iframe src="/embed/regular.html" title="Regular Expense Calculator" loading="lazy"></iframe>
-  <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
+  <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Check out the calculator</a></div>
 </div>
 
 ## The real question: Is it worth it?
