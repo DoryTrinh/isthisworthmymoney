@@ -17,6 +17,8 @@ Cool. But that doesn't help you right now, standing in a store or hovering over 
 
 ## **1. Is This Worth My Money?**
 
+![Is this worth my money](/blog/images/logo-articles-.png)
+
 * **In a nutshell:** A set of three free calculators that show you what a purchase actually costs in the context of your full financial picture. One for recurring expenses, one for one-time buys, one for your monthly budget. No account, no app, no bank linking. Just plug in numbers and get an answer in about 30 seconds.
 * **Use it when:** You're standing in a store, hovering over a checkout button, or debating whether to sign up for another subscription. You want a quick, honest number before you commit.
 * **Why I picked it:** It's the only tool on this list built specifically for the moment *before* a purchase. Everything else is a budgeting app that can sort of help with that question. This one answers it directly. I also like that it doesn't lecture you or flash "DENIED" at you. It gives you the math and lets you make your own call. The recurring cost calculator is especially eye-opening. A $15/month subscription doesn't sound like much until you see it stacked up over five years.
@@ -34,12 +36,16 @@ Cool. But that doesn't help you right now, standing in a store or hovering over 
 
 ## **2. PocketGuard**
 
+![Pocket Guard](/blog/images/1-pocketguard.png)
+
 * **In a nutshell:** A budgeting app that connects to your bank and boils everything down to one number: how much you can safely spend right now. It calls this your "In My Pocket" amount, calculated after accounting for bills, debt payments, and savings goals.
 * **Use it when:** You don't want to do any math yourself. You just want to open an app, see a number, and know whether you have room to spend.
 * **Why I picked it:** It's the closest thing to a direct "can I afford this?" answer among full budgeting apps. You don't need to dig through categories or check budget lines. One number, front and center. It also has a subscription tracker that surfaces recurring charges you've forgotten about, which is a nice bonus.
 * **The trade-off:** The free version is basically a 7-day trial now. After that, you're looking at $13/month or $75/year. So "can I afford PocketGuard?" is actually the first affordability question you'll need to answer. You also have to be comfortable linking your bank accounts. Some people are fine with that, others aren't. No judgment either way.
 
 ## **3. Rocket Money**
+
+![Rocket Money](/blog/images/2-rocketmoney.webp)
 
 * **In a nutshell:** A personal finance app that finds all the recurring charges you're paying for and helps you cut the ones you don't need. It'll even negotiate bills on your behalf (though it takes a cut of the savings). Also includes basic budgeting and spending tracking.
 * **Use it when:** You suspect the answer to "can I afford this?" might be "yes, if I stop paying for three things I forgot about." Rocket Money is good at surfacing that dead weight before you make a new spending decision.
@@ -48,6 +54,8 @@ Cool. But that doesn't help you right now, standing in a store or hovering over 
 
 ## **4. YNAB (You Need a Budget)**
 
+![YNAB](/blog/images/2-ynab.png)
+
 * **In a nutshell:** A zero-based budgeting app where you assign every dollar you earn to a specific job: rent, groceries, savings, fun money, whatever. When you want to buy something, you check the category. Money there? You can afford it. No money? You move funds from another category or you wait.
 * **Use it when:** You want to stop asking "can I afford this?" altogether. YNAB's whole philosophy is that if you budget properly, you already know the answer before you walk into the store.
 * **Why I picked it:** People who stick with YNAB swear by it, and the results back that up. The system genuinely changes how you think about money over time. The 34-day free trial is unusually generous, and college students get a full year free. It's the most thorough answer to the affordability question on this list, just not the fastest one.
@@ -55,12 +63,18 @@ Cool. But that doesn't help you right now, standing in a store or hovering over 
 
 ## **5. Monarch Money**
 
+![Monarch Money](/blog/images/2-monarch.webp)
+
 * **In a nutshell:** A full financial dashboard that covers budgeting, net worth tracking, investment monitoring, and goal planning. It became the go-to for a lot of people after Mint shut down in 2024, especially couples and families who share finances.
 * **Use it when:** You share finances with a partner and want both of you looking at the same numbers when someone asks "can we afford this?" Also useful if you want a single place to see spending, investments, and net worth together.
 * **Why I picked it:** The collaboration features are the real selling point. Both partners see the same dashboard, which makes joint financial decisions way less stressful. For the "can I afford this?" question, it helps indirectly. You can check your budget, see your cash flow, and look at how you're tracking for the month. It doesn't give you one clean number like PocketGuard, but it gives you more context.
 * **The trade-off:** No free tier. It's $14.99/month or $99.99/year with a 7-day trial. The interface is clean and well-designed, which matters for building a habit. But if you're a solo budgeter who just wants a quick affordability check, it might be more than you need.
 
 ## **6. EveryDollar**
+
+![Every Dollar](/blog/images/1-everydollar.jpg)
+
+![]()
 
 * **In a nutshell:** Dave Ramsey's zero-based budgeting app. Like YNAB, you assign every dollar to a category at the start of the month, then track whether you're sticking to it. The basic version is free.
 * **Use it when:** You want the structure of zero-based budgeting without paying for it. You look at your categories, see what's left, and make your decision.
@@ -79,8 +93,6 @@ Cool. But that doesn't help you right now, standing in a store or hovering over 
 | **Best at**                               | Purchase decisions      | "Safe to spend" number | Finding wasted money | Full budget control | Shared finances     | Structured budgeting |
 | **Time to get value**                     | 30 seconds              | 10-15 minutes setup    | 5-10 minutes setup   | Days to weeks       | 10-15 minutes setup | 15-30 minutes setup  |
 | **Mobile app**                            | Web (mobile-friendly)   | Yes                    | Yes                  | Yes                 | Yes                 | Yes                  |
-
-
 
 ## **Which one should you use?**
 
