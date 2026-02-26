@@ -49,6 +49,7 @@ The thing I appreciate most is that it doesn't lecture you. It's not trying to g
 
 ![Nerdwallet](/blog/images/Blog/1/nerdwallet.jpg)
 
+
 NerdWallet's calculator does one thing: you type in your monthly after-tax income, and it splits it using the 50/30/20 rule. 50% for needs, 30% for wants, 20% for savings and debt. Done.
 
 If you have no idea where to start, this gives you a rough framework in under a minute. You can also tweak the percentages, which is good because the 50/30/20 split is pretty unrealistic if you live somewhere with high rent.
