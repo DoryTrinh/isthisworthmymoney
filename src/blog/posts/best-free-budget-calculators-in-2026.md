@@ -40,7 +40,7 @@ The thing I appreciate most is that it doesn't lecture you. It's not trying to g
 
 <div class="calculator-embed">
   <iframe src="/embed/onetime.html" title="One-Time Expense Calculator" loading="lazy"></iframe>
-  <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
+  <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Check out the calculator</a></div>
 </div>
 
 ## **2. NerdWallet Budget Calculator**
