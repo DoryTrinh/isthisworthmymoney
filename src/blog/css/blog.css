@@ -375,6 +375,31 @@ img {
   text-decoration-color: rgba(2, 184, 135, 0.3);
 }
 
+/* --- Tables --- */
+.blog-post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+.blog-post-content th {
+  background: #FFF8E7;
+  font-weight: 800;
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid #EDEAE6;
+}
+
+.blog-post-content td {
+  padding: 10px 14px;
+  border: 1px solid #EDEAE6;
+}
+
+.blog-post-content tr:nth-child(even) td {
+  background: #FDFCFA;
+}
+
 /* --- Calculator Embed --- */
 .calculator-embed {
   margin: 32px auto;
