@@ -33,16 +33,14 @@ The thing I appreciate most is that it doesn't lecture you. It's not trying to g
 
 **The trade-off:** It's not a full budgeting system. There's no bank syncing or transaction tracking. If you want something that monitors your spending month to month, you'll need to pair it with another tool.
 
-<div class="blog-callout"> <div class="blog-callout-title">Try it yourself</div> <div class="blog-callout-body">Thinking about a purchase right now? Plug it into the calculator and see how it actually affects your finances.
-
-<div class="calculator-embed">
-
-  <iframe src="/embed/onetime.html" title="One-Time Expense Calculator" loading="lazy"></iframe>
-
-  <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
-
+<div class="blog-callout">
+  <div class="blog-callout-title">Try it yourself</div>
+  <div class="blog-callout-body">Thinking about a purchase right now? Plug it into the calculator and see how it actually affects your finances.</div>
 </div>
 
+<div class="calculator-embed">
+  <iframe src="/embed/onetime.html" title="One-Time Expense Calculator" loading="lazy"></iframe>
+  <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
 </div>
 
 ## **2. NerdWallet Budget Calculator**
