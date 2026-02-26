@@ -23,7 +23,7 @@ Here are five free budget calculators worth trying, what each one is actually go
 
 **Best for:** Deciding whether a specific purchase is worth it
 
-![Is this worth my money?](/blog/images/logo-small.png)
+![Is this worth my money?](/blog/images/logo-small-.png)
 
 Most budgeting tools are built around tracking. You connect your bank, categorize your transactions, look at charts. That's fine if you're into it, but it doesn't help much when you're standing in a store wondering if you should buy something.
 
