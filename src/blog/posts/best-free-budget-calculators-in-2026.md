@@ -5,7 +5,7 @@ description: >
   what each one does well, where it falls short, and which one fits your
   situation.
 date: 2026-02-25
-featuredImage: /blog/images/best-free-budget-calculators.png
+featuredImage: /blog/images/1.png
 tags:
   - budgeting
   - tools
