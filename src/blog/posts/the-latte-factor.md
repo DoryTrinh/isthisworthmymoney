@@ -29,7 +29,7 @@ Here are some common examples:
 Use our calculator below to see how your daily purchases add up. Enter what you spend, how often, and see the real cost in terms of your work hours.
 
 <div class="calculator-embed">
-  <iframe src="/" title="Worth My Money Calculator" loading="lazy"></iframe>
+  <iframe src="/embed/regular.html" title="Regular Expense Calculator" loading="lazy"></iframe>
   <div class="calculator-embed-caption">Try the Worth My Money? calculator</div>
 </div>
 

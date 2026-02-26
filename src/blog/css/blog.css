@@ -377,17 +377,18 @@ img {
 
 /* --- Calculator Embed --- */
 .calculator-embed {
-  margin: 32px 0;
+  margin: 32px auto;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   border: 1.5px solid #EDEAE6;
+  max-width: 380px;
 }
 
 .calculator-embed iframe {
   width: 100%;
   border: none;
-  min-height: 500px;
+  height: 560px;
 }
 
 .calculator-embed-caption {

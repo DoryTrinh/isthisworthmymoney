@@ -7,6 +7,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "js": "js" });
   eleventyConfig.addPassthroughCopy({ "locales": "locales" });
   eleventyConfig.addPassthroughCopy({ "Images": "Images" });
+  eleventyConfig.addPassthroughCopy({ "embed": "embed" });
 
   // Pass through blog CSS and images
   eleventyConfig.addPassthroughCopy("src/blog/css");

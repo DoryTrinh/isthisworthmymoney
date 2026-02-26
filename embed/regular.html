@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regular Expense Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="embed.css">
+</head>
+<body>
+
+  <div id="regular-calc" class="embed-calc">
+    <div class="embed-title">Is this worth your money?</div>
+
+    <div class="field-group">
+      <label class="field-label">Your monthly income</label>
+      <div class="field-row">
+        <input type="text" id="income" class="field-input grow" placeholder="e.g. 10,000,000" inputmode="decimal">
+        <select id="currency" class="field-input currency-select"></select>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-row">
+        <span class="inline-text">You work</span>
+        <select id="days" class="field-input days-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5" selected>5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+        <span class="inline-text">days a week</span>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-row">
+        <span class="inline-text">You buy this</span>
+        <input type="number" id="frequency" class="field-input freq-input" value="1" min="1" max="99">
+        <span class="inline-text">per</span>
+        <select id="period" class="field-input period-select">
+          <option value="day">day</option>
+          <option value="week">week</option>
+          <option value="month" selected>month</option>
+          <option value="year">year</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Unit price</label>
+      <div class="field-row">
+        <span id="currency-badge" class="currency-badge" style="display:none"></span>
+        <input type="text" id="price" class="field-input grow" placeholder="e.g. 50,000" inputmode="decimal">
+      </div>
+    </div>
+
+    <button id="calculate" class="embed-btn">Calculate</button>
+
+    <div id="result" class="embed-result" style="display:none"></div>
+  </div>
+
+  <script src="embed.js"></script>
+</body>
+</html>
