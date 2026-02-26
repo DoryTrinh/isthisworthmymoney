@@ -13,9 +13,15 @@ A $5 latte every weekday doesn't feel like a financial decision. It feels like a
 
 But run the numbers and it gets uncomfortable fast:
 
-- **$5/day, 5 days a week** = $1,300/year
-- **$5/day, every day** = $1,825/year
-- **Over 10 years** (invested at 7%) = roughly **$25,000**
+<div class="blog-callout">
+  <div class="blog-callout-body">**$5/day, 5 days a week** = $1,300/year
+
+**$5/day, every day** = $1,825/year
+
+**Over 10 years** (invested at 7%) = roughly **$25,000**
+
+</div>
+</div>
 
 That last one is the one that stings.
 
