@@ -47,7 +47,7 @@ The thing I appreciate most is that it doesn't lecture you. It's not trying to g
 
 **Best for:** A quick starting point if you've literally never budgeted
 
-<img src="/blog/images/1-nerdwallet.jpg" alt="Nerd Wallet" style="max-width: 200px;">
+<img src="/blog/images/1-nerdwallet.jpg" alt="Nerd Wallet" style="max-width: 400px;">
 
 NerdWallet's calculator does one thing: you type in your monthly after-tax income, and it splits it using the 50/30/20 rule. 50% for needs, 30% for wants, 20% for savings and debt. Done.
 
@@ -60,6 +60,8 @@ One thing worth mentioning: NerdWallet shut down several budgeting features in t
 ## **3. EveryDollar**
 
 **Best for:** People who want to assign every single dollar a job
+
+<img src="/blog/images/1-Everydollar.jpg" alt="Every Dollar" style="max-width: 400px;">
 
 EveryDollar is Dave Ramsey's budgeting app, and it follows zero-based budgeting. The idea is simple: you take your income and assign every dollar to a category (rent, groceries, gas, savings, whatever) until you hit zero. No unaccounted-for money floating around.
 
