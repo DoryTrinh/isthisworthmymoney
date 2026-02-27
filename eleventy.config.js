@@ -38,6 +38,11 @@ module.exports = function(eleventyConfig) {
     return Array.from(tagSet).sort();
   });
 
+  // Shortcode to output current year
+  eleventyConfig.addShortcode("year", function() {
+    return new Date().getFullYear().toString();
+  });
+
   // Date formatting filter
   eleventyConfig.addFilter("readableDate", function(dateObj) {
     var months = [

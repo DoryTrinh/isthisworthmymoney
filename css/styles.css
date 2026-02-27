@@ -185,6 +185,28 @@ html, body {
   background: #E2DFDB;
 }
 
+.blog-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #EDEAE6;
+  border-radius: 10px;
+  color: #6B6560;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.blog-btn:hover {
+  background: #E2DFDB;
+  color: #E85D3A;
+}
+
+.blog-btn:active {
+  background: #D8D5D1;
+}
+
 .profile-icon {
   width: 28px;
   height: 28px;
