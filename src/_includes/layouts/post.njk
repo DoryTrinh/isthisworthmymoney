@@ -2,40 +2,107 @@
 layout: base.njk
 ---
 
-<article class="blog-post">
-  <div class="blog-post-header">
-    <div class="blog-post-meta">
-      <time datetime="{{ date }}">{{ date | readableDate }}</time>
-    </div>
-    <h1 class="blog-post-title">{{ title }}</h1>
-    {% if description %}
-    <p class="blog-post-description">{{ description }}</p>
-    {% endif %}
-    {% if tags %}
-    <div class="blog-tags">
-      {% for tag in tags %}
-        {% if tag != "post" %}
-        <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
-        {% endif %}
-      {% endfor %}
-    </div>
-    {% endif %}
-  </div>
+{% set processedContent = content | addHeadingIds %}
+{% set tocHtml = processedContent | toc %}
 
-  {% if featuredImage %}
-  <div class="blog-post-image">
-    <img src="{{ featuredImage }}" alt="{{ title }}" loading="lazy">
-  </div>
+<div class="blog-post-layout">
+  {% if tocHtml %}
+  <aside class="blog-toc">
+    {{ tocHtml | safe }}
+  </aside>
   {% endif %}
 
-  <div class="blog-post-content">
-    {{ content | safe }}
-  </div>
+  <article class="blog-post">
+    <div class="blog-post-header">
+      <div class="blog-post-meta">
+        <time datetime="{{ date }}">{{ date | readableDate }}</time>
+      </div>
+      <h1 class="blog-post-title">{{ title }}</h1>
+      {% if description %}
+      <p class="blog-post-description">{{ description }}</p>
+      {% endif %}
+      {% if tags %}
+      <div class="blog-tags">
+        {% for tag in tags %}
+          {% if tag != "post" %}
+          <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
 
-  <div class="blog-post-footer">
-    <a href="/blog/" class="blog-back-link">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-      Back to all articles
-    </a>
-  </div>
-</article>
+    {% if featuredImage %}
+    <div class="blog-post-image">
+      <img src="{{ featuredImage }}" alt="{{ title }}" loading="lazy">
+    </div>
+    {% endif %}
+
+    {% if tocHtml %}
+    <div class="blog-toc-mobile">
+      <button class="toc-mobile-toggle" onclick="this.parentElement.classList.toggle('open')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="9" y2="18"/></svg>
+        Table of contents
+        <svg class="toc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      {{ tocHtml | safe }}
+    </div>
+    {% endif %}
+
+    <div class="blog-post-content">
+      {{ processedContent | safe }}
+    </div>
+
+    <div class="blog-post-footer">
+      <a href="/blog/" class="blog-back-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to all articles
+      </a>
+    </div>
+  </article>
+</div>
+
+<script>
+(function() {
+  var tocLinks = document.querySelectorAll('.blog-toc .toc-list a, .blog-toc-mobile .toc-list a');
+  if (!tocLinks.length) return;
+
+  var headings = [];
+  for (var i = 0; i < tocLinks.length; i++) {
+    var id = tocLinks[i].getAttribute('href').substring(1);
+    var el = document.getElementById(id);
+    if (el) headings.push({ id: id, el: el });
+  }
+
+  function updateActive() {
+    var scrollPos = window.scrollY + 120;
+    var current = '';
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].el.offsetTop <= scrollPos) {
+        current = headings[i].id;
+      }
+    }
+    for (var j = 0; j < tocLinks.length; j++) {
+      var li = tocLinks[j].parentElement;
+      if (tocLinks[j].getAttribute('href') === '#' + current) {
+        li.classList.add('active');
+      } else {
+        li.classList.remove('active');
+      }
+    }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateActive();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  updateActive();
+})();
+</script>

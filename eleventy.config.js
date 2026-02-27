@@ -67,6 +67,40 @@ module.exports = function(eleventyConfig) {
     return text.length > 160 ? text.substring(0, 160) + "..." : text;
   });
 
+  // Filter to add IDs to h2/h3 headings (for TOC linking)
+  eleventyConfig.addFilter("addHeadingIds", function(content) {
+    if (!content) return content;
+    return content.replace(/<h([23])([^>]*)>([\s\S]*?)<\/h[23]>/gi, function(match, level, attrs, text) {
+      if (attrs.indexOf("id=") !== -1) return match;
+      var plainText = text.replace(/<[^>]+>/g, "");
+      var id = plainText.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+      return "<h" + level + attrs + ' id="' + id + '">' + text + "</h" + level + ">";
+    });
+  });
+
+  // Filter to generate TOC HTML from content headings
+  eleventyConfig.addFilter("toc", function(content) {
+    if (!content) return "";
+    var headings = [];
+    var regex = /<h([23])[^>]*id="([^"]*)"[^>]*>([\s\S]*?)<\/h[23]>/gi;
+    var match;
+    while ((match = regex.exec(content)) !== null) {
+      headings.push({
+        level: parseInt(match[1]),
+        id: match[2],
+        text: match[3].replace(/<[^>]+>/g, "")
+      });
+    }
+    if (headings.length < 2) return "";
+    var html = '<nav class="toc-nav"><p class="toc-title">Contents</p><ul class="toc-list">';
+    headings.forEach(function(h) {
+      var sub = h.level === 3 ? ' class="toc-sub"' : "";
+      html += "<li" + sub + '><a href="#' + h.id + '">' + h.text + "</a></li>";
+    });
+    html += "</ul></nav>";
+    return html;
+  });
+
   return {
     dir: {
       input: "src",
