@@ -1,82 +1,70 @@
 ---
-title: "How to Audit Your Subscriptions (And Save Hundreds)"
-description: "The average person spends $200+/month on subscriptions they barely use. Here's a step-by-step guide to cutting the waste."
+title: How to Audit Your Subscriptions (And Save Hundreds)
+description: The average person spends $200+/month on subscriptions they barely
+  use. Here's how to find the ones you're paying for out of habit, not because
+  they're worth it.
 date: 2026-02-10
+featuredImage: /blog/images/43.png
 tags:
   - spending habits
   - saving
   - guides
-featuredImage: /blog/images/placeholder-subscriptions.svg
 ---
+Try to guess how many subscriptions you're paying for right now. Now add up what they cost per month. Got a number? Good. 
+**Now I'll bet the real number is higher.**
+When researchers asked people to estimate their monthly subscription spending, most guessed around $80. The actual average was over $200. That's not a small gap. That's people forgetting they're paying for stuff every single month.
+And it makes sense. Each one felt like nothing when you signed up:
 
-Subscriptions are the silent budget killers. They're designed to be forgettable — you sign up, the charges auto-renew, and before you know it you're paying for six streaming services, three productivity apps, and a gym you haven't visited since January.
+![Each one felt like nothing](/blog/images/43-example.png)
 
-## The subscription creep problem
+That's **$157/month** just from this list. Yours probably has more. Add a second streaming service, a news site, maybe a cloud storage upgrade, and you're past $200 easily.
 
-Most people underestimate how much they spend on subscriptions by 2-3x. When researchers asked consumers to estimate their monthly subscription costs, the average guess was around $80. The actual average? Over $200.
+**$200/month = $2,400/year. That's a vacation. That's 4 months of car payments. That's not nothing.**
 
-Why? Because each subscription feels small on its own:
+## **The three piles**
 
-- Netflix: $15
-- Spotify: $11
-- iCloud storage: $3
-- Gym: $40
-- Adobe Creative Cloud: $55
-- A meal kit service: $60
-- That app you tried once: $8
+Once you've gone through your list, every subscription goes into one of three piles:
 
-Individually, each seems reasonable. Together, they're $192/month — that's $2,304/year.
+![The three piles](/blog/images/43-pillars.png)
 
-## The 4-step subscription audit
+## **See what your subscriptions actually cost you**
 
-### Step 1: Find every subscription
+Add up everything you're keeping and plug it into our recurring expense calculator. It'll show you what that monthly total really looks like over a year, and how many hours of work it takes to pay for it.
 
-Check these places:
-- Your bank and credit card statements (last 3 months)
-- Your email inbox (search for "receipt", "renewal", "subscription")
-- App Store / Google Play subscription settings
-- PayPal recurring payments
-
-### Step 2: Categorize each one
-
-For each subscription, ask:
-
-1. **When did I last use this?** If it's been over a month, it's a candidate for cutting
-2. **Could I use a free alternative?** Many paid tools have free versions that work fine
-3. **Would I buy this again today?** If you weren't already subscribed, would you sign up right now?
-
-### Step 3: Take action
-
-Sort your subscriptions into three piles:
-
-- **Keep**: You use it regularly and it brings value
-- **Downgrade**: You use it but could switch to a cheaper tier or free alternative
-- **Cancel**: You forgot you had it, or you rarely use it
-
-### Step 4: Set a reminder
-
-Put a quarterly reminder in your calendar to review subscriptions again. New ones sneak in faster than you'd think.
+There's something about seeing "$11/month for Spotify" turn into "6 hours of your life per year" that makes you think differently about it.
 
 <div class="calculator-embed">
-  <iframe src="/" title="Worth My Money Calculator" loading="lazy"></iframe>
-  <div class="calculator-embed-caption">Check if your subscriptions are worth your work hours</div>
+
+  <iframe src="/embed/regular.html" title="Regular Expense Calculator" loading="lazy"></iframe>
+
+   <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Check out the calculator</a></div>
+
 </div>
 
-## Common subscriptions worth reconsidering
+## **How to actually do this**
 
-| Subscription | Typical cost | Free alternative |
-|-------------|-------------|-----------------|
-| Cloud storage | $3-10/mo | Google Drive (15GB free) |
-| Password manager | $3-5/mo | Bitwarden (free tier) |
-| News sites | $10-15/mo | Library digital access |
-| Productivity apps | $5-15/mo | Notion free tier, Google Docs |
-| Meditation apps | $10-15/mo | YouTube guided meditations |
+**The "Cancel Everything" Challenge** 
 
-<div class="blog-callout">
-  <div class="blog-callout-title">Try this</div>
-  <div class="blog-callout-body">Add up all your subscriptions and enter the total as a regular monthly expense in our calculator. Seeing the cost in work hours might change your perspective.</div>
-</div>
+Cancel every single subscription today. All of them. Then over the next month, only re-subscribe to the ones you actually miss enough to go sign up again. Most people end up re-subscribing to 2-3 out of 8-10. The rest? You won't even notice they're gone.
 
-## The bottom line
+**The "Pay It Manually" Test** 
 
-You don't need to cancel everything. You need to cancel the things you're paying for out of inertia rather than intention. A 30-minute subscription audit could easily save you $50-100/month — that's up to $1,200/year back in your pocket.
+Turn off auto-renew on everything. When the next billing date hits, you'll get a notification asking you to pay. That 3-second moment of "do I want to pull out my card for this?" tells you more than any audit ever will.
+
+**The Screenshot Method** 
+
+Screenshot your bank and credit card statements right now. Circle every recurring charge. Set that screenshot as your phone wallpaper for a week. Sounds dramatic, but staring at it every time you unlock your phone makes the total impossible to ignore.
+
+**The "Explain It to Someone" Test** 
+
+Read each subscription out loud to a friend or partner and explain why you pay for it. If you feel embarrassed saying "I pay $15/month for a meditation app I opened twice," that's your answer.
+
+Once you know what to cut, ask yourself one question:
+
+**"If I wasn't already subscribed, would I sign up for this today?"**
+
+Not "do I use it sometimes." Not "might I need it eventually." Would you pull out your card and pay for it right now, today, knowing what it costs?
+
+If the answer is no, cancel it. You can always re-subscribe later if you actually miss it. *(Spoiler: you probably won't.)*
+
+<div class="blog-callout"> <div class="blog-callout-title">Worth reading next</div> <div class="blog-callout-body"> <a href="/blog/the-latte-factor">The Latte Factor</a> - how small daily purchases add up to thousands a year.<br> <a href="/blog/is-netflix-worth-it">Is Netflix worth it in 2026?</a> - a real example of evaluating whether a subscription is worth keeping. </div> </div>
