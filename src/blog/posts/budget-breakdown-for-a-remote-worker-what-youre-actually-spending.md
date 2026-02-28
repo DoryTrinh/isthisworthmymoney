@@ -116,7 +116,7 @@ Here's a quick framework to plan your own numbers:
 
 For most people, yes. Even if the net savings are modest, you're getting back time (no commute), comfort (pants optional), and flexibility. Those have real value, even if they don't show up on a spreadsheet.
 
-The key is just knowing where your money is actually going, so the savings don't silently disappear into "stuff."
+> The key is just knowing where your money is actually going, so the savings don't silently disappear into "stuff."
 
 *Want to calculate your personal remote work savings? Try our[ Is This Worth My Money calculator](https://isthisworthmymoney.com) and see exactly how your WFH budget stacks up.*
 
