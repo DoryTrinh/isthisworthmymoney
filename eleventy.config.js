@@ -38,6 +38,41 @@ module.exports = function(eleventyConfig) {
     return Array.from(tagSet).sort();
   });
 
+  // Create paginated tag pages (6 posts per page per tag)
+  eleventyConfig.addCollection("paginatedTagPages", function(collectionApi) {
+    var PAGE_SIZE = 6;
+    var posts = collectionApi.getFilteredByGlob("src/blog/posts/*.md").sort(function(a, b) {
+      return b.date - a.date;
+    });
+    var tags = {};
+    posts.forEach(function(post) {
+      if (post.data.tags) {
+        post.data.tags.forEach(function(tag) {
+          if (tag !== "post") {
+            if (!tags[tag]) tags[tag] = [];
+            tags[tag].push(post);
+          }
+        });
+      }
+    });
+    var pages = [];
+    Object.keys(tags).sort().forEach(function(tag) {
+      var tagPosts = tags[tag];
+      var totalPages = Math.ceil(tagPosts.length / PAGE_SIZE);
+      for (var i = 0; i < totalPages; i++) {
+        pages.push({
+          tag: tag,
+          slug: tag.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-"),
+          pageNumber: i,
+          totalPages: totalPages,
+          totalPosts: tagPosts.length,
+          posts: tagPosts.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE)
+        });
+      }
+    });
+    return pages;
+  });
+
   // Shortcode to output current year
   eleventyConfig.addShortcode("year", function() {
     return new Date().getFullYear().toString();

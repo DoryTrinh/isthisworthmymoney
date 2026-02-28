@@ -1,9 +1,9 @@
 ---
 pagination:
-  data: collections.tagList
+  data: collections.paginatedTagPages
   size: 1
-  alias: tag
-permalink: /blog/tags/{{ tag | slugify }}/
+  alias: tagPage
+permalink: /blog/tags/{{ tagPage.slug }}/{% if tagPage.pageNumber > 0 %}{{ tagPage.pageNumber + 1 }}/{% endif %}
 layout: base.njk
 ---
 
@@ -12,12 +12,12 @@ layout: base.njk
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     All articles
   </a>
-  <h1 class="blog-tag-page-title">Tagged: <span>{{ tag }}</span></h1>
-  <p class="blog-tag-page-count">{{ collections.posts | filterByTag(tag) | length }} article(s)</p>
+  <h1 class="blog-tag-page-title">Tagged: <span>{{ tagPage.tag }}</span></h1>
+  <p class="blog-tag-page-count">{{ tagPage.totalPosts }} article(s)</p>
 </div>
 
 <div class="blog-post-list">
-  {% for post in collections.posts | filterByTag(tag) %}
+  {% for post in tagPage.posts %}
   <article class="blog-card">
     {% if post.data.featuredImage %}
     <a href="{{ post.url }}">
@@ -43,3 +43,41 @@ layout: base.njk
   </article>
   {% endfor %}
 </div>
+
+{% if tagPage.totalPages > 1 %}
+<nav class="blog-pagination" aria-label="Page navigation">
+  {% if tagPage.pageNumber > 0 %}
+  <a href="/blog/tags/{{ tagPage.slug }}/{% if tagPage.pageNumber > 1 %}{{ tagPage.pageNumber }}/{% endif %}" class="pagination-btn pagination-prev">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Previous
+  </a>
+  {% else %}
+  <span class="pagination-btn pagination-prev disabled">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Previous
+  </span>
+  {% endif %}
+
+  <div class="pagination-numbers">
+    {% for i in range(0, tagPage.totalPages) %}
+    {% if i == tagPage.pageNumber %}
+    <span class="pagination-num active">{{ i + 1 }}</span>
+    {% else %}
+    <a href="/blog/tags/{{ tagPage.slug }}/{% if i > 0 %}{{ i + 1 }}/{% endif %}" class="pagination-num">{{ i + 1 }}</a>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if tagPage.pageNumber < tagPage.totalPages - 1 %}
+  <a href="/blog/tags/{{ tagPage.slug }}/{{ tagPage.pageNumber + 2 }}/" class="pagination-btn pagination-next">
+    Next
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </a>
+  {% else %}
+  <span class="pagination-btn pagination-next disabled">
+    Next
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </span>
+  {% endif %}
+</nav>
+{% endif %}
