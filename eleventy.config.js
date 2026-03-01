@@ -16,11 +16,25 @@ module.exports = function(eleventyConfig) {
   // Pass through Decap CMS admin files
   eleventyConfig.addPassthroughCopy("src/admin");
 
-  // Create a "posts" collection from the blog/posts folder
+  // Create a "posts" collection from all blog posts (both languages)
   eleventyConfig.addCollection("posts", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/blog/posts/*.md").sort(function(a, b) {
+    return collectionApi.getFilteredByGlob("src/blog/posts/**/*.md").sort(function(a, b) {
       return b.date - a.date; // newest first
     });
+  });
+
+  // English posts only
+  eleventyConfig.addCollection("postsEn", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/blog/posts/**/*.md")
+      .filter(function(item) { return item.data.lang === "en"; })
+      .sort(function(a, b) { return b.date - a.date; });
+  });
+
+  // Vietnamese posts only
+  eleventyConfig.addCollection("postsVi", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/blog/posts/**/*.md")
+      .filter(function(item) { return item.data.lang === "vi"; })
+      .sort(function(a, b) { return b.date - a.date; });
   });
 
   // Create a collection of all unique tags (excluding internal tags)
@@ -38,10 +52,71 @@ module.exports = function(eleventyConfig) {
     return Array.from(tagSet).sort();
   });
 
-  // Create paginated tag pages (6 posts per page per tag)
+  // English tag list
+  eleventyConfig.addCollection("tagListEn", function(collectionApi) {
+    var tagSet = new Set();
+    collectionApi.getFilteredByGlob("src/blog/posts/**/*.md").forEach(function(item) {
+      if (item.data.lang === "en" && item.data.tags) {
+        item.data.tags.forEach(function(tag) {
+          if (tag !== "post") tagSet.add(tag);
+        });
+      }
+    });
+    return Array.from(tagSet).sort();
+  });
+
+  // Vietnamese tag list
+  eleventyConfig.addCollection("tagListVi", function(collectionApi) {
+    var tagSet = new Set();
+    collectionApi.getFilteredByGlob("src/blog/posts/**/*.md").forEach(function(item) {
+      if (item.data.lang === "vi" && item.data.tags) {
+        item.data.tags.forEach(function(tag) {
+          if (tag !== "post") tagSet.add(tag);
+        });
+      }
+    });
+    return Array.from(tagSet).sort();
+  });
+
+  // Helper to build paginated tag pages filtered by language
+  function buildPaginatedTagPages(collectionApi, lang) {
+    var PAGE_SIZE = 6;
+    var posts = collectionApi.getFilteredByGlob("src/blog/posts/**/*.md")
+      .filter(function(item) { return item.data.lang === lang; })
+      .sort(function(a, b) { return b.date - a.date; });
+    var tags = {};
+    posts.forEach(function(post) {
+      if (post.data.tags) {
+        post.data.tags.forEach(function(tag) {
+          if (tag !== "post") {
+            if (!tags[tag]) tags[tag] = [];
+            tags[tag].push(post);
+          }
+        });
+      }
+    });
+    var pages = [];
+    Object.keys(tags).sort().forEach(function(tag) {
+      var tagPosts = tags[tag];
+      var totalPages = Math.ceil(tagPosts.length / PAGE_SIZE);
+      for (var i = 0; i < totalPages; i++) {
+        pages.push({
+          tag: tag,
+          slug: tag.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-"),
+          pageNumber: i,
+          totalPages: totalPages,
+          totalPosts: tagPosts.length,
+          posts: tagPosts.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE)
+        });
+      }
+    });
+    return pages;
+  }
+
+  // Create paginated tag pages (6 posts per page per tag) — all languages
   eleventyConfig.addCollection("paginatedTagPages", function(collectionApi) {
     var PAGE_SIZE = 6;
-    var posts = collectionApi.getFilteredByGlob("src/blog/posts/*.md").sort(function(a, b) {
+    var posts = collectionApi.getFilteredByGlob("src/blog/posts/**/*.md").sort(function(a, b) {
       return b.date - a.date;
     });
     var tags = {};
@@ -73,19 +148,36 @@ module.exports = function(eleventyConfig) {
     return pages;
   });
 
+  // English paginated tag pages
+  eleventyConfig.addCollection("paginatedTagPagesEn", function(collectionApi) {
+    return buildPaginatedTagPages(collectionApi, "en");
+  });
+
+  // Vietnamese paginated tag pages
+  eleventyConfig.addCollection("paginatedTagPagesVi", function(collectionApi) {
+    return buildPaginatedTagPages(collectionApi, "vi");
+  });
+
   // Shortcode to output current year
   eleventyConfig.addShortcode("year", function() {
     return new Date().getFullYear().toString();
   });
 
-  // Date formatting filter
-  eleventyConfig.addFilter("readableDate", function(dateObj) {
-    var months = [
+  // Date formatting filter (supports language parameter)
+  eleventyConfig.addFilter("readableDate", function(dateObj, lang) {
+    var monthsEn = [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
+    var monthsVi = [
+      "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+      "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+    ];
     var d = new Date(dateObj);
-    return months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+    if (lang === "vi") {
+      return "Ngày " + d.getDate() + " " + monthsVi[d.getMonth()] + ", " + d.getFullYear();
+    }
+    return monthsEn[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
   });
 
   // Filter to get posts by tag
@@ -113,8 +205,8 @@ module.exports = function(eleventyConfig) {
     });
   });
 
-  // Filter to generate TOC HTML from content headings
-  eleventyConfig.addFilter("toc", function(content) {
+  // Filter to generate TOC HTML from content headings (supports language parameter)
+  eleventyConfig.addFilter("toc", function(content, lang) {
     if (!content) return "";
     var headings = [];
     var regex = /<h([23])[^>]*id="([^"]*)"[^>]*>([\s\S]*?)<\/h[23]>/gi;
@@ -127,7 +219,8 @@ module.exports = function(eleventyConfig) {
       });
     }
     if (headings.length < 2) return "";
-    var html = '<nav class="toc-nav"><p class="toc-title">Contents</p><ul class="toc-list">';
+    var tocTitle = (lang === "vi") ? "Mục lục" : "Contents";
+    var html = '<nav class="toc-nav"><p class="toc-title">' + tocTitle + '</p><ul class="toc-list">';
     headings.forEach(function(h) {
       var sub = h.level === 3 ? ' class="toc-sub"' : "";
       html += "<li" + sub + '><a href="#' + h.id + '">' + h.text + "</a></li>";

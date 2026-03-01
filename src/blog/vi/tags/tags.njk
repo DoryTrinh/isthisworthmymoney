@@ -1,33 +1,26 @@
 ---
-layout: base.njk
-title: Blog
-description: Tips, guides, and calculators to help you make smarter spending decisions.
-lang: en
 pagination:
-  data: collections.postsEn
-  size: 6
-  alias: paginatedPosts
-permalink: /blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}
+  data: collections.paginatedTagPagesVi
+  size: 1
+  alias: tagPage
+permalink: /blog/vi/tags/{{ tagPage.slug }}/{% if tagPage.pageNumber > 0 %}{{ tagPage.pageNumber + 1 }}/{% endif %}
+layout: base.njk
+lang: vi
 ---
 
-{% set t = i18n.en %}
+{% set tr = i18n.vi %}
 
-<div class="blog-index-header">
-  <h1 class="blog-index-title">{{ t.blogTitle }}</h1>
-  <p class="blog-index-subtitle">{{ t.blogSubtitle }}</p>
+<div class="blog-tag-page-header">
+  <a href="/blog/vi/" class="blog-back-link" style="margin-bottom: 20px; display: inline-flex;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    {{ tr.allArticles }}
+  </a>
+  <h1 class="blog-tag-page-title">{{ tr.tagged }} <span>{{ tagPage.tag }}</span></h1>
+  <p class="blog-tag-page-count">{{ tagPage.totalPosts }} {{ tr.articleCount }}</p>
 </div>
-
-{% if collections.tagListEn.length %}
-<div class="blog-tag-filters">
-  <a href="/blog/" class="blog-tag-filter active">{{ t.all }}</a>
-  {% for tag in collections.tagListEn %}
-  <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag-filter">{{ tag }}</a>
-  {% endfor %}
-</div>
-{% endif %}
 
 <div class="blog-post-list">
-  {% for post in paginatedPosts %}
+  {% for post in tagPage.posts %}
   <article class="blog-card">
     {% if post.data.featuredImage %}
     <a href="{{ post.url }}">
@@ -35,16 +28,16 @@ permalink: /blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 
     </a>
     {% endif %}
     <div class="blog-card-body">
-      <div class="blog-card-meta">{{ post.date | readableDate("en") }}</div>
+      <div class="blog-card-meta">{{ post.date | readableDate("vi") }}</div>
       <h2 class="blog-card-title">
         <a href="{{ post.url }}">{{ post.data.title }}</a>
       </h2>
       <p class="blog-card-excerpt">{{ post.data.description or (post.content | excerpt) }}</p>
       {% if post.data.tags %}
       <div class="blog-card-tags">
-        {% for tag in post.data.tags %}
-          {% if tag != "post" %}
-          <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
+        {% for tagItem in post.data.tags %}
+          {% if tagItem != "post" %}
+          <a href="/blog/vi/tags/{{ tagItem | slugify }}/" class="blog-tag">{{ tagItem }}</a>
           {% endif %}
         {% endfor %}
       </div>
@@ -54,39 +47,38 @@ permalink: /blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 
   {% endfor %}
 </div>
 
-{% if pagination.pages.length > 1 %}
+{% if tagPage.totalPages > 1 %}
 <nav class="blog-pagination" aria-label="Page navigation">
-  {% if pagination.href.previous %}
-  <a href="{{ pagination.href.previous }}" class="pagination-btn pagination-prev">
+  {% if tagPage.pageNumber > 0 %}
+  <a href="/blog/vi/tags/{{ tagPage.slug }}/{% if tagPage.pageNumber > 1 %}{{ tagPage.pageNumber }}/{% endif %}" class="pagination-btn pagination-prev">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    {{ t.previous }}
+    {{ tr.previous }}
   </a>
   {% else %}
   <span class="pagination-btn pagination-prev disabled">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    {{ t.previous }}
+    {{ tr.previous }}
   </span>
   {% endif %}
 
   <div class="pagination-numbers">
-    {% for pageEntry in pagination.pages %}
-    {% set pageNum = loop.index0 %}
-    {% if pageNum == pagination.pageNumber %}
-    <span class="pagination-num active">{{ loop.index }}</span>
+    {% for i in range(0, tagPage.totalPages) %}
+    {% if i == tagPage.pageNumber %}
+    <span class="pagination-num active">{{ i + 1 }}</span>
     {% else %}
-    <a href="{{ pagination.hrefs[pageNum] }}" class="pagination-num">{{ loop.index }}</a>
+    <a href="/blog/vi/tags/{{ tagPage.slug }}/{% if i > 0 %}{{ i + 1 }}/{% endif %}" class="pagination-num">{{ i + 1 }}</a>
     {% endif %}
     {% endfor %}
   </div>
 
-  {% if pagination.href.next %}
-  <a href="{{ pagination.href.next }}" class="pagination-btn pagination-next">
-    {{ t.next }}
+  {% if tagPage.pageNumber < tagPage.totalPages - 1 %}
+  <a href="/blog/vi/tags/{{ tagPage.slug }}/{{ tagPage.pageNumber + 2 }}/" class="pagination-btn pagination-next">
+    {{ tr.next }}
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </a>
   {% else %}
   <span class="pagination-btn pagination-next disabled">
-    {{ t.next }}
+    {{ tr.next }}
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </span>
   {% endif %}

@@ -10,7 +10,7 @@ public_folder: "/blog/images"
 
 collections:
   - name: "posts"
-    label: "Blog Posts"
+    label: "Blog Posts (English)"
     folder: "src/blog/posts"
     create: true
     slug: "{{slug}}"
@@ -25,4 +25,24 @@ collections:
         widget: "list"
         default: ["post"]
         field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Language", name: "lang", widget: "hidden", default: "en" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "posts_vi"
+    label: "Blog Posts (Vietnamese)"
+    folder: "src/blog/posts/vi"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Featured Image", name: "featuredImage", widget: "image", required: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        default: ["post"]
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Language", name: "lang", widget: "hidden", default: "vi" }
       - { label: "Body", name: "body", widget: "markdown" }

@@ -4,6 +4,7 @@ description: >
   A cat costs way more than adoption fees. Here's the real monthly breakdown,
   from food and litter to sneaky expenses nobody warns you about.
 date: 2026-02-28
+lang: en
 featuredImage: /blog/images/21.png
 tags:
   - budgeting

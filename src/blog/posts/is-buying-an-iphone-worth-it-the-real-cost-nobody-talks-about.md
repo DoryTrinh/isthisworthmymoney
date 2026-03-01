@@ -3,6 +3,7 @@ title: Is Buying an iPhone Worth It? The Real Cost Nobody Talks About
 description: The question isn't "is an iPhone worth it." The question is "is it
   worth it for you, right now, with your money."
 date: 2026-02-27
+lang: en
 featuredImage: /blog/images/18.png
 tags:
   - spending habits

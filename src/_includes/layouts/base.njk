@@ -1,10 +1,23 @@
+{%- set currentLang = lang or "en" -%}
+{%- set t = i18n[currentLang] -%}
+{%- set blogBase = "/blog/vi" if currentLang == "vi" else "/blog" -%}
+{%- set altLang = "vi" if currentLang == "en" else "en" -%}
+{%- if currentLang == "en" -%}
+  {%- set altUrl = page.url | replace("/blog/", "/blog/vi/") -%}
+{%- else -%}
+  {%- set altUrl = page.url | replace("/blog/vi/", "/blog/") -%}
+{%- endif -%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ currentLang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }} | Worth My Money? Blog</title>
-  <meta name="description" content="{{ description or 'Tips, guides, and calculators to help you make smarter spending decisions.' }}">
+  <title>{{ title }} | {{ t.siteTitle }} Blog</title>
+  <meta name="description" content="{{ description or t.blogSubtitle }}">
+  {% if lang %}
+  <link rel="alternate" hreflang="{{ currentLang }}" href="{{ page.url }}">
+  <link rel="alternate" hreflang="{{ altLang }}" href="{{ altUrl }}">
+  {% endif %}
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/blog/css/blog.css">
 </head>
@@ -12,15 +25,26 @@
 
   <header class="blog-header">
     <div class="blog-header-inner">
-      <a href="/" class="blog-logo" aria-label="Back to app">
+      <a href="/" class="blog-logo" aria-label="{{ t.backToApp }}">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E85D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </a>
-      <a href="/blog/" class="blog-title-link">
-        <h1 class="blog-site-title">Worth My Money?</h1>
+      <a href="{{ blogBase }}/" class="blog-title-link">
+        <h1 class="blog-site-title">{{ t.siteTitle }}</h1>
       </a>
       <nav class="blog-nav">
-        <a href="/blog/">Articles</a>
-        <a href="/">Calculator</a>
+        <a href="{{ blogBase }}/">{{ t.articles }}</a>
+        <a href="/">{{ t.calculator }}</a>
+        <span class="lang-switcher">
+          {% if currentLang == "en" %}
+            <span class="lang-active">EN</span>
+            <span class="lang-sep">|</span>
+            <a href="{{ altUrl }}" class="lang-link">VI</a>
+          {% else %}
+            <a href="{{ altUrl }}" class="lang-link">EN</a>
+            <span class="lang-sep">|</span>
+            <span class="lang-active">VI</span>
+          {% endif %}
+        </span>
       </nav>
     </div>
   </header>
@@ -31,10 +55,10 @@
 
   <footer class="blog-footer">
     <div class="blog-footer-inner">
-      <p>&copy; {% year %} Worth My Money? &mdash; Make smarter spending decisions.</p>
+      <p>&copy; {% year %} {{ t.siteTitle }} &mdash; {{ t.footerTagline }}</p>
       <div class="blog-footer-links">
-        <a href="/">Calculator App</a>
-        <a href="/blog/">All Articles</a>
+        <a href="/">{{ t.calculatorApp }}</a>
+        <a href="{{ blogBase }}/">{{ t.allArticles }}</a>
       </div>
     </div>
   </footer>

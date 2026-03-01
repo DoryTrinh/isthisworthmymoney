@@ -1,0 +1,42 @@
+{
+  "en": {
+    "siteTitle": "Worth My Money?",
+    "blogTitle": "Articles",
+    "blogSubtitle": "Tips, guides, and calculators to help you make smarter spending decisions.",
+    "footerTagline": "Make smarter spending decisions.",
+    "backToApp": "Back to app",
+    "articles": "Articles",
+    "calculator": "Calculator",
+    "calculatorApp": "Calculator App",
+    "allArticles": "All Articles",
+    "backToArticles": "Back to all articles",
+    "contents": "Contents",
+    "tableOfContents": "Table of contents",
+    "tagged": "Tagged:",
+    "articleCount": "article(s)",
+    "all": "All",
+    "previous": "Previous",
+    "next": "Next",
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  },
+  "vi": {
+    "siteTitle": "Worth My Money?",
+    "blogTitle": "Bài viết",
+    "blogSubtitle": "Mẹo, hướng dẫn và công cụ giúp bạn chi tiêu thông minh hơn.",
+    "footerTagline": "Chi tiêu thông minh hơn.",
+    "backToApp": "Quay lại ứng dụng",
+    "articles": "Bài viết",
+    "calculator": "Máy tính",
+    "calculatorApp": "Ứng dụng Máy tính",
+    "allArticles": "Tất cả bài viết",
+    "backToArticles": "Quay lại tất cả bài viết",
+    "contents": "Mục lục",
+    "tableOfContents": "Mục lục",
+    "tagged": "Chủ đề:",
+    "articleCount": "bài viết",
+    "all": "Tất cả",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "months": ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
+  }
+}

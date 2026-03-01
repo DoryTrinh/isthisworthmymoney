@@ -2,8 +2,11 @@
 layout: base.njk
 ---
 
+{% set currentLang = lang or "en" %}
+{% set t = i18n[currentLang] %}
+{% set blogBase = "/blog/vi" if currentLang == "vi" else "/blog" %}
 {% set processedContent = content | addHeadingIds %}
-{% set tocHtml = processedContent | toc %}
+{% set tocHtml = processedContent | toc(currentLang) %}
 
 <div class="blog-post-layout">
   {% if tocHtml %}
@@ -15,7 +18,7 @@ layout: base.njk
   <article class="blog-post">
     <div class="blog-post-header">
       <div class="blog-post-meta">
-        <time datetime="{{ date }}">{{ date | readableDate }}</time>
+        <time datetime="{{ date }}">{{ date | readableDate(currentLang) }}</time>
       </div>
       <h1 class="blog-post-title">{{ title }}</h1>
       {% if description %}
@@ -25,7 +28,7 @@ layout: base.njk
       <div class="blog-tags">
         {% for tag in tags %}
           {% if tag != "post" %}
-          <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
+          <a href="{{ blogBase }}/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
           {% endif %}
         {% endfor %}
       </div>
@@ -42,7 +45,7 @@ layout: base.njk
     <div class="blog-toc-mobile">
       <button class="toc-mobile-toggle" onclick="this.parentElement.classList.toggle('open')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="9" y2="18"/></svg>
-        Table of contents
+        {{ t.tableOfContents }}
         <svg class="toc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       {{ tocHtml | safe }}
@@ -54,9 +57,9 @@ layout: base.njk
     </div>
 
     <div class="blog-post-footer">
-      <a href="/blog/" class="blog-back-link">
+      <a href="{{ blogBase }}/" class="blog-back-link">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to all articles
+        {{ t.backToArticles }}
       </a>
     </div>
   </article>

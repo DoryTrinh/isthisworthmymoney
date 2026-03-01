@@ -3,6 +3,7 @@ title: "The Latte Factor: How Small Daily Purchases Add Up"
 description: That $5 coffee seems harmless, but over a year it becomes $1,825.
   Here's how to figure out which small purchases are actually worth it.
 date: 2026-02-20
+lang: en
 featuredImage: /blog/images/3.png
 tags:
   - spending habits

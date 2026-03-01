@@ -4,6 +4,7 @@ description: The average person spends $200+/month on subscriptions they barely
   use. Here's how to find the ones you're paying for out of habit, not because
   they're worth it.
 date: 2026-02-10
+lang: en
 featuredImage: /blog/images/43.png
 tags:
   - spending habits

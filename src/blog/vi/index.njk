@@ -1,27 +1,27 @@
 ---
 layout: base.njk
-title: Blog
-description: Tips, guides, and calculators to help you make smarter spending decisions.
-lang: en
+title: Bài viết
+description: Mẹo, hướng dẫn và công cụ giúp bạn chi tiêu thông minh hơn.
+lang: vi
 pagination:
-  data: collections.postsEn
+  data: collections.postsVi
   size: 6
   alias: paginatedPosts
-permalink: /blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}
+permalink: /blog/vi/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}
 ---
 
-{% set t = i18n.en %}
+{% set t = i18n.vi %}
 
 <div class="blog-index-header">
   <h1 class="blog-index-title">{{ t.blogTitle }}</h1>
   <p class="blog-index-subtitle">{{ t.blogSubtitle }}</p>
 </div>
 
-{% if collections.tagListEn.length %}
+{% if collections.tagListVi.length %}
 <div class="blog-tag-filters">
-  <a href="/blog/" class="blog-tag-filter active">{{ t.all }}</a>
-  {% for tag in collections.tagListEn %}
-  <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag-filter">{{ tag }}</a>
+  <a href="/blog/vi/" class="blog-tag-filter active">{{ t.all }}</a>
+  {% for tag in collections.tagListVi %}
+  <a href="/blog/vi/tags/{{ tag | slugify }}/" class="blog-tag-filter">{{ tag }}</a>
   {% endfor %}
 </div>
 {% endif %}
@@ -35,7 +35,7 @@ permalink: /blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 
     </a>
     {% endif %}
     <div class="blog-card-body">
-      <div class="blog-card-meta">{{ post.date | readableDate("en") }}</div>
+      <div class="blog-card-meta">{{ post.date | readableDate("vi") }}</div>
       <h2 class="blog-card-title">
         <a href="{{ post.url }}">{{ post.data.title }}</a>
       </h2>
@@ -44,7 +44,7 @@ permalink: /blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 
       <div class="blog-card-tags">
         {% for tag in post.data.tags %}
           {% if tag != "post" %}
-          <a href="/blog/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
+          <a href="/blog/vi/tags/{{ tag | slugify }}/" class="blog-tag">{{ tag }}</a>
           {% endif %}
         {% endfor %}
       </div>
