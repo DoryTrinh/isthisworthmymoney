@@ -25,6 +25,7 @@ collections:
         widget: "list"
         default: ["post"]
         field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Translation Slug", name: "translationSlug", widget: "string", required: false, hint: "Slug of the Vietnamese version (e.g. 'quy-tac-50-30-20'). Leave empty if no translation exists." }
       - { label: "Language", name: "lang", widget: "hidden", default: "en" }
       - { label: "Body", name: "body", widget: "markdown" }
 
@@ -44,5 +45,6 @@ collections:
         widget: "list"
         default: ["post"]
         field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Translation Slug", name: "translationSlug", widget: "string", required: false, hint: "Slug of the English version (e.g. '50-30-20-rule'). Leave empty if no translation exists." }
       - { label: "Language", name: "lang", widget: "hidden", default: "vi" }
       - { label: "Body", name: "body", widget: "markdown" }

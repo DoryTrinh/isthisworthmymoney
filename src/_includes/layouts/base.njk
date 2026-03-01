@@ -2,10 +2,18 @@
 {%- set t = i18n[currentLang] -%}
 {%- set blogBase = "/blog/vi" if currentLang == "vi" else "/blog" -%}
 {%- set altLang = "vi" if currentLang == "en" else "en" -%}
-{%- if currentLang == "en" -%}
-  {%- set altUrl = page.url | replace("/blog/", "/blog/vi/") -%}
+{%- if translationSlug -%}
+  {%- if currentLang == "en" -%}
+    {%- set altUrl = "/blog/vi/" + translationSlug + "/" -%}
+  {%- else -%}
+    {%- set altUrl = "/blog/" + translationSlug + "/" -%}
+  {%- endif -%}
 {%- else -%}
-  {%- set altUrl = page.url | replace("/blog/vi/", "/blog/") -%}
+  {%- if currentLang == "en" -%}
+    {%- set altUrl = page.url | replace("/blog/", "/blog/vi/") -%}
+  {%- else -%}
+    {%- set altUrl = page.url | replace("/blog/vi/", "/blog/") -%}
+  {%- endif -%}
 {%- endif -%}
 <!DOCTYPE html>
 <html lang="{{ currentLang }}">
