@@ -4,12 +4,13 @@ description: >
   A practical look at six apps that help you figure out whether you can actually
   afford a purchase, not just track where your money went afterward.
 date: 2026-02-26
-lang: en
 featuredImage: /blog/images/2.png
 tags:
   - budgeting
   - tools
   - money basics
+translationSlug: app-quan-ly-chi-tieu
+lang: en
 ---
 You're about to buy something and a little voice in your head goes: "Wait, can I actually afford this?"
 
