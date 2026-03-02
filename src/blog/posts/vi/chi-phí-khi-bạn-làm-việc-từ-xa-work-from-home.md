@@ -3,11 +3,12 @@ title: Chi phí khi bạn làm việc từ xa (Work from home)
 description: Làm việc từ xa tiết kiệm ít hơn bạn tưởng. Đây là những khoản bạn
   đang thật sự chi cho góc làm việc, internet, tiền chợ, và những chi phí ẩn mà
   không ai cảnh báo trước.
+customSlug: chi-phi-lam-viec-tu-xa
 date: 2026-03-02
 featuredImage: /blog/images/36.1.vie.png
 tags:
-  - post
-customSlug: chi-phi-lam-viec-tu-xa
+  - chi phí
+  - ngân sách
 translationSlug: budget-breakdown-for-a-remote-worker-what-youre-actually-spending
 lang: vi
 ---
