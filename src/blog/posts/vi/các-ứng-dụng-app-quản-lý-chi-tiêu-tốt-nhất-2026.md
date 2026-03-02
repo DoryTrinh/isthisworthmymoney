@@ -32,11 +32,13 @@ Sau đây là 5 app tốt nhất để giúp bạn quyết định xem thu nhậ
 
 <div class="calculator-embed">
 
-  <iframe src="/embed/onetime.html" title="One-Time Expense Calculator" loading="lazy"></iframe>
+  <iframe src="/embed/onetime-vi.html" title="Tính toán khoản muốn mua" loading="lazy"></iframe>
 
-  <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Check out the calculator</a></div>
+  <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Dùng thử máy tính</a></div>
 
 </div>
+
+
 
 ## **2. PocketGuard**
 
