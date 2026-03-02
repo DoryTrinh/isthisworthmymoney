@@ -8,7 +8,7 @@ featuredImage: /blog/images/36.1.png
 tags:
   - expenses
   - budgeting
-translationSlug: vi/chi-phí-khi-bạn-làm-việc-từ-xa-work-from-home
+translationSlug: chi-phí-khi-bạn-làm-việc-từ-xa-work-from-home
 ---
 You probably think working from home is saving you a fortune. And honestly? It is saving you something. But probably not as much as you think.
 
