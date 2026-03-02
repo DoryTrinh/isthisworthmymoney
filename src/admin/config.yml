@@ -18,6 +18,7 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Custom Slug", name: "customSlug", widget: "string", required: false, hint: "Override the URL slug (e.g. 'my-custom-url'). Leave empty to use the auto-generated slug from the title. No slashes, no diacritics." }
       - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - { label: "Featured Image", name: "featuredImage", widget: "image", required: false }
       - label: "Tags"
@@ -38,6 +39,7 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Custom Slug", name: "customSlug", widget: "string", required: false, hint: "Override the URL slug (e.g. 'chi-phi-lam-viec-tu-xa'). Leave empty to use the auto-generated slug from the title. No slashes, no diacritics." }
       - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - { label: "Featured Image", name: "featuredImage", widget: "image", required: false }
       - label: "Tags"

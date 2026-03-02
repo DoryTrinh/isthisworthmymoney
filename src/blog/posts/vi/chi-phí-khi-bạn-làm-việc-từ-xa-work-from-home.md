@@ -7,6 +7,7 @@ date: 2026-03-02
 featuredImage: /blog/images/36.1.vie.png
 tags:
   - post
+customSlug: chi-phi-lam-viec-tu-xa
 translationSlug: budget-breakdown-for-a-remote-worker-what-youre-actually-spending
 lang: vi
 ---
