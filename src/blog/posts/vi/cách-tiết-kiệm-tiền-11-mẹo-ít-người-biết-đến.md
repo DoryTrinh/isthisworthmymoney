@@ -1,8 +1,9 @@
 ---
 title: "Cách Tiết Kiệm Tiền: 11 Mẹo Ít Người Biết Đến"
-description: Quên mấy phương pháp kiểu “lập ngân sách chi tiêu” đi. 11 cách
-  trong bài viết này thoạt nghe rất quái đản nhưng thực ra sẽ thực sự “thao
-  túng” được bộ não của bạn đấy.
+description: >-
+  Quên mấy phương pháp kiểu “lập ngân sách chi tiêu” đi. 
+
+  11 phương pháp tiết kiệm tiền trong bài viết này thoạt nghe rất quái đản nhưng chúng sẽ thực sự thao túng được bộ não của bạn đấy.
 customSlug: 11-cach-tiet-kiem-tien
 date: 2026-03-06
 featuredImage: /blog/images/47.vi.1.png
