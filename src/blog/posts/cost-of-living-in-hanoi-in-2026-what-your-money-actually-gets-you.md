@@ -15,7 +15,7 @@ tags:
 translationSlug: chi-phi-song-tai-ha-noi
 lang: en
 ---
-| ![](<>)Hanoi can be extremely affordable. It can also quietly drain your wallet if you're not paying attention. The difference between those two outcomes isn't luck, it's mostly about which version of the city you're living in. |
+Hanoi can be extremely affordable. It can also quietly drain your wallet if you're not paying attention. The difference between those two outcomes isn't luck, it's mostly about which version of the city you're living in.
 
 This post breaks down three realistic monthly budgets for a single expat in Hanoi in 2026, what each one actually looks like day-to-day, and how the numbers compare to what you'd spend in cities like London, Sydney, or New York.
 
