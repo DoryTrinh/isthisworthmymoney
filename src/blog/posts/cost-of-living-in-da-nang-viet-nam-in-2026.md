@@ -18,9 +18,9 @@ lang: en
 ---
 ## **Why Da Nang is worth talking about, financially**
 
-Da Nang regularly ranks among the most affordable digital nomad destinations in Asia, and the math backs it up. Based on [Numbeo's Cost of Living Plus Rent Index](https://www.numbeo.com/cost-of-living/in/Da-Nang), living costs in Da Nang (including rent) are 9.3% lower than Hanoi and 16.3% lower than Ho Chi Minh City.[ ](https://vinpearl.com/en/cost-of-living-in-da-nang)
+**One honest caveat before we get into the numbers:** Da Nang in 2026 is not Da Nang in 2022. The city has been on every digital nomad list for two years running, and the prices know it. If you visited a few years ago and remember paying next to nothing, those days are gone. Rents are up, the An Thuong strip has repriced itself for tourists, and "hidden gem" is no longer accurate. It's still significantly cheaper than Hanoi or Saigon - but it's no longer cheap compared to what it used to be. 
 
-That gap is mostly rent, and rent is the single biggest variable in your monthly total. The three tiers below break down exactly what different budgets get you, **from living locally in a real neighborhood to a beachfront apartment with no trade-offs.**
+So where does that leave you? Still ahead. Based on [Numbeo's Cost of Living Plus Rent Index](https://www.numbeo.com/cost-of-living/comparison.jsp), living costs in Da Nang are 9.3% lower than Hanoi and 16.3% lower than Ho Chi Minh City. That gap is mostly rent, and rent is the single biggest variable in your monthly total. The three tiers below break down exactly what different budgets get you, **from living locally in a real neighborhood to a beachfront apartment with no trade-offs.**
 
 The exchange rate sits at roughly 25,500 VND to $1. 
 
