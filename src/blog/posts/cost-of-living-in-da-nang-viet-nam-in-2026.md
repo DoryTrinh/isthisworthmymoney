@@ -22,7 +22,7 @@ Da Nang regularly ranks among the most affordable digital nomad destinations in 
 
 That gap is mostly rent, and rent is the single biggest variable in your monthly total. The three tiers below break down exactly what different budgets get you, **from living locally in a real neighborhood to a beachfront apartment with no trade-offs.**
 
-The exchange rate sits at roughly 25,500 VND to $1 USD. 
+The exchange rate sits at roughly 25,500 VND to $1. 
 
 ## **The Three Budget Tiers**
 
