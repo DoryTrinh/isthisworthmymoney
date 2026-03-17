@@ -145,6 +145,7 @@ img {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 24px 60px;
+  overflow-x: hidden;
 }
 
 /* --- Blog Index / Listing Page --- */
@@ -491,9 +492,10 @@ img {
 
 /* --- Single Post --- */
 .blog-post {
-  max-width: 720px;
+  max-width: 100%;
   flex: 1;
   min-width: 0;
+  overflow-x: hidden;
 }
 
 .blog-post-header {
