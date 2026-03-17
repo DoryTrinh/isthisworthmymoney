@@ -12,6 +12,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -22,6 +23,7 @@ body {
   background: #FFFFFF;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a {
@@ -617,10 +619,15 @@ img {
 }
 
 /* --- Tables --- */
+.blog-post-content .table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 24px 0;
+}
+
 .blog-post-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 24px 0;
   font-size: 14px;
 }
 
@@ -853,5 +860,9 @@ img {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+
+  .calculator-embed {
+    max-width: 100%;
   }
 }
