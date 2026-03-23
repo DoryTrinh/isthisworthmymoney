@@ -109,3 +109,17 @@ layout: base.njk
   updateActive();
 })();
 </script>
+<script>
+/* Auto-resize calculator embeds when they post their height */
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'resize' && e.data.height) {
+    var iframes = document.querySelectorAll('.calculator-embed iframe');
+    for (var i = 0; i < iframes.length; i++) {
+      if (iframes[i].contentWindow === e.source) {
+        iframes[i].style.height = e.data.height + 'px';
+        break;
+      }
+    }
+  }
+});
+</script>

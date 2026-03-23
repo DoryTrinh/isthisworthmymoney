@@ -757,6 +757,11 @@ function navigateTo(screenId) {
   if (screenId === "regular") updateCurrencyBadge("regular");
   if (screenId === "onetime") updateCurrencyBadge("onetime");
   if (screenId === "expenses") initExpensesScreen(true);
+  if (screenId === "compare") {
+    if (typeof renderComparisonScreen === "function") {
+      renderComparisonScreen(window.activeComparisonId || "ev-cost");
+    }
+  }
 }
 
 /** Go back to previous screen */

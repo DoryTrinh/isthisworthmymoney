@@ -62,7 +62,8 @@ html, body {
   #screen-profile,
   #screen-regular,
   #screen-onetime,
-  #screen-expenses {
+  #screen-expenses,
+  #screen-compare {
     max-width: 900px;
     padding: 28px 48px 60px;
   }
@@ -1210,6 +1211,10 @@ html, body {
 /* --- Home button for expenses --- */
 .btn-expenses {
   background: #FFF3D0;
+}
+
+.btn-compare {
+  background: #E0E8FF;
 }
 
 /* --- Title --- */
@@ -4002,6 +4007,213 @@ html, body {
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* --- Comparison screen: cards at 70% width, centered --- */
+  #screen-compare .card,
+  #screen-compare .compare-table-wrap,
+  #screen-compare .compare-winner-banner,
+  #screen-compare .compare-cards-grid,
+  #screen-compare .compare-notes,
+  #screen-compare .compare-share-footer {
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ============================================================
+   COMPARISON CALCULATOR
+   ============================================================ */
+
+#screen-compare {
+  max-width: 900px;
+}
+
+.compare-subtitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #A09A94;
+  margin-bottom: 20px;
+}
+
+/* Unit system toggle */
+.compare-unit-toggle {
+  display: flex;
+  gap: 0;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid #EDEAE6;
+  width: fit-content;
+}
+
+.compare-unit-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6B6560;
+  background: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.compare-unit-btn.active {
+  background: #5B6AD0;
+  color: #FFFFFF;
+}
+
+.compare-unit-btn:not(.active):hover {
+  background: #F5F3F0;
+}
+
+/* Section labels inside input card */
+.compare-section-label {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  padding-top: 12px;
+  border-top: 1.5px solid #EDEAE6;
+}
+
+.compare-section-a { color: #5B6AD0; }
+.compare-section-b { color: #E85D3A; }
+
+/* Wider number inputs for comparison */
+.compare-number-input {
+  width: 100px;
+  text-align: left;
+}
+
+/* Winner banner */
+.compare-winner-banner {
+  background: #02b887;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  padding: 16px 20px;
+  border-radius: 16px;
+  margin: 24px 0 16px;
+}
+
+.compare-winner-icon {
+  font-size: 18px;
+}
+
+/* Result cards grid */
+.compare-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.compare-result-card {
+  background: #F5F3F0;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.compare-result-card.compare-highlight {
+  background: #dedaff;
+}
+
+.compare-result-value {
+  font-size: 18px;
+  font-weight: 900;
+  color: #2D2A26;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.compare-result-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B6560;
+}
+
+/* Year-by-year table */
+.compare-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 360px;
+}
+
+.compare-table th {
+  background: #F5F3F0;
+  font-weight: 800;
+  color: #6B6560;
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.compare-table td {
+  padding: 10px 12px;
+  border-top: 1px solid #EDEAE6;
+  white-space: nowrap;
+}
+
+.compare-table .compare-row-highlight {
+  background: #e8ffe8;
+  font-weight: 800;
+}
+
+.compare-table .compare-row-highlight td {
+  color: #02b887;
+}
+
+/* Notes */
+.compare-notes {
+  margin-bottom: 20px;
+}
+
+.compare-note {
+  font-size: 12px;
+  color: #A09A94;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+.compare-note::before {
+  content: "* ";
+}
+
+/* Share footer */
+.compare-share-footer {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 20px;
+}
+
+@media (max-width: 480px) {
+  .compare-cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .compare-result-value {
+    font-size: 15px;
+  }
+
+  .compare-result-label {
+    font-size: 11px;
   }
 }
 

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "blog-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["@11ty/eleventy", "--serve", "--watch"],
+      "port": 8080
+    },
+    {
+      "name": "calculator-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "-p", "8090", "-c-1"],
+      "port": 8090
+    }
+  ]
+}

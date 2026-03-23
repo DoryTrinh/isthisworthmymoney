@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparison Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="embed.css">
+  <style>
+    /* --- Comparison-specific embed styles --- */
+    .embed-calc { max-width: 420px; }
+
+    .cmp-subtitle {
+      font-size: 13px;
+      color: #8A8580;
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    .cmp-unit-toggle {
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid #EDEAE6;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .cmp-unit-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6B6560;
+      background: white;
+      border: none;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cmp-unit-btn.active {
+      background: #5B6AD0;
+      color: white;
+    }
+
+    .cmp-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      padding-top: 10px;
+      border-top: 1.5px solid #EDEAE6;
+    }
+    .cmp-section-a { color: #5B6AD0; }
+    .cmp-section-b { color: #D35233; }
+
+    .cmp-unit-label {
+      font-size: 12px;
+      color: #8A8580;
+      white-space: nowrap;
+    }
+
+    .cmp-input {
+      width: 90px;
+      text-align: left;
+    }
+
+    /* Winner banner */
+    .cmp-winner {
+      background: #02b887;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* Cards grid */
+    .cmp-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .cmp-card {
+      background: #F5F3F0;
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .cmp-card.highlight { background: #E8E4FF; }
+    .cmp-card-value {
+      font-size: 15px;
+      font-weight: 800;
+      color: #2D2A26;
+      margin-bottom: 2px;
+      word-break: break-word;
+    }
+    .cmp-card-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6B6560;
+    }
+
+    /* Table */
+    .cmp-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 14px;
+      border-radius: 12px;
+      border: 1.5px solid #EDEAE6;
+    }
+    .cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      min-width: 320px;
+    }
+    .cmp-table th {
+      background: #F5F3F0;
+      font-weight: 700;
+      color: #6B6560;
+      padding: 8px 10px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .cmp-table td {
+      padding: 8px 10px;
+      border-top: 1px solid #EDEAE6;
+      white-space: nowrap;
+    }
+    .cmp-row-highlight { background: #E8FFE8; font-weight: 700; }
+    .cmp-row-highlight td { color: #02b887; }
+
+    /* Notes */
+    .cmp-notes { margin-top: 12px; }
+    .cmp-note {
+      font-size: 10px;
+      color: #A09A94;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+    .cmp-note::before { content: "* "; }
+
+    /* CTA */
+    .cmp-cta {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .cmp-cta a {
+      color: #D35233;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .cmp-cta a:hover { text-decoration: underline; }
+
+    /* Animate results */
+    .cmp-results { animation: fadeIn 0.3s ease; }
+  </style>
+</head>
+<body>
+
+  <div id="compare-embed" class="embed-calc"></div>
+
+  <script>
+  (function() {
+    'use strict';
+
+    /* ----------------------------------------------------------
+       CONFIGS — add new comparison calculators here
+       ---------------------------------------------------------- */
+    var CONFIGS = {};
+
+    /* ---- EV vs Gas Car ---- */
+    CONFIGS['ev-cost'] = {
+      title: 'EV vs Gas Car',
+      subtitle: 'Total cost of ownership comparison',
+      optionA: 'Electric Vehicle',
+      optionB: 'Gas Car',
+      unitSystems: [
+        {
+          id: 'us',
+          label: 'US (miles, gallons)',
+          inputs: [
+            { id: 'annualDistance', label: 'Annual miles driven', unit: 'miles', shared: true, placeholder: '12000', value: '12000' },
+            { id: 'evPrice', label: 'Purchase price', unit: '$', shared: false, side: 'A', placeholder: '35000', currency: true },
+            { id: 'evEfficiency', label: 'Efficiency', unit: 'miles/kWh', side: 'A', placeholder: '3.5', value: '3.5', decimal: true },
+            { id: 'electricityRate', label: 'Electricity rate', unit: '/kWh', side: 'A', placeholder: '0.13', decimal: true },
+            { id: 'gasCarPrice', label: 'Purchase price', unit: '$', side: 'B', placeholder: '28000', currency: true },
+            { id: 'gasEfficiency', label: 'Fuel efficiency', unit: 'MPG', side: 'B', placeholder: '30', value: '30' },
+            { id: 'gasPrice', label: 'Gas price', unit: '/gallon', side: 'B', placeholder: '3.50', decimal: true }
+          ],
+          calculate: function(v) {
+            var annualElec = (v.annualDistance / v.evEfficiency) * v.electricityRate;
+            var annualGas = (v.annualDistance / v.gasEfficiency) * v.gasPrice;
+            return buildEVResults(v, annualElec, annualGas);
+          }
+        },
+        {
+          id: 'metric',
+          label: 'Metric (km, liters)',
+          inputs: [
+            { id: 'annualDistance', label: 'Annual km driven', unit: 'km', shared: true, placeholder: '20000', value: '20000' },
+            { id: 'evPrice', label: 'Purchase price', unit: '$', side: 'A', placeholder: '35000', currency: true },
+            { id: 'evEfficiency', label: 'Efficiency', unit: 'km/kWh', side: 'A', placeholder: '5.5', value: '5.5', decimal: true },
+            { id: 'electricityRate', label: 'Electricity rate', unit: '/kWh', side: 'A', placeholder: '0.15', decimal: true },
+            { id: 'gasCarPrice', label: 'Purchase price', unit: '$', side: 'B', placeholder: '28000', currency: true },
+            { id: 'gasEfficiency', label: 'Fuel consumption', unit: 'L/100km', side: 'B', placeholder: '8', value: '8', decimal: true },
+            { id: 'gasPrice', label: 'Gas price', unit: '/liter', side: 'B', placeholder: '1.80', decimal: true }
+          ],
+          calculate: function(v) {
+            var annualElec = (v.annualDistance / v.evEfficiency) * v.electricityRate;
+            var annualLiters = (v.annualDistance / 100) * v.gasEfficiency;
+            var annualGas = annualLiters * v.gasPrice;
+            return buildEVResults(v, annualElec, annualGas);
+          }
+        }
+      ]
+    };
+
+    function buildEVResults(v, annualElec, annualGas) {
+      var savings = annualGas - annualElec;
+      var monthly = savings / 12;
+      var priceDiff = v.evPrice - v.gasCarPrice;
+      var breakEven = savings > 0 ? Math.ceil(priceDiff / savings) : null;
+      var breakText = breakEven !== null && breakEven > 0
+        ? 'Year ' + breakEven
+        : (priceDiff <= 0 ? 'Immediately' : 'Never (gas is cheaper)');
+
+      var rows = [];
+      for (var y = 1; y <= 10; y++) {
+        var evT = v.evPrice + annualElec * y;
+        var gasT = v.gasCarPrice + annualGas * y;
+        var s = gasT - evT;
+        rows.push({
+          cells: [y, fmt(evT), fmt(gasT), (s >= 0 ? '' : '-') + fmt(Math.abs(s))],
+          highlight: breakEven !== null && y === breakEven
+        });
+      }
+
+      var fiveYr = (v.gasCarPrice + annualGas * 5) - (v.evPrice + annualElec * 5);
+      var winner = fiveYr > 0
+        ? 'The EV saves you ' + fmt(fiveYr) + ' over 5 years'
+        : 'The gas car saves you ' + fmt(Math.abs(fiveYr)) + ' over 5 years';
+
+      return {
+        winner: winner,
+        cards: [
+          { label: 'Annual fuel savings', value: fmt(savings), highlight: savings > 0 },
+          { label: 'Monthly savings', value: fmt(monthly) },
+          { label: 'Break-even point', value: breakText },
+          { label: 'Upfront price diff', value: fmt(priceDiff) }
+        ],
+        headers: ['Year', 'EV Total', 'Gas Total', 'EV Savings'],
+        rows: rows,
+        notes: [
+          'Includes purchase price and fuel/electricity only.',
+          'Not included: insurance, maintenance, tax credits, depreciation.',
+          'EVs generally have lower maintenance costs.'
+        ]
+      };
+    }
+
+    /* ----------------------------------------------------------
+       Utility
+       ---------------------------------------------------------- */
+    function fmt(n) {
+      return '$' + addCommas(Math.round(n));
+    }
+
+    function addCommas(n) {
+      var s = Math.abs(n).toString();
+      return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function parseNum(str) {
+      if (!str) return 0;
+      return parseFloat(str.replace(/,/g, '')) || 0;
+    }
+
+    function notifyParentHeight() {
+      if (window.parent !== window) {
+        setTimeout(function() {
+          window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight + 40 }, '*');
+        }, 50);
+      }
+    }
+
+    /* ----------------------------------------------------------
+       Render
+       ---------------------------------------------------------- */
+    var root = document.getElementById('compare-embed');
+    var params = new URLSearchParams(window.location.search);
+    var configId = params.get('config') || 'ev-cost';
+    var config = CONFIGS[configId];
+
+    if (!config) {
+      root.innerHTML = '<p>Calculator not found.</p>';
+      return;
+    }
+
+    var activeSystem = 0; // index into unitSystems
+
+    function render() {
+      root.innerHTML = '';
+      var sys = config.unitSystems[activeSystem];
+
+      // Title
+      var title = document.createElement('div');
+      title.className = 'embed-title';
+      title.textContent = config.title;
+      root.appendChild(title);
+
+      if (config.subtitle) {
+        var sub = document.createElement('div');
+        sub.className = 'cmp-subtitle';
+        sub.textContent = config.subtitle;
+        root.appendChild(sub);
+      }
+
+      // Unit toggle
+      if (config.unitSystems.length > 1) {
+        var toggle = document.createElement('div');
+        toggle.className = 'cmp-unit-toggle';
+        config.unitSystems.forEach(function(us, idx) {
+          var btn = document.createElement('button');
+          btn.className = 'cmp-unit-btn' + (idx === activeSystem ? ' active' : '');
+          btn.textContent = us.label;
+          btn.onclick = function() { activeSystem = idx; render(); };
+          toggle.appendChild(btn);
+        });
+        root.appendChild(toggle);
+      }
+
+      // Input fields
+      var shared = [], sideA = [], sideB = [];
+      sys.inputs.forEach(function(inp) {
+        if (inp.shared) shared.push(inp);
+        else if (inp.side === 'A') sideA.push(inp);
+        else sideB.push(inp);
+      });
+
+      function buildField(inp) {
+        var group = document.createElement('div');
+        group.className = 'field-group';
+        var row = document.createElement('div');
+        row.className = 'field-row';
+
+        var lbl = document.createElement('span');
+        lbl.className = 'inline-text';
+        lbl.textContent = inp.label;
+        row.appendChild(lbl);
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'emb-' + inp.id;
+        input.className = 'field-input cmp-input';
+        input.placeholder = inp.placeholder || '';
+        input.setAttribute('inputmode', inp.decimal ? 'decimal' : 'numeric');
+        if (inp.value) input.value = inp.value;
+        row.appendChild(input);
+
+        if (inp.unit) {
+          var unit = document.createElement('span');
+          unit.className = 'cmp-unit-label';
+          unit.textContent = inp.unit;
+          row.appendChild(unit);
+        }
+
+        group.appendChild(row);
+
+        // Number formatting (non-decimal only)
+        if (!inp.decimal && !inp.currency) {
+          input.addEventListener('input', function() {
+            var raw = this.value.replace(/,/g, '').replace(/[^\d]/g, '');
+            if (!raw) { this.value = ''; return; }
+            this.value = addCommas(parseInt(raw, 10));
+          });
+        } else if (inp.decimal) {
+          input.addEventListener('input', function() {
+            var raw = this.value.replace(/[^\d.]/g, '');
+            var parts = raw.split('.');
+            if (parts.length > 2) raw = parts[0] + '.' + parts.slice(1).join('');
+            this.value = raw;
+          });
+        } else if (inp.currency) {
+          input.addEventListener('input', function() {
+            var raw = this.value.replace(/,/g, '').replace(/[^\d]/g, '');
+            if (!raw) { this.value = ''; return; }
+            this.value = addCommas(parseInt(raw, 10));
+          });
+        }
+
+        return group;
+      }
+
+      shared.forEach(function(inp) { root.appendChild(buildField(inp)); });
+
+      if (sideA.length) {
+        var la = document.createElement('div');
+        la.className = 'cmp-section-label cmp-section-a';
+        la.textContent = config.optionA;
+        root.appendChild(la);
+        sideA.forEach(function(inp) { root.appendChild(buildField(inp)); });
+      }
+
+      if (sideB.length) {
+        var lb = document.createElement('div');
+        lb.className = 'cmp-section-label cmp-section-b';
+        lb.textContent = config.optionB;
+        root.appendChild(lb);
+        sideB.forEach(function(inp) { root.appendChild(buildField(inp)); });
+      }
+
+      // Calculate button
+      var btn = document.createElement('button');
+      btn.className = 'embed-btn';
+      btn.textContent = 'Calculate';
+      btn.onclick = calculate;
+      root.appendChild(btn);
+
+      // Result area
+      var resultDiv = document.createElement('div');
+      resultDiv.id = 'emb-results';
+      resultDiv.style.display = 'none';
+      root.appendChild(resultDiv);
+    }
+
+    function calculate() {
+      var sys = config.unitSystems[activeSystem];
+      var values = {};
+      var valid = true;
+
+      sys.inputs.forEach(function(inp) {
+        var el = document.getElementById('emb-' + inp.id);
+        if (!el) return;
+        values[inp.id] = parseNum(el.value);
+        if (!values[inp.id]) {
+          el.classList.remove('shake');
+          void el.offsetWidth;
+          el.classList.add('shake');
+          el.addEventListener('animationend', function() { el.classList.remove('shake'); }, { once: true });
+          valid = false;
+        }
+      });
+
+      if (!valid) return;
+
+      var results = sys.calculate(values);
+      renderResults(results);
+    }
+
+    function renderResults(r) {
+      var area = document.getElementById('emb-results');
+      area.innerHTML = '';
+      area.style.display = '';
+      area.className = 'cmp-results';
+
+      // Winner
+      if (r.winner) {
+        var w = document.createElement('div');
+        w.className = 'cmp-winner';
+        w.textContent = r.winner;
+        area.appendChild(w);
+      }
+
+      // Cards
+      if (r.cards) {
+        var grid = document.createElement('div');
+        grid.className = 'cmp-cards';
+        r.cards.forEach(function(c) {
+          var card = document.createElement('div');
+          card.className = 'cmp-card' + (c.highlight ? ' highlight' : '');
+          card.innerHTML = '<div class="cmp-card-value">' + c.value + '</div><div class="cmp-card-label">' + c.label + '</div>';
+          grid.appendChild(card);
+        });
+        area.appendChild(grid);
+      }
+
+      // Table
+      if (r.headers && r.rows) {
+        var wrap = document.createElement('div');
+        wrap.className = 'cmp-table-wrap';
+        var table = document.createElement('table');
+        table.className = 'cmp-table';
+
+        var thead = '<thead><tr>';
+        r.headers.forEach(function(h) { thead += '<th>' + h + '</th>'; });
+        thead += '</tr></thead>';
+
+        var tbody = '<tbody>';
+        r.rows.forEach(function(row) {
+          tbody += '<tr' + (row.highlight ? ' class="cmp-row-highlight"' : '') + '>';
+          row.cells.forEach(function(c) { tbody += '<td>' + c + '</td>'; });
+          tbody += '</tr>';
+        });
+        tbody += '</tbody>';
+
+        table.innerHTML = thead + tbody;
+        wrap.appendChild(table);
+        area.appendChild(wrap);
+      }
+
+      // Notes
+      if (r.notes) {
+        var notes = document.createElement('div');
+        notes.className = 'cmp-notes';
+        r.notes.forEach(function(n) {
+          var p = document.createElement('p');
+          p.className = 'cmp-note';
+          p.textContent = n;
+          notes.appendChild(p);
+        });
+        area.appendChild(notes);
+      }
+
+      // CTA
+      var cta = document.createElement('div');
+      cta.className = 'cmp-cta';
+      cta.innerHTML = '<a href="https://isthisworthmymoney.com" target="_blank">Try the full calculator &rarr;</a>';
+      area.appendChild(cta);
+
+      area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      notifyParentHeight();
+    }
+
+    render();
+    notifyParentHeight();
+  })();
+  </script>
+</body>
+</html>

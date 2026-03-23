@@ -666,6 +666,16 @@ img {
   height: 560px;
 }
 
+/* Wider comparison calculator embed */
+.calculator-embed.compare-embed {
+  max-width: 480px;
+}
+
+.calculator-embed.compare-embed iframe {
+  height: 680px;
+  transition: height 0.3s ease;
+}
+
 .calculator-embed-caption {
   background: #F5F3F0;
   padding: 10px 16px;
