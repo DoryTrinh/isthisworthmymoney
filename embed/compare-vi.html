@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Máy tính so sánh chi phí</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="embed.css">
+  <style>
+    /* --- Comparison-specific embed styles --- */
+    .embed-calc { max-width: 420px; }
+
+    .cmp-subtitle {
+      font-size: 13px;
+      color: #8A8580;
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    .cmp-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      padding-top: 10px;
+      border-top: 1.5px solid #EDEAE6;
+    }
+    .cmp-section-a { color: #5B6AD0; }
+    .cmp-section-b { color: #D35233; }
+
+    .cmp-unit-label {
+      font-size: 12px;
+      color: #8A8580;
+      white-space: nowrap;
+    }
+
+    .cmp-input {
+      width: 90px;
+      text-align: left;
+    }
+
+    /* Winner banner */
+    .cmp-winner {
+      background: #02b887;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* Cards grid */
+    .cmp-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .cmp-card {
+      background: #F5F3F0;
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .cmp-card.highlight { background: #E8E4FF; }
+    .cmp-card-value {
+      font-size: 15px;
+      font-weight: 800;
+      color: #2D2A26;
+      margin-bottom: 2px;
+      word-break: break-word;
+    }
+    .cmp-card-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #6B6560;
+    }
+
+    /* Table */
+    .cmp-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 14px;
+      border-radius: 12px;
+      border: 1.5px solid #EDEAE6;
+    }
+    .cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      min-width: 320px;
+    }
+    .cmp-table th {
+      background: #F5F3F0;
+      font-weight: 700;
+      color: #6B6560;
+      padding: 8px 10px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .cmp-table td {
+      padding: 8px 10px;
+      border-top: 1px solid #EDEAE6;
+      white-space: nowrap;
+    }
+    .cmp-row-highlight { background: #E8FFE8; font-weight: 700; }
+    .cmp-row-highlight td { color: #02b887; }
+
+    /* Notes */
+    .cmp-notes { margin-top: 12px; }
+    .cmp-note {
+      font-size: 10px;
+      color: #A09A94;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+    .cmp-note::before { content: "* "; }
+
+    /* CTA */
+    .cmp-cta {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .cmp-cta a {
+      color: #D35233;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .cmp-cta a:hover { text-decoration: underline; }
+
+    /* Animate results */
+    .cmp-results { animation: fadeIn 0.3s ease; }
+  </style>
+</head>
+<body>
+
+  <div id="compare-embed" class="embed-calc"></div>
+
+  <script>
+  (function() {
+    'use strict';
+
+    /* ----------------------------------------------------------
+       CONFIGS — thêm máy tính so sánh mới ở đây
+       ---------------------------------------------------------- */
+    var CONFIGS = {};
+
+    /* ---- Xe điện vs Xe xăng ---- */
+    CONFIGS['ev-cost'] = {
+      title: 'Xe điện vs Xe xăng',
+      subtitle: 'So sánh tổng chi phí sở hữu',
+      optionA: 'Xe điện',
+      optionB: 'Xe xăng',
+      inputs: [
+        { id: 'annualDistance', label: 'Số km đi mỗi năm', unit: 'km', shared: true, placeholder: '15000', value: '15000' },
+        { id: 'evPrice', label: 'Giá mua xe', unit: 'VND', side: 'A', placeholder: '800000000', currency: true },
+        { id: 'evEfficiency', label: 'Hiệu suất', unit: 'km/kWh', side: 'A', placeholder: '5.5', value: '5.5', decimal: true },
+        { id: 'electricityRate', label: 'Giá điện', unit: 'đ/kWh', side: 'A', placeholder: '3000', currency: true },
+        { id: 'gasCarPrice', label: 'Giá mua xe', unit: 'VND', side: 'B', placeholder: '500000000', currency: true },
+        { id: 'gasEfficiency', label: 'Mức tiêu thụ', unit: 'L/100km', side: 'B', placeholder: '7', value: '7', decimal: true },
+        { id: 'gasPrice', label: 'Giá xăng', unit: 'đ/lít', side: 'B', placeholder: '25000', currency: true }
+      ],
+      calculate: function(v) {
+        var annualElec = (v.annualDistance / v.evEfficiency) * v.electricityRate;
+        var annualLiters = (v.annualDistance / 100) * v.gasEfficiency;
+        var annualGas = annualLiters * v.gasPrice;
+        var savings = annualGas - annualElec;
+        var monthly = savings / 12;
+        var priceDiff = v.evPrice - v.gasCarPrice;
+        var breakEven = savings > 0 ? Math.ceil(priceDiff / savings) : null;
+        var breakText = breakEven !== null && breakEven > 0
+          ? 'Năm thứ ' + breakEven
+          : (priceDiff <= 0 ? 'Ngay lập tức' : 'Không bao giờ (xăng rẻ hơn)');
+
+        var rows = [];
+        for (var y = 1; y <= 10; y++) {
+          var evT = v.evPrice + annualElec * y;
+          var gasT = v.gasCarPrice + annualGas * y;
+          var s = gasT - evT;
+          rows.push({
+            cells: [y, fmt(evT), fmt(gasT), (s >= 0 ? '' : '-') + fmt(Math.abs(s))],
+            highlight: breakEven !== null && y === breakEven
+          });
+        }
+
+        var fiveYr = (v.gasCarPrice + annualGas * 5) - (v.evPrice + annualElec * 5);
+        var winner = fiveYr > 0
+          ? 'Xe điện giúp bạn tiết kiệm ' + fmt(fiveYr) + ' sau 5 năm'
+          : 'Xe xăng giúp bạn tiết kiệm ' + fmt(Math.abs(fiveYr)) + ' sau 5 năm';
+
+        return {
+          winner: winner,
+          cards: [
+            { label: 'Tiết kiệm nhiên liệu/năm', value: fmt(savings), highlight: savings > 0 },
+            { label: 'Tiết kiệm/tháng', value: fmt(monthly) },
+            { label: 'Thời điểm hoà vốn', value: breakText },
+            { label: 'Chênh lệch giá mua', value: fmt(priceDiff) }
+          ],
+          headers: ['Năm', 'Tổng xe điện', 'Tổng xe xăng', 'Tiết kiệm'],
+          rows: rows,
+          notes: [
+            'Chỉ bao gồm giá mua và chi phí nhiên liệu/điện.',
+            'Chưa tính: bảo hiểm, bảo dưỡng, ưu đãi thuế, khấu hao.',
+            'Xe điện thường có chi phí bảo dưỡng thấp hơn.'
+          ]
+        };
+      }
+    };
+
+    /* ----------------------------------------------------------
+       Utility
+       ---------------------------------------------------------- */
+    function fmt(n) {
+      return addCommas(Math.round(n)) + 'đ';
+    }
+
+    function addCommas(n) {
+      var s = Math.abs(n).toString();
+      return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function parseNum(str) {
+      if (!str) return 0;
+      return parseFloat(str.replace(/,/g, '')) || 0;
+    }
+
+    function notifyParentHeight() {
+      if (window.parent !== window) {
+        setTimeout(function() {
+          window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight + 40 }, '*');
+        }, 50);
+      }
+    }
+
+    /* ----------------------------------------------------------
+       Render
+       ---------------------------------------------------------- */
+    var root = document.getElementById('compare-embed');
+    var params = new URLSearchParams(window.location.search);
+    var configId = params.get('config') || 'ev-cost';
+    var config = CONFIGS[configId];
+
+    if (!config) {
+      root.innerHTML = '<p>Không tìm thấy máy tính.</p>';
+      return;
+    }
+
+    function render() {
+      root.innerHTML = '';
+
+      // Title
+      var title = document.createElement('div');
+      title.className = 'embed-title';
+      title.textContent = config.title;
+      root.appendChild(title);
+
+      if (config.subtitle) {
+        var sub = document.createElement('div');
+        sub.className = 'cmp-subtitle';
+        sub.textContent = config.subtitle;
+        root.appendChild(sub);
+      }
+
+      // No unit toggle for Vietnamese — single unit system
+
+      // Input fields
+      var shared = [], sideA = [], sideB = [];
+      config.inputs.forEach(function(inp) {
+        if (inp.shared) shared.push(inp);
+        else if (inp.side === 'A') sideA.push(inp);
+        else sideB.push(inp);
+      });
+
+      function buildField(inp) {
+        var group = document.createElement('div');
+        group.className = 'field-group';
+        var row = document.createElement('div');
+        row.className = 'field-row';
+
+        var lbl = document.createElement('span');
+        lbl.className = 'inline-text';
+        lbl.textContent = inp.label;
+        row.appendChild(lbl);
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'emb-' + inp.id;
+        input.className = 'field-input cmp-input';
+        input.placeholder = inp.placeholder || '';
+        input.setAttribute('inputmode', inp.decimal ? 'decimal' : 'numeric');
+        if (inp.value) input.value = inp.value;
+        row.appendChild(input);
+
+        if (inp.unit) {
+          var unit = document.createElement('span');
+          unit.className = 'cmp-unit-label';
+          unit.textContent = inp.unit;
+          row.appendChild(unit);
+        }
+
+        group.appendChild(row);
+
+        // Number formatting
+        if (!inp.decimal && !inp.currency) {
+          input.addEventListener('input', function() {
+            var raw = this.value.replace(/,/g, '').replace(/[^\d]/g, '');
+            if (!raw) { this.value = ''; return; }
+            this.value = addCommas(parseInt(raw, 10));
+          });
+        } else if (inp.decimal) {
+          input.addEventListener('input', function() {
+            var raw = this.value.replace(/[^\d.]/g, '');
+            var parts = raw.split('.');
+            if (parts.length > 2) raw = parts[0] + '.' + parts.slice(1).join('');
+            this.value = raw;
+          });
+        } else if (inp.currency) {
+          input.addEventListener('input', function() {
+            var raw = this.value.replace(/,/g, '').replace(/[^\d]/g, '');
+            if (!raw) { this.value = ''; return; }
+            this.value = addCommas(parseInt(raw, 10));
+          });
+        }
+
+        return group;
+      }
+
+      shared.forEach(function(inp) { root.appendChild(buildField(inp)); });
+
+      if (sideA.length) {
+        var la = document.createElement('div');
+        la.className = 'cmp-section-label cmp-section-a';
+        la.textContent = config.optionA;
+        root.appendChild(la);
+        sideA.forEach(function(inp) { root.appendChild(buildField(inp)); });
+      }
+
+      if (sideB.length) {
+        var lb = document.createElement('div');
+        lb.className = 'cmp-section-label cmp-section-b';
+        lb.textContent = config.optionB;
+        root.appendChild(lb);
+        sideB.forEach(function(inp) { root.appendChild(buildField(inp)); });
+      }
+
+      // Calculate button
+      var btn = document.createElement('button');
+      btn.className = 'embed-btn';
+      btn.textContent = 'Tính ngay';
+      btn.onclick = calculate;
+      root.appendChild(btn);
+
+      // Result area
+      var resultDiv = document.createElement('div');
+      resultDiv.id = 'emb-results';
+      resultDiv.style.display = 'none';
+      root.appendChild(resultDiv);
+    }
+
+    function calculate() {
+      var values = {};
+      var valid = true;
+
+      config.inputs.forEach(function(inp) {
+        var el = document.getElementById('emb-' + inp.id);
+        if (!el) return;
+        values[inp.id] = parseNum(el.value);
+        if (!values[inp.id]) {
+          el.classList.remove('shake');
+          void el.offsetWidth;
+          el.classList.add('shake');
+          el.addEventListener('animationend', function() { el.classList.remove('shake'); }, { once: true });
+          valid = false;
+        }
+      });
+
+      if (!valid) return;
+
+      var results = config.calculate(values);
+      renderResults(results);
+    }
+
+    function renderResults(r) {
+      var area = document.getElementById('emb-results');
+      area.innerHTML = '';
+      area.style.display = '';
+      area.className = 'cmp-results';
+
+      // Winner
+      if (r.winner) {
+        var w = document.createElement('div');
+        w.className = 'cmp-winner';
+        w.textContent = r.winner;
+        area.appendChild(w);
+      }
+
+      // Cards
+      if (r.cards) {
+        var grid = document.createElement('div');
+        grid.className = 'cmp-cards';
+        r.cards.forEach(function(c) {
+          var card = document.createElement('div');
+          card.className = 'cmp-card' + (c.highlight ? ' highlight' : '');
+          card.innerHTML = '<div class="cmp-card-value">' + c.value + '</div><div class="cmp-card-label">' + c.label + '</div>';
+          grid.appendChild(card);
+        });
+        area.appendChild(grid);
+      }
+
+      // Table
+      if (r.headers && r.rows) {
+        var wrap = document.createElement('div');
+        wrap.className = 'cmp-table-wrap';
+        var table = document.createElement('table');
+        table.className = 'cmp-table';
+
+        var thead = '<thead><tr>';
+        r.headers.forEach(function(h) { thead += '<th>' + h + '</th>'; });
+        thead += '</tr></thead>';
+
+        var tbody = '<tbody>';
+        r.rows.forEach(function(row) {
+          tbody += '<tr' + (row.highlight ? ' class="cmp-row-highlight"' : '') + '>';
+          row.cells.forEach(function(c) { tbody += '<td>' + c + '</td>'; });
+          tbody += '</tr>';
+        });
+        tbody += '</tbody>';
+
+        table.innerHTML = thead + tbody;
+        wrap.appendChild(table);
+        area.appendChild(wrap);
+      }
+
+      // Notes
+      if (r.notes) {
+        var notes = document.createElement('div');
+        notes.className = 'cmp-notes';
+        r.notes.forEach(function(n) {
+          var p = document.createElement('p');
+          p.className = 'cmp-note';
+          p.textContent = n;
+          notes.appendChild(p);
+        });
+        area.appendChild(notes);
+      }
+
+      // CTA
+      var cta = document.createElement('div');
+      cta.className = 'cmp-cta';
+      cta.innerHTML = '<a href="https://isthisworthmymoney.com" target="_blank">Dùng thử máy tính đầy đủ &rarr;</a>';
+      area.appendChild(cta);
+
+      area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      notifyParentHeight();
+    }
+
+    render();
+    notifyParentHeight();
+  })();
+  </script>
+</body>
+</html>
