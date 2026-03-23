@@ -28,7 +28,8 @@ Let's start with the sticker price, because that's what scares most people off.
 
 In 2026, the average new EV sells for about $43,500. The average new gas car? Around $37,200. That's roughly a $6,300 gap, which sounds like a lot until you realize it was nearly $15,000 just four years ago. **The price difference is shrinking fast.**
 
-![EVs cost more upfront and to insure, but save big on fuel and maintenance](/blog/images/is-electric-car-worth-it-1.png)
+![EVs cost more upfront and to insure, but save big on fuel and maintenance](/blog/images/24.2.png)
+
 *EVs cost more upfront and to insure, but save big on fuel and maintenance.*
 
 **A big reason:** battery costs. They've dropped almost 50% since 2023 and are heading toward $80 per kilowatt-hour in 2026. That's the magic number where EVs hit price parity with gas cars without any subsidies. We're basically there.
@@ -43,7 +44,7 @@ EVs depreciate steeply, about 60% over 5 years compared to 45% for gas cars. Tha
 
 The battery concern? Mostly overblown for used buyers. Standard warranties cover 8 - 10 years or 100,000 miles, and modern batteries are designed to last 300,000 - 500,000 miles. If the car is 3 years old with 35,000 miles, you've likely got years of warranty left and a battery that's barely broken in.
 
----
+- - -
 
 ## How Much Does an Electric Car Save You Per Year?
 
@@ -61,21 +62,20 @@ Here's what that looks like in real dollars:
 
 Combined, most estimates land at $800 - $2,200 a year in total savings, depending on where you live, how much you drive, and what you pay for electricity.
 
-![With ~$1,500/year in savings, most EV owners break even on the price premium in about 4 years](/blog/images/is-electric-car-worth-it-2.png)
+![With ~$1,500/year in savings, most EV owners break even on the price premium in about 4 years](/blog/images/24.3.png)
+
 *With ~$1,500/year in savings, most EV owners break even on the price premium in about 4 years.*
 
 **One critical caveat:** these numbers assume you charge at home. Public DC fast charging can cost 3 - 4 times more than home charging, which would cut your fuel savings roughly in half. If you don't have a garage or driveway where you can plug in, the math changes significantly.
 
 If you're wondering how these savings fit into your overall budget, our [50/30/20 rule guide](https://isthisworthmymoney.com/blog/50-30-20-rule/) breaks down how to allocate your income, and that annual fuel savings could shift a nice chunk from "needs" to "wants."
 
-
 <div class="calculator-embed compare-embed">
   <iframe src="/embed/compare.html?config=ev-cost" title="EV vs Gas Car Calculator" loading="lazy"></iframe>
   <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Check out the calculator</a></div>
 </div>
 
-
----
+- - -
 
 ## The Hidden Costs Nobody Mentions
 
@@ -101,7 +101,7 @@ The $10,000 - $20,000 replacement cost you see in headlines? That's a worst-case
 
 The one exception: if you're buying a used EV with no remaining warranty, get the battery health checked. That's worth the peace of mind.
 
----
+- - -
 
 ## What About Tax Credits and Government Incentives?
 
@@ -115,13 +115,14 @@ State incentives are still going strong. Colorado offers up to $5,000, New Jerse
 
 **The key takeaway:** Don't buy an EV *because* of incentives, buy it if the math works without them, and treat incentives as a bonus. Programs change, funding runs out, and eligibility rules are complex. If the car makes financial sense on its own merits, any incentive is just gravy.
 
----
+- - -
 
 ## The Verdict: Is It Worth Your Money?
 
 After crunching all the numbers, here's where we land.
 
-![Quick checklist: where do you fall?](/blog/images/is-electric-car-worth-it-3.png)
+![Quick checklist: where do you fall?](/blog/images/24.4.png)
+
 *Quick checklist: where do you fall?*
 
 **Yes, it's worth it if:** You charge at home, drive 12,000+ miles a year, plan to keep the car for at least 5 years, and can handle the higher upfront cost. In that scenario, you'll likely save $6,000 - $15,000 over the life of the car.
