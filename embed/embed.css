@@ -84,7 +84,7 @@ input[type="number"] {
 
 /* Select sizing */
 .currency-select {
-  width: 105px;
+  width: 130px;
   flex-shrink: 0;
 }
 
