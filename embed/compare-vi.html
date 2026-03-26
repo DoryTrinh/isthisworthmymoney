@@ -216,7 +216,26 @@
        Utility
        ---------------------------------------------------------- */
     function fmt(n) {
-      return addCommas(Math.round(n)) + 'đ';
+      var abs = Math.abs(Math.round(n));
+      var sign = n < 0 ? '-' : '';
+      if (abs >= 1000000000) {
+        var ty = abs / 1000000000;
+        return sign + formatDecimal(ty) + ' tỷ đ';
+      }
+      if (abs >= 1000000) {
+        var trieu = abs / 1000000;
+        return sign + formatDecimal(trieu) + ' triệu đ';
+      }
+      if (abs >= 1000) {
+        var nghin = abs / 1000;
+        return sign + formatDecimal(nghin) + ' nghìn đ';
+      }
+      return sign + abs + 'đ';
+    }
+
+    function formatDecimal(n) {
+      if (n === Math.floor(n)) return addCommas(n);
+      return addCommas(Math.floor(n)) + '.' + Math.round((n - Math.floor(n)) * 10);
     }
 
     function addCommas(n) {
