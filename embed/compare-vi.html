@@ -37,7 +37,7 @@
     }
 
     .cmp-input {
-      width: 90px;
+      width: 130px;
       text-align: left;
     }
 
@@ -157,13 +157,13 @@
       optionA: 'Xe điện',
       optionB: 'Xe xăng',
       inputs: [
-        { id: 'annualDistance', label: 'Số km đi mỗi năm', unit: 'km', shared: true, placeholder: '15000', value: '15000' },
-        { id: 'evPrice', label: 'Giá mua xe', unit: 'VND', side: 'A', placeholder: '800000000', currency: true },
+        { id: 'annualDistance', label: 'Số km đi mỗi năm', unit: 'km', shared: true, placeholder: '15,000', value: '15,000' },
+        { id: 'evPrice', label: 'Giá mua xe', unit: 'VND', side: 'A', placeholder: '800,000,000', currency: true },
         { id: 'evEfficiency', label: 'Hiệu suất', unit: 'km/kWh', side: 'A', placeholder: '5.5', value: '5.5', decimal: true },
-        { id: 'electricityRate', label: 'Giá điện', unit: 'đ/kWh', side: 'A', placeholder: '3000', currency: true },
-        { id: 'gasCarPrice', label: 'Giá mua xe', unit: 'VND', side: 'B', placeholder: '500000000', currency: true },
+        { id: 'electricityRate', label: 'Giá điện', unit: 'đ/kWh', side: 'A', placeholder: '3,000', currency: true },
+        { id: 'gasCarPrice', label: 'Giá mua xe', unit: 'VND', side: 'B', placeholder: '500,000,000', currency: true },
         { id: 'gasEfficiency', label: 'Mức tiêu thụ', unit: 'L/100km', side: 'B', placeholder: '7', value: '7', decimal: true },
-        { id: 'gasPrice', label: 'Giá xăng', unit: 'đ/lít', side: 'B', placeholder: '25000', currency: true }
+        { id: 'gasPrice', label: 'Giá xăng', unit: 'đ/lít', side: 'B', placeholder: '25,000', currency: true }
       ],
       calculate: function(v) {
         var annualElec = (v.annualDistance / v.evEfficiency) * v.electricityRate;
