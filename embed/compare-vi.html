@@ -182,10 +182,10 @@
         for (var y = 1; y <= 10; y++) {
           var evT = v.evPrice + annualElec * y;
           var gasT = v.gasCarPrice + annualGas * y;
-          var s = gasT - evT;
+          var diff = evT - gasT; // positive = EV costs more
           rows.push({
-            cells: [y, fmt(evT), fmt(gasT), (s >= 0 ? '' : '-') + fmt(Math.abs(s))],
-            highlight: breakEven !== null && y === breakEven
+            cells: [y, fmt(evT), fmt(gasT)],
+            diff: diff
           });
         }
 
@@ -198,13 +198,12 @@
           winner: winner,
           cards: [
             { label: 'Tiết kiệm nhiên liệu/năm', value: fmt(savings), highlight: savings > 0 },
-            { label: 'Tiết kiệm/tháng', value: fmt(monthly) },
-            { label: 'Thời điểm hoà vốn', value: breakText },
-            { label: 'Chênh lệch giá mua', value: fmt(priceDiff) }
+            { label: 'Chênh lệch giá mua', value: fmt(Math.abs(priceDiff)), color: priceDiff <= 0 ? 'green' : 'red' }
           ],
-          headers: ['Năm', 'Tổng xe điện', 'Tổng xe xăng', 'Tiết kiệm'],
+          headers: ['Năm', 'CP xe điện', 'CP xe xăng', 'Chênh lệch'],
           rows: rows,
           notes: [
+            'Chênh lệch chi phí được tính dựa trên sự chênh lệch của xe điện so với xe xăng.',
             'Chỉ bao gồm giá mua và chi phí nhiên liệu/điện.',
             'Chưa tính: bảo hiểm, bảo dưỡng, ưu đãi thuế, khấu hao.',
             'Xe điện thường có chi phí bảo dưỡng thấp hơn.'
@@ -426,7 +425,10 @@
         r.cards.forEach(function(c) {
           var card = document.createElement('div');
           card.className = 'cmp-card' + (c.highlight ? ' highlight' : '');
-          card.innerHTML = '<div class="cmp-card-value">' + c.value + '</div><div class="cmp-card-label">' + c.label + '</div>';
+          var valStyle = '';
+          if (c.color === 'green') valStyle = ' style="color:#02b887"';
+          else if (c.color === 'red') valStyle = ' style="color:#D35233"';
+          card.innerHTML = '<div class="cmp-card-value"' + valStyle + '>' + c.value + '</div><div class="cmp-card-label">' + c.label + '</div>';
           grid.appendChild(card);
         });
         area.appendChild(grid);
@@ -445,8 +447,12 @@
 
         var tbody = '<tbody>';
         r.rows.forEach(function(row) {
-          tbody += '<tr' + (row.highlight ? ' class="cmp-row-highlight"' : '') + '>';
+          tbody += '<tr>';
           row.cells.forEach(function(c) { tbody += '<td>' + c + '</td>'; });
+          // Diff column with color
+          var diff = row.diff;
+          var diffColor = diff <= 0 ? '#02b887' : '#D35233';
+          tbody += '<td style="color:' + diffColor + ';font-weight:600">' + fmt(Math.abs(diff)) + '</td>';
           tbody += '</tr>';
         });
         tbody += '</tbody>';
@@ -468,12 +474,6 @@
         });
         area.appendChild(notes);
       }
-
-      // CTA
-      var cta = document.createElement('div');
-      cta.className = 'cmp-cta';
-      cta.innerHTML = '<a href="https://isthisworthmymoney.com" target="_blank">Dùng thử máy tính đầy đủ &rarr;</a>';
-      area.appendChild(cta);
 
       area.scrollIntoView({ behavior: 'smooth', block: 'start' });
       notifyParentHeight();
