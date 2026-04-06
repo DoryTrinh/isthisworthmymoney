@@ -65,6 +65,9 @@
         <button class="home-btn btn-onetime" onclick="navigateTo('onetime')">
           something I'm thinking of buying
         </button>
+        <button class="home-btn btn-costperuse" onclick="navigateTo('costperuse')">
+          real cost per use
+        </button>
         <button class="home-btn btn-expenses" onclick="navigateTo('expenses')">
           my monthly expenses
         </button>
@@ -426,10 +429,12 @@ Go
 
       <!-- Bottom navigation -->
       <div class="bottom-nav" id="regular-bottom-nav" style="display:none;">
+        <p class="bottom-nav-label" id="regular-nav-label">Continue calculating...</p>
         <div class="bottom-nav-buttons">
-          <button class="nav-btn nav-btn-regular" onclick="resetAndStay('regular')">tính món khác</button>
-          <button class="nav-btn nav-btn-onetime" onclick="navigateTo('onetime')">mình đang muốn mua...</button>
-          <button class="nav-btn nav-btn-expenses" onclick="navigateTo('expenses')">tiền đi đâu hết?</button>
+          <button class="nav-btn nav-btn-regular" onclick="resetAndStay('regular')">regular expense</button>
+          <button class="nav-btn nav-btn-onetime" onclick="navigateTo('onetime')">one-time purchase</button>
+          <button class="nav-btn nav-btn-costperuse" onclick="navigateTo('costperuse')">cost per use</button>
+          <button class="nav-btn nav-btn-expenses" onclick="navigateTo('expenses')">monthly expenses</button>
         </div>
       </div>
       <a class="feedback-link" href="#" onclick="openFeedback(); return false;">💬 Góp ý</a>
@@ -603,13 +608,286 @@ Go
 
       <!-- Bottom navigation -->
       <div class="bottom-nav" id="onetime-bottom-nav" style="display:none;">
+        <p class="bottom-nav-label" id="onetime-nav-label">Continue calculating...</p>
         <div class="bottom-nav-buttons">
-          <button class="nav-btn nav-btn-onetime" onclick="resetAndStay('onetime')">mình đang muốn mua...</button>
-          <button class="nav-btn nav-btn-regular" onclick="navigateTo('regular')">xem chi tiêu thường xuyên</button>
-          <button class="nav-btn nav-btn-expenses" onclick="navigateTo('expenses')">tiền đi đâu hết?</button>
+          <button class="nav-btn nav-btn-onetime" onclick="resetAndStay('onetime')">one-time purchase</button>
+          <button class="nav-btn nav-btn-regular" onclick="navigateTo('regular')">regular expense</button>
+          <button class="nav-btn nav-btn-costperuse" onclick="navigateTo('costperuse')">cost per use</button>
+          <button class="nav-btn nav-btn-expenses" onclick="navigateTo('expenses')">monthly expenses</button>
         </div>
       </div>
       <a class="feedback-link" href="#" onclick="openFeedback(); return false;">💬 Góp ý</a>
+    </div>
+
+    <!-- ============================================================
+         SCREEN: COST PER USE
+         ============================================================ -->
+    <div id="screen-costperuse" class="screen">
+      <!-- Top bar -->
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <button class="back-btn" onclick="navigateBack()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18l-6-6 6-6" stroke="#A09A94" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="home-icon-btn" onclick="navigateTo('home')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 12L12 4l8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 10.5V20a1 1 0 001 1h10a1 1 0 001-1V10.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.5 21V15a1 1 0 011-1h3a1 1 0 011 1v6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="15" y="5" width="2.5" height="4" rx="0.5" fill="#fff"/>
+            </svg>
+          </button>
+        </div>
+        <div class="top-bar-icons">
+          <a class="icon-btn blog-btn" href="/blog/" aria-label="Blog">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </a>
+          <button class="icon-btn lang-btn" id="lang-btn-costperuse">EN</button>
+          <button class="icon-btn profile-btn" onclick="navigateTo('profile')">
+            <svg class="profile-icon" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18" stroke="#E08A7E" stroke-width="2.2"/>
+              <circle cx="20" cy="15.5" r="5.5" stroke="#E08A7E" stroke-width="2"/>
+              <path d="M9.5 33c0-5.8 4.7-10.5 10.5-10.5s10.5 4.7 10.5 10.5" stroke="#E08A7E" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h1 class="section-title costperuse-title">Real cost<br>per use</h1>
+
+      <!-- Input card -->
+      <div class="card input-card">
+        <div class="card-inner">
+          <!-- Item name -->
+          <div class="input-row">
+            <span class="input-label" id="cpu-item-label">What are you buying?</span>
+            <input type="text" id="cpu-item" class="text-input" placeholder="coffee machine">
+          </div>
+
+          <!-- Currency -->
+          <div class="input-row">
+            <span class="input-label" id="cpu-currency-label">Currency</span>
+            <select id="cpu-currency" class="cpu-currency-select"></select>
+          </div>
+
+          <!-- Purchase price -->
+          <div class="input-row">
+            <span class="input-label" id="cpu-cost-label">Purchase price <span class="required">*</span></span>
+            <span class="exp-currency-input-group">
+              <span class="currency-badge" id="costperuse-currency-badge">$</span>
+              <input type="text" id="cpu-cost" class="number-input cost-input" placeholder="0" inputmode="numeric">
+            </span>
+          </div>
+
+          <!-- Lifespan -->
+          <div class="input-row">
+            <span class="input-label" id="cpu-lifespan-label">Expected lifespan <span class="required">*</span></span>
+            <span class="cpu-lifespan-group">
+              <input type="text" id="cpu-lifespan" class="number-input cpu-lifespan-input" placeholder="2" inputmode="numeric">
+              <select id="cpu-lifespan-unit" class="cpu-lifespan-select">
+                <option value="years">years</option>
+                <option value="months">months</option>
+              </select>
+            </span>
+          </div>
+
+          <!-- Usage frequency -->
+          <div class="input-row cpu-usage-section">
+            <span class="input-label" id="cpu-usage-label">How often do you use it? <span class="required">*</span></span>
+            <div class="cpu-usage-toggles">
+              <button class="cpu-usage-btn selected" id="cpu-usage-btn-daily" onclick="cpuSetUsageMode('daily')">Every day</button>
+              <button class="cpu-usage-btn" id="cpu-usage-btn-frequency" onclick="cpuSetUsageMode('frequency')">X times per...</button>
+              <button class="cpu-usage-btn" id="cpu-usage-btn-total" onclick="cpuSetUsageMode('total')">I know total uses</button>
+            </div>
+
+            <!-- Sub-input: frequency mode -->
+            <div class="cpu-usage-sub" id="cpu-usage-sub-frequency" style="display:none">
+              <input type="text" id="cpu-freq-times" class="number-input cpu-freq-input" placeholder="3" inputmode="numeric">
+              <span class="cpu-freq-text" id="cpu-freq-per-text">times per</span>
+              <select id="cpu-freq-period" class="cpu-freq-select">
+                <option value="day">day</option>
+                <option value="week" selected>week</option>
+                <option value="month">month</option>
+              </select>
+            </div>
+
+            <!-- Sub-input: total mode -->
+            <div class="cpu-usage-sub" id="cpu-usage-sub-total" style="display:none">
+              <input type="text" id="cpu-total-uses" class="number-input cpu-total-input" placeholder="300" inputmode="numeric">
+              <span class="cpu-freq-text" id="cpu-total-uses-text">total uses</span>
+            </div>
+          </div>
+
+          <!-- Calculate button -->
+          <div class="card-submit">
+            <button class="submit-arrow" onclick="calculateCostPerUse()">Go</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result card (placeholder for now) -->
+      <div class="result-card result-blue" id="cpu-result" style="display:none">
+        <div class="result-content">
+          <p class="result-text" id="cpu-result-text"></p>
+        </div>
+      </div>
+
+      <!-- Layer 2: Ongoing costs -->
+      <div class="card input-card cpu-layer2-card" id="cpu-layer2" style="display:none">
+        <div class="card-inner">
+          <h3 class="cpu-layer2-title" id="cpu-layer2-title">Hidden costs add up</h3>
+          <p class="cpu-layer2-subtitle" id="cpu-layer2-subtitle">Add what applies — skip what doesn't.</p>
+
+          <!-- 1. Consumables & refills -->
+          <div class="cpu-category" id="cpu-cat-consumables">
+            <button class="cpu-cat-header" onclick="cpuToggleCategory('consumables')">
+              <div class="cpu-cat-header-text">
+                <span class="cpu-cat-name" id="cpu-cat-consumables-name">Consumables & refills</span>
+                <span class="cpu-cat-desc" id="cpu-cat-consumables-desc">Coffee pods, ink, filters, razor blades</span>
+              </div>
+              <span class="cpu-cat-arrow">▸</span>
+            </button>
+            <div class="cpu-cat-body" style="display:none">
+              <span class="cpu-cat-prompt" id="cpu-consumables-prompt">I spend about</span>
+              <div class="cpu-cat-input-row">
+                <span class="currency-badge" id="cpu-consumables-badge">$</span>
+                <input type="text" id="cpu-consumables-amount" class="number-input cpu-cat-amount" placeholder="e.g. 500,000" inputmode="numeric">
+              </div>
+              <div class="cpu-cat-period-group">
+                <span class="cpu-cat-per" id="cpu-consumables-per">every</span>
+                <select id="cpu-consumables-period" class="cpu-cat-period-select">
+                  <option value="month">month</option>
+                  <option value="year">year</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Subscriptions & fees -->
+          <div class="cpu-category" id="cpu-cat-subscriptions">
+            <button class="cpu-cat-header" onclick="cpuToggleCategory('subscriptions')">
+              <div class="cpu-cat-header-text">
+                <span class="cpu-cat-name" id="cpu-cat-subscriptions-name">Subscriptions & fees</span>
+                <span class="cpu-cat-desc" id="cpu-cat-subscriptions-desc">App fees, insurance, parking, storage</span>
+              </div>
+              <span class="cpu-cat-arrow">▸</span>
+            </button>
+            <div class="cpu-cat-body" style="display:none">
+              <span class="cpu-cat-prompt" id="cpu-subscriptions-prompt">I spend about</span>
+              <div class="cpu-cat-input-row">
+                <span class="currency-badge" id="cpu-subscriptions-badge">$</span>
+                <input type="text" id="cpu-subscriptions-amount" class="number-input cpu-cat-amount" placeholder="e.g. 500,000" inputmode="numeric">
+              </div>
+              <div class="cpu-cat-period-group">
+                <span class="cpu-cat-per" id="cpu-subscriptions-per">every</span>
+                <select id="cpu-subscriptions-period" class="cpu-cat-period-select">
+                  <option value="month">month</option>
+                  <option value="year">year</option>
+                  <option value="lifetime">lifetime</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Accessories -->
+          <div class="cpu-category" id="cpu-cat-accessories">
+            <button class="cpu-cat-header" onclick="cpuToggleCategory('accessories')">
+              <div class="cpu-cat-header-text">
+                <span class="cpu-cat-name" id="cpu-cat-accessories-name">Accessories</span>
+                <span class="cpu-cat-desc" id="cpu-cat-accessories-desc">Cases, attachments, cleaning supplies</span>
+              </div>
+              <span class="cpu-cat-arrow">▸</span>
+            </button>
+            <div class="cpu-cat-body" style="display:none">
+              <span class="cpu-cat-prompt" id="cpu-accessories-prompt">Total I'll spend on accessories</span>
+              <div class="cpu-cat-input-row">
+                <span class="currency-badge" id="cpu-accessories-badge">$</span>
+                <input type="text" id="cpu-accessories-amount" class="number-input cpu-cat-amount" placeholder="e.g. 500,000" inputmode="numeric">
+                <span class="cpu-cat-per" id="cpu-accessories-total-label">one-time</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Energy / utility costs -->
+          <div class="cpu-category" id="cpu-cat-energy">
+            <button class="cpu-cat-header" onclick="cpuToggleCategory('energy')">
+              <div class="cpu-cat-header-text">
+                <span class="cpu-cat-name" id="cpu-cat-energy-name">Energy / utility costs</span>
+                <span class="cpu-cat-desc" id="cpu-cat-energy-desc">Electricity, gas, water usage</span>
+              </div>
+              <span class="cpu-cat-arrow">▸</span>
+            </button>
+            <div class="cpu-cat-body" style="display:none">
+              <span class="cpu-cat-prompt" id="cpu-energy-prompt">This adds about</span>
+              <div class="cpu-cat-input-row">
+                <span class="currency-badge" id="cpu-energy-badge">$</span>
+                <input type="text" id="cpu-energy-amount" class="number-input cpu-cat-amount" placeholder="e.g. 500,000" inputmode="numeric">
+              </div>
+              <div class="cpu-cat-period-group">
+                <span class="cpu-cat-per" id="cpu-energy-per">every</span>
+                <select id="cpu-energy-period" class="cpu-cat-period-select">
+                  <option value="month">month</option>
+                  <option value="year">year</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Maintenance & repairs -->
+          <div class="cpu-category" id="cpu-cat-maintenance">
+            <button class="cpu-cat-header" onclick="cpuToggleCategory('maintenance')">
+              <div class="cpu-cat-header-text">
+                <span class="cpu-cat-name" id="cpu-cat-maintenance-name">Maintenance & repairs</span>
+                <span class="cpu-cat-desc" id="cpu-cat-maintenance-desc">Servicing, repairs, tune-ups</span>
+              </div>
+              <span class="cpu-cat-arrow">▸</span>
+            </button>
+            <div class="cpu-cat-body" style="display:none">
+              <span class="cpu-cat-prompt" id="cpu-maintenance-prompt">I spend about</span>
+              <div class="cpu-cat-input-row">
+                <span class="currency-badge" id="cpu-maintenance-badge">$</span>
+                <input type="text" id="cpu-maintenance-amount" class="number-input cpu-cat-amount" placeholder="e.g. 500,000" inputmode="numeric">
+              </div>
+              <div class="cpu-cat-period-group">
+                <span class="cpu-cat-per" id="cpu-maintenance-per">every</span>
+                <select id="cpu-maintenance-period" class="cpu-cat-period-select">
+                  <option value="month">month</option>
+                  <option value="year">year</option>
+                  <option value="lifetime">lifetime</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recalculate button -->
+          <div class="card-submit">
+            <button class="submit-arrow" onclick="recalculateCpuWithOngoing()">Recalculate</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Updated result card (after Layer 2) -->
+      <div class="result-card result-blue" id="cpu-result-full" style="display:none">
+        <div class="result-content">
+          <p class="result-text" id="cpu-result-full-text"></p>
+        </div>
+      </div>
+
+      <!-- Bottom navigation -->
+      <div class="bottom-nav" id="cpu-bottom-nav" style="display:none">
+        <p class="bottom-nav-label" id="cpu-nav-label">Continue calculating...</p>
+        <div class="bottom-nav-buttons">
+          <button class="nav-btn nav-btn-costperuse" onclick="resetAndStay('costperuse')">cost per use</button>
+          <button class="nav-btn nav-btn-regular" onclick="navigateTo('regular')">regular expense</button>
+          <button class="nav-btn nav-btn-onetime" onclick="navigateTo('onetime')">one-time purchase</button>
+          <button class="nav-btn nav-btn-expenses" onclick="navigateTo('expenses')">monthly expenses</button>
+        </div>
+      </div>
+
+      <a class="feedback-link" href="#" onclick="openFeedback(); return false;">Feedback</a>
     </div>
 
     <!-- ============================================================

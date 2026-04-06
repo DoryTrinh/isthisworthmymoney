@@ -95,6 +95,7 @@ function applyLanguage() {
   setTextAll(".home-question", t("homeQuestion"));
   setTextByOnclick("navigateTo('regular')", t("homeBtnRegular"));
   setTextByOnclick("navigateTo('onetime')", t("homeBtnOnetime"));
+  setTextByOnclick("navigateTo('costperuse')", t("homeBtnCostperuse"));
   setTextByOnclick("navigateTo('expenses')", t("homeBtnExpenses"));
 
   // --- PROFILE ---
@@ -108,6 +109,10 @@ function applyLanguage() {
   // --- ONE-TIME ---
   setHTML(".onetime-title", t("onetimeTitle"));
   applyOnetimeLabels();
+
+  // --- COST PER USE ---
+  setHTML(".costperuse-title", t("costperuseTitle"));
+  applyCostPerUseLabels();
 
   // --- EXPENSES ---
   setText(".expenses-title", t("expensesTitle"));
@@ -154,6 +159,21 @@ function setTextByOnclick(onclickContent, text) {
     if (btns[i].children.length === 0) {
       btns[i].textContent = text;
     }
+  }
+}
+
+function applyBottomNavLabels(screen) {
+  if (!screen) return;
+  var label = screen.querySelector(".bottom-nav-label");
+  if (label) label.textContent = t("navContinue");
+
+  var btns = screen.querySelectorAll(".bottom-nav .nav-btn");
+  for (var i = 0; i < btns.length; i++) {
+    var btn = btns[i];
+    if (btn.classList.contains("nav-btn-regular")) btn.textContent = t("navRegular");
+    else if (btn.classList.contains("nav-btn-onetime")) btn.textContent = t("navOnetime");
+    else if (btn.classList.contains("nav-btn-costperuse")) btn.textContent = t("navCostperuse");
+    else if (btn.classList.contains("nav-btn-expenses")) btn.textContent = t("navExpenses");
   }
 }
 
@@ -278,10 +298,7 @@ function applyRegularLabels() {
   if (summaryLink) summaryLink.textContent = t("profileUpdateIncome");
 
   // Bottom nav
-  var navBtns = screen.querySelectorAll(".bottom-nav .nav-btn");
-  if (navBtns[0]) navBtns[0].textContent = t("regularBtnReset");
-  if (navBtns[1]) navBtns[1].textContent = t("regularBtnOnetime");
-  if (navBtns[2]) navBtns[2].textContent = t("regularBtnExpenses");
+  applyBottomNavLabels(screen);
 }
 
 function applyOnetimeLabels() {
@@ -338,10 +355,87 @@ function applyOnetimeLabels() {
   if (summaryLink) summaryLink.textContent = t("profileUpdateIncome");
 
   // Bottom nav
-  var navBtns = screen.querySelectorAll(".bottom-nav .nav-btn");
-  if (navBtns[0]) navBtns[0].textContent = t("onetimeBtnReset");
-  if (navBtns[1]) navBtns[1].textContent = t("onetimeBtnRegular");
-  if (navBtns[2]) navBtns[2].textContent = t("onetimeBtnExpenses");
+  applyBottomNavLabels(screen);
+}
+
+function applyCostPerUseLabels() {
+  var screen = document.getElementById("screen-costperuse");
+  if (!screen) return;
+
+  setText("#cpu-currency-label", t("cpuCurrencyLabel"));
+  setText("#cpu-item-label", t("cpuItemLabel"));
+  var itemInput = document.getElementById("cpu-item");
+  if (itemInput) itemInput.placeholder = t("cpuItemPlaceholder");
+
+  setText("#cpu-cost-label", t("cpuCostLabel") + ' <span class="required">*</span>');
+  var costLabel = document.getElementById("cpu-cost-label");
+  if (costLabel) costLabel.innerHTML = t("cpuCostLabel") + ' <span class="required">*</span>';
+
+  var lifespanLabel = document.getElementById("cpu-lifespan-label");
+  if (lifespanLabel) lifespanLabel.innerHTML = t("cpuLifespanLabel") + ' <span class="required">*</span>';
+
+  var lifespanSelect = document.getElementById("cpu-lifespan-unit");
+  if (lifespanSelect) {
+    lifespanSelect.options[0].text = t("cpuLifespanYears");
+    lifespanSelect.options[1].text = t("cpuLifespanMonths");
+  }
+
+  var usageLabel = document.getElementById("cpu-usage-label");
+  if (usageLabel) usageLabel.innerHTML = t("cpuUsageLabel") + ' <span class="required">*</span>';
+
+  setText("#cpu-usage-btn-daily", t("cpuUsageDaily"));
+  setText("#cpu-usage-btn-frequency", t("cpuUsageFrequency"));
+  setText("#cpu-usage-btn-total", t("cpuUsageTotal"));
+
+  setText("#cpu-freq-per-text", t("cpuFreqPer"));
+  var freqSelect = document.getElementById("cpu-freq-period");
+  if (freqSelect) {
+    freqSelect.options[0].text = t("cpuFreqDay");
+    freqSelect.options[1].text = t("cpuFreqWeek");
+    freqSelect.options[2].text = t("cpuFreqMonth");
+  }
+
+  setText("#cpu-total-uses-text", t("cpuTotalUsesLabel"));
+
+  // Layer 2
+  setText("#cpu-layer2-title", t("cpuLayer2Title"));
+  setText("#cpu-layer2-subtitle", t("cpuLayer2Subtitle"));
+  setText("#cpu-cat-consumables-name", t("cpuCatConsumables"));
+  setText("#cpu-cat-consumables-desc", t("cpuCatConsumablesDesc"));
+  setText("#cpu-cat-subscriptions-name", t("cpuCatSubscriptions"));
+  setText("#cpu-cat-subscriptions-desc", t("cpuCatSubscriptionsDesc"));
+  setText("#cpu-cat-accessories-name", t("cpuCatAccessories"));
+  setText("#cpu-cat-accessories-desc", t("cpuCatAccessoriesDesc"));
+  setText("#cpu-accessories-total-label", t("cpuCatAccessoriesTotal"));
+  setText("#cpu-cat-energy-name", t("cpuCatEnergy"));
+  setText("#cpu-cat-energy-desc", t("cpuCatEnergyDesc"));
+  setText("#cpu-cat-maintenance-name", t("cpuCatMaintenance"));
+  setText("#cpu-cat-maintenance-desc", t("cpuCatMaintenanceDesc"));
+
+  // Prompt labels
+  setText("#cpu-consumables-prompt", t("cpuCatPromptSpend"));
+  setText("#cpu-subscriptions-prompt", t("cpuCatPromptSpend"));
+  setText("#cpu-energy-prompt", t("cpuCatPromptEnergy"));
+  setText("#cpu-maintenance-prompt", t("cpuCatPromptSpend"));
+  setText("#cpu-accessories-prompt", t("cpuCatAccessoriesPrompt"));
+
+  // Period selects and per labels
+  ["consumables", "subscriptions", "energy", "maintenance"].forEach(function (cat) {
+    setText("#cpu-" + cat + "-per", t("cpuCatPer"));
+    var sel = document.getElementById("cpu-" + cat + "-period");
+    if (sel) {
+      sel.options[0].text = t("cpuCatMonth");
+      sel.options[1].text = t("cpuCatYear");
+      if (sel.options[2]) sel.options[2].text = t("cpuCatLifetime");
+    }
+  });
+
+  // Recalculate button
+  var recalcBtn = screen.querySelector(".cpu-layer2-card .submit-arrow");
+  if (recalcBtn) recalcBtn.textContent = t("cpuRecalculate");
+
+  // Bottom nav
+  applyBottomNavLabels(screen);
 }
 
 function applyExpensesLabels() {
@@ -756,6 +850,7 @@ function navigateTo(screenId) {
   if (screenId === "profile") populateProfileForm();
   if (screenId === "regular") updateCurrencyBadge("regular");
   if (screenId === "onetime") updateCurrencyBadge("onetime");
+  if (screenId === "costperuse") initCostPerUseScreen();
   if (screenId === "expenses") initExpensesScreen(true);
   if (screenId === "compare") {
     if (typeof renderComparisonScreen === "function") {
@@ -1518,6 +1613,301 @@ function downloadImage(blob) {
   showToast(t("toastImageSaved"));
 }
 
+/* ============================================================
+   COST PER USE CALCULATOR
+   ============================================================ */
+
+var cpuUsageMode = "daily";
+
+function initCostPerUseScreen() {
+  var select = document.getElementById("cpu-currency");
+  if (!select) return;
+
+  // Only populate if empty (first time)
+  if (select.options.length === 0) {
+    CURRENCIES.forEach(function (c) {
+      var opt = document.createElement("option");
+      opt.value = c.code;
+      opt.textContent = c.code + " (" + c.symbol + ") — " + c.name;
+      select.appendChild(opt);
+    });
+
+    // Set default based on language
+    var lang = localStorage.getItem("worthMyMoneyLang") || "vi";
+    select.value = lang === "vi" ? "VND" : "USD";
+
+    // Update badge when currency changes
+    select.addEventListener("change", function () {
+      cpuUpdateBadge();
+    });
+  }
+
+  cpuUpdateBadge();
+}
+
+function cpuUpdateBadge() {
+  var select = document.getElementById("cpu-currency");
+  var badge = document.getElementById("costperuse-currency-badge");
+  if (!select || !badge) return;
+  var found = CURRENCIES.find(function (c) { return c.code === select.value; });
+  badge.textContent = found ? found.symbol : select.value;
+}
+
+function cpuGetSymbol() {
+  var select = document.getElementById("cpu-currency");
+  if (!select) return "$";
+  var found = CURRENCIES.find(function (c) { return c.code === select.value; });
+  return found ? found.symbol : select.value;
+}
+
+function cpuSetUsageMode(mode) {
+  cpuUsageMode = mode;
+  var btns = document.querySelectorAll(".cpu-usage-btn");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.remove("selected");
+  }
+  document.getElementById("cpu-usage-btn-" + mode).classList.add("selected");
+
+  document.getElementById("cpu-usage-sub-frequency").style.display = mode === "frequency" ? "flex" : "none";
+  document.getElementById("cpu-usage-sub-total").style.display = mode === "total" ? "flex" : "none";
+}
+
+function calculateCostPerUse() {
+  var cost = parseFormattedNumber(document.getElementById("cpu-cost").value);
+  var lifespan = parseFormattedNumber(document.getElementById("cpu-lifespan").value);
+  var lifespanUnit = document.getElementById("cpu-lifespan-unit").value;
+
+  // Validate required fields
+  var invalidFields = [];
+  if (!cost) invalidFields.push("cpu-cost");
+  if (!lifespan) invalidFields.push("cpu-lifespan");
+
+  if (cpuUsageMode === "frequency") {
+    var freqTimes = parseFormattedNumber(document.getElementById("cpu-freq-times").value);
+    if (!freqTimes) invalidFields.push("cpu-freq-times");
+  }
+  if (cpuUsageMode === "total") {
+    var totalUses = parseFormattedNumber(document.getElementById("cpu-total-uses").value);
+    if (!totalUses) invalidFields.push("cpu-total-uses");
+  }
+
+  if (invalidFields.length > 0) {
+    showValidationError(invalidFields);
+    return;
+  }
+
+  // Convert lifespan to days
+  var lifespanDays;
+  if (lifespanUnit === "years") {
+    lifespanDays = lifespan * 365;
+  } else {
+    lifespanDays = lifespan * 30;
+  }
+
+  // Calculate total uses
+  var uses;
+  if (cpuUsageMode === "daily") {
+    uses = lifespanDays;
+  } else if (cpuUsageMode === "frequency") {
+    freqTimes = parseFormattedNumber(document.getElementById("cpu-freq-times").value);
+    var period = document.getElementById("cpu-freq-period").value;
+    if (period === "day") {
+      uses = freqTimes * lifespanDays;
+    } else if (period === "week") {
+      uses = freqTimes * (lifespanDays / 7);
+    } else {
+      uses = freqTimes * (lifespanDays / 30);
+    }
+  } else {
+    uses = parseFormattedNumber(document.getElementById("cpu-total-uses").value);
+  }
+
+  uses = Math.round(uses);
+  if (uses <= 0) uses = 1;
+
+  var costPerUse = cost / uses;
+  var sym = cpuGetSymbol();
+  var itemName = document.getElementById("cpu-item").value || t("cpuDefaultItem");
+
+  // Save for Layer 2 recalculation
+  var isDaily = (cpuUsageMode === "daily");
+  lastCpuBasicResult = {
+    cost: cost,
+    uses: uses,
+    lifespan: lifespan,
+    lifespanUnit: lifespanUnit,
+    itemName: itemName,
+    isDaily: isDaily
+  };
+
+  // Hide Layer 2 and full result if recalculating
+  hideElement("cpu-layer2");
+  hideElement("cpu-result-full");
+
+  // Build result
+  var resultDiv = document.getElementById("cpu-result");
+  var html = "";
+  var lifespanText = lifespan + " " + (lifespanUnit === "years" ? t("cpuYears") : t("cpuMonths"));
+
+  html += "<div class='cpu-result-headline'>";
+  html += "<span class='cpu-result-label'>" + t(isDaily ? "cpuResultLabelDaily" : "cpuResultLabel") + "</span>";
+  html += "<span class='cpu-result-value'>" + sym + " " + formatCostPerUse(costPerUse) + "</span>";
+  html += "<span class='cpu-result-per'>" + t(isDaily ? "cpuResultPerDaily" : "cpuResultPer") + "</span>";
+  html += "</div>";
+
+  html += "<div class='cpu-result-summary'>";
+  html += t("cpuSummaryCost").replace("%item%", "<strong>" + itemName + "</strong>").replace("%cost%", "<strong>" + sym + " " + formatNumber(Math.round(cost)) + "</strong>") + "<br>";
+  if (isDaily) {
+    html += t("cpuSummaryUsesDaily").replace("%lifespan%", "<strong>" + lifespanText + "</strong>");
+  } else {
+    html += t("cpuSummaryUses").replace("%uses%", "<strong>" + formatNumber(uses) + "</strong>").replace("%lifespan%", "<strong>" + lifespanText + "</strong>");
+  }
+  html += "</div>";
+
+  html += "<div class='cpu-deeper-section'>";
+  html += "<button class='cpu-deeper-btn' onclick='showCpuLayer2()'>" + t(isDaily ? "cpuDeeperBtnDaily" : "cpuDeeperBtn") + "</button>";
+  html += "<p class='cpu-deeper-hint'>" + t("cpuDeeperHint") + "</p>";
+  html += "</div>";
+
+  resultDiv.innerHTML = html;
+  resultDiv.style.display = "block";
+
+  // Show bottom nav
+  document.getElementById("cpu-bottom-nav").style.display = "block";
+
+  resultDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+var lastCpuBasicResult = null;
+
+function showCpuLayer2() {
+  var layer2 = document.getElementById("cpu-layer2");
+  if (!layer2) return;
+
+  // Update currency badges on Layer 2
+  var sym = cpuGetSymbol();
+  var badges = ["cpu-consumables-badge", "cpu-subscriptions-badge", "cpu-accessories-badge", "cpu-energy-badge", "cpu-maintenance-badge"];
+  badges.forEach(function (id) {
+    var badge = document.getElementById(id);
+    if (badge) badge.textContent = sym;
+  });
+
+  // Setup number inputs for Layer 2 fields (only once)
+  ["cpu-consumables-amount", "cpu-subscriptions-amount", "cpu-accessories-amount", "cpu-energy-amount", "cpu-maintenance-amount"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el && !el.dataset.formatted) {
+      setupNumberInput(el);
+      el.dataset.formatted = "1";
+    }
+  });
+
+  layer2.style.display = "block";
+  layer2.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function cpuToggleCategory(catId) {
+  var cat = document.getElementById("cpu-cat-" + catId);
+  if (!cat) return;
+  var body = cat.querySelector(".cpu-cat-body");
+  var isOpen = cat.classList.contains("open");
+
+  if (isOpen) {
+    cat.classList.remove("open");
+    body.style.display = "none";
+  } else {
+    cat.classList.add("open");
+    body.style.display = "block";
+  }
+}
+
+function recalculateCpuWithOngoing() {
+  if (!lastCpuBasicResult) return;
+
+  var cost = lastCpuBasicResult.cost;
+  var uses = lastCpuBasicResult.uses;
+  var lifespan = lastCpuBasicResult.lifespan;
+  var lifespanUnit = lastCpuBasicResult.lifespanUnit;
+  var itemName = lastCpuBasicResult.itemName;
+  var sym = cpuGetSymbol();
+
+  // Convert lifespan to months for ongoing cost calculations
+  var lifespanMonths;
+  if (lifespanUnit === "years") {
+    lifespanMonths = lifespan * 12;
+  } else {
+    lifespanMonths = lifespan;
+  }
+
+  // Calculate ongoing costs over the full lifespan
+  var consumablesTotal = cpuGetOngoingTotal("consumables", lifespanMonths);
+  var subscriptionsTotal = cpuGetOngoingTotal("subscriptions", lifespanMonths);
+  var accessoriesTotal = parseFormattedNumber(document.getElementById("cpu-accessories-amount").value) || 0;
+  var energyTotal = cpuGetOngoingTotal("energy", lifespanMonths);
+  var maintenanceTotal = cpuGetOngoingTotal("maintenance", lifespanMonths);
+
+  var ongoingTotal = consumablesTotal + subscriptionsTotal + accessoriesTotal + energyTotal + maintenanceTotal;
+  var trueTotalCost = cost + ongoingTotal;
+  var trueCostPerUse = trueTotalCost / uses;
+  var basicCostPerUse = cost / uses;
+
+  // Build full result
+  var resultDiv = document.getElementById("cpu-result-full");
+  var html = "";
+
+  // Comparison: basic vs actual
+  var isDaily = lastCpuBasicResult.isDaily;
+  html += "<div class='cpu-full-result-comparison'>";
+  html += "<div class='cpu-compare-col'>";
+  html += "<span class='cpu-compare-label'>" + t(isDaily ? "cpuBasicCpuDaily" : "cpuBasicCpu") + "</span>";
+  html += "<span class='cpu-compare-value old'>" + sym + " " + formatCostPerUse(basicCostPerUse) + "</span>";
+  html += "</div>";
+  html += "<div class='cpu-compare-arrow'>→</div>";
+  html += "<div class='cpu-compare-col'>";
+  html += "<span class='cpu-compare-label'>" + t(isDaily ? "cpuActualCpuDaily" : "cpuActualCpu") + "</span>";
+  html += "<span class='cpu-compare-value new'>" + sym + " " + formatCostPerUse(trueCostPerUse) + "</span>";
+  html += "</div>";
+  html += "</div>";
+
+  // Breakdown
+  html += "<div class='cpu-full-breakdown'>";
+  html += "<div class='cpu-breakdown-row'><span>" + t("cpuBreakdownPurchase") + "</span><span>" + sym + " " + formatNumber(Math.round(cost)) + "</span></div>";
+  if (consumablesTotal > 0) html += "<div class='cpu-breakdown-row'><span>" + t("cpuCatConsumables") + "</span><span>+ " + sym + " " + formatNumber(Math.round(consumablesTotal)) + "</span></div>";
+  if (subscriptionsTotal > 0) html += "<div class='cpu-breakdown-row'><span>" + t("cpuCatSubscriptions") + "</span><span>+ " + sym + " " + formatNumber(Math.round(subscriptionsTotal)) + "</span></div>";
+  if (accessoriesTotal > 0) html += "<div class='cpu-breakdown-row'><span>" + t("cpuCatAccessories") + "</span><span>+ " + sym + " " + formatNumber(Math.round(accessoriesTotal)) + "</span></div>";
+  if (energyTotal > 0) html += "<div class='cpu-breakdown-row'><span>" + t("cpuCatEnergy") + "</span><span>+ " + sym + " " + formatNumber(Math.round(energyTotal)) + "</span></div>";
+  if (maintenanceTotal > 0) html += "<div class='cpu-breakdown-row'><span>" + t("cpuCatMaintenance") + "</span><span>+ " + sym + " " + formatNumber(Math.round(maintenanceTotal)) + "</span></div>";
+  html += "<div class='cpu-breakdown-row total'><span>" + t("cpuBreakdownTrue") + "</span><span>" + sym + " " + formatNumber(Math.round(trueTotalCost)) + "</span></div>";
+  html += "</div>";
+
+  resultDiv.innerHTML = html;
+  resultDiv.style.display = "block";
+  resultDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function cpuGetOngoingTotal(catId, lifespanMonths) {
+  var amount = parseFormattedNumber(document.getElementById("cpu-" + catId + "-amount").value) || 0;
+  if (amount === 0) return 0;
+  var periodEl = document.getElementById("cpu-" + catId + "-period");
+  if (!periodEl) return 0;
+  var period = periodEl.value;
+  if (period === "month") {
+    return amount * lifespanMonths;
+  } else if (period === "year") {
+    return amount * (lifespanMonths / 12);
+  } else {
+    // lifetime — one-time total
+    return amount;
+  }
+}
+
+function formatCostPerUse(num) {
+  if (num >= 1000) return formatNumber(Math.round(num));
+  if (num >= 100) return num.toFixed(0);
+  if (num >= 10) return num.toFixed(1);
+  if (num >= 1) return num.toFixed(2);
+  return num.toFixed(2);
+}
+
 function showToast(message) {
   var existing = document.querySelector(".toast");
   if (existing) existing.remove();
@@ -1566,6 +1956,31 @@ function resetAndStay(screen) {
     hideElement("onetime-income-summary");
     hideElement("onetime-bottom-nav");
     lastOnetimeResult = null;
+  } else if (screen === "costperuse") {
+    document.getElementById("cpu-item").value = "";
+    document.getElementById("cpu-cost").value = "";
+    document.getElementById("cpu-lifespan").value = "";
+    document.getElementById("cpu-lifespan-unit").value = "years";
+    document.getElementById("cpu-freq-times").value = "";
+    document.getElementById("cpu-total-uses").value = "";
+    cpuSetUsageMode("daily");
+    hideElement("cpu-result");
+    hideElement("cpu-layer2");
+    hideElement("cpu-result-full");
+    hideElement("cpu-bottom-nav");
+    // Clear Layer 2 inputs
+    ["cpu-consumables-amount", "cpu-subscriptions-amount", "cpu-accessories-amount", "cpu-energy-amount", "cpu-maintenance-amount"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    // Close all categories
+    var cats = document.querySelectorAll(".cpu-category.open");
+    for (var ci = 0; ci < cats.length; ci++) {
+      cats[ci].classList.remove("open");
+      var body = cats[ci].querySelector(".cpu-cat-body");
+      if (body) body.style.display = "none";
+    }
+    lastCpuBasicResult = null;
   }
   window.scrollTo(0, 0);
 }
@@ -4236,13 +4651,15 @@ document.addEventListener("DOMContentLoaded", function () {
   populateProfileForm();
   updateProfileExpenses();
 
-  /* Initialize expenses screen if it was restored */
+  /* Initialize screens if restored */
   if (savedScreen === "expenses") initExpensesScreen();
+  initCostPerUseScreen();
   setupCurrencySearch();
   setupOtherExpensesSearch();
 
   /* Live formatting on numeric inputs */
   ["profile-income", "profile-hours", "regular-times", "regular-cost", "onetime-cost", "saving-amount",
+   "cpu-cost", "cpu-lifespan", "cpu-freq-times", "cpu-total-uses",
    "housing-amount", "utilities-total",
    "utilities-electricity", "utilities-water", "utilities-internet", "utilities-others",
    "food-groceries-amount", "food-groceries-times",

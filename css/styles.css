@@ -1166,14 +1166,18 @@ html, body {
   margin-bottom: 20px;
 }
 
-.bottom-nav-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+.bottom-nav-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #9A9490;
+  margin: 0 0 10px;
 }
 
-.bottom-nav-buttons .nav-btn:nth-child(n+3) {
-  flex: 1 1 100%;
+.bottom-nav-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .nav-btn {
@@ -1203,6 +1207,444 @@ html, body {
 .nav-btn-regular { background: #dedaff; }
 .nav-btn-onetime { background: #bcffed; }
 .nav-btn-expenses { background: #FFF5D6; }
+.nav-btn-costperuse { background: #c7d7ff; }
+
+/* ============================================================
+   COST PER USE CALCULATOR
+   ============================================================ */
+
+/* Currency select */
+.cpu-currency-select {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2D2A26;
+  background: #F5F3F0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Lifespan input group */
+.cpu-lifespan-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cpu-lifespan-input {
+  width: 60px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.cpu-lifespan-select {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2D2A26;
+  background: #F5F3F0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+/* Usage frequency section */
+.cpu-usage-section {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.cpu-usage-toggles {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.cpu-usage-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6B6560;
+  background: #F5F3F0;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.cpu-usage-btn:hover {
+  border-color: #4A6FA5;
+}
+
+.cpu-usage-btn.selected {
+  background: #c7d7ff;
+  color: #2D2A26;
+  border-color: #4A6FA5;
+}
+
+/* Sub-inputs for frequency / total modes */
+.cpu-usage-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cpu-freq-input {
+  width: 55px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.cpu-freq-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B6560;
+  white-space: nowrap;
+}
+
+.cpu-freq-select {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2D2A26;
+  background: #F5F3F0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.cpu-total-input {
+  width: 80px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Result card blue variant */
+.result-blue {
+  background: #EBF0FF;
+  border: 1.5px solid #c7d7ff;
+  padding: 24px 20px;
+}
+
+.cpu-result-headline {
+  text-align: center;
+  padding: 8px 0 16px;
+}
+
+.cpu-result-label {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B6560;
+  margin-bottom: 4px;
+}
+
+.cpu-result-value {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #4A6FA5;
+}
+
+.cpu-result-per {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B6560;
+  margin-top: 2px;
+}
+
+.cpu-result-summary {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4A4540;
+  line-height: 1.6;
+  padding: 12px 0 0;
+  border-top: 1px solid #d4dff5;
+}
+
+.cpu-result-summary strong {
+  font-weight: 700;
+  color: #2D2A26;
+}
+
+.cpu-deeper-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #d4dff5;
+  text-align: center;
+}
+
+.cpu-deeper-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #4A6FA5;
+  background: #fff;
+  border: 2px solid #4A6FA5;
+  border-radius: 16px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  width: 100%;
+}
+
+.cpu-deeper-btn:hover {
+  background: #dce6f8;
+}
+
+.cpu-deeper-btn:active {
+  transform: scale(0.98);
+}
+
+.cpu-deeper-hint {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9A9490;
+  margin-top: 6px;
+}
+
+/* Layer 2 card */
+.cpu-layer2-card {
+  margin-top: 16px;
+}
+
+.cpu-layer2-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #2D2A26;
+  margin: 0 0 4px;
+}
+
+.cpu-layer2-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9A9490;
+  margin: 0 0 16px;
+}
+
+/* Category accordion */
+.cpu-category {
+  border: 1.5px solid #E8E5E1;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.cpu-category.open {
+  border-color: #4A6FA5;
+}
+
+.cpu-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Nunito', sans-serif;
+  transition: background 0.15s;
+}
+
+.cpu-cat-header:hover {
+  background: #F9F8F6;
+}
+
+.cpu-cat-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cpu-cat-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2D2A26;
+}
+
+.cpu-cat-desc {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9A9490;
+}
+
+.cpu-cat-arrow {
+  font-size: 16px;
+  color: #9A9490;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.cpu-category.open .cpu-cat-arrow {
+  transform: rotate(90deg);
+}
+
+.cpu-cat-body {
+  padding: 0 16px 14px;
+}
+
+.cpu-cat-prompt {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9A9490;
+  margin-bottom: 6px;
+}
+
+.cpu-cat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cpu-cat-amount-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cpu-cat-period-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.cpu-cat-amount {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: right;
+}
+
+.cpu-cat-per {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6B6560;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cpu-cat-period-select {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2D2A26;
+  background: #F5F3F0;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Full result card */
+.cpu-full-result-comparison {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 12px 0 16px;
+}
+
+.cpu-compare-col {
+  text-align: center;
+  flex: 1;
+}
+
+.cpu-compare-label {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9A9490;
+  margin-bottom: 4px;
+}
+
+.cpu-compare-value {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.cpu-compare-value.old {
+  color: #B0AAA4;
+  text-decoration: line-through;
+}
+
+.cpu-compare-value.new {
+  color: #c0392b;
+}
+
+.cpu-compare-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: #9A9490;
+}
+
+.cpu-full-breakdown {
+  border-top: 1px solid #d4dff5;
+  padding-top: 12px;
+}
+
+.cpu-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: #6B6560;
+  padding: 3px 0;
+}
+
+.cpu-breakdown-row span:last-child {
+  font-weight: 700;
+  color: #2D2A26;
+}
+
+.cpu-breakdown-row.total {
+  border-top: 1px solid #d4dff5;
+  margin-top: 6px;
+  padding-top: 8px;
+  font-weight: 700;
+}
+
+.cpu-breakdown-row.total span {
+  font-weight: 800;
+  color: #2D2A26;
+}
 
 /* ============================================================
    17. DAILY EXPENSES WIZARD
@@ -1217,9 +1659,17 @@ html, body {
   background: #E0E8FF;
 }
 
+.btn-costperuse {
+  background: #c7d7ff;
+}
+
 /* --- Title --- */
 .expenses-title {
   color: #D4940A;
+}
+
+.costperuse-title {
+  color: #4A6FA5;
 }
 
 /* --- Subtitle --- */
