@@ -25,8 +25,6 @@ lang: vi
 
 Thực ra mà nói, không có một quy chuẩn chung nào để đánh giá sự “đáng tiền” của tất cả các sản phẩm. Một chiếc điện thoại trị giá 6.000đ/ngày mang lại cho bạn một giá trị khác so với một chiếc máy nướng bánh mì có giá 6.000đ/lần dùng. Mức độ hợp lý của sản phẩm phụ thuộc vào việc nó làm được gì cho bạn, và nếu không có nó thì bạn sẽ phải chi bao nhiêu tiền cho một sản phẩm/ dịch vụ tương đương.
 
-
-
 ## **Cách tính chi phí mỗi lần dùng (công thức đầy đủ)**
 
 ![Chi phí mỗi lần sử dụng - bản chi tiết](/blog/images/3.vi.3.png "Chi phí chi tiết")
@@ -54,6 +52,14 @@ Số tiền này là rẻ hay đắt? Tuỳ thuộc bạn so sánh nó với cá
 * **So với tự quét dọn:** Một cái chổi 80.000đ (thay mỗi năm), cây lau nhà 400.000đ, nước lau sàn tầm 90.000đ/chai 3.6kg dùng được khoảng 3 tháng. Trong 3 năm bạn chi khoảng 1.7 triệu, nghĩa là \~ 1.600đ/lần. Rẻ gấp 7 lần robot, nhưng bạn đang đánh đổi bằng 15 phút mỗi sáng. Vậy câu hỏi dành cho bạn là: 15 phút mỗi ngày có đáng giá \~10.000đ với bạn không?
 
 Mỗi người sẽ có một câu trả lời khác nhau, nhưng bây giờ bạn đã thực sự nhìn thấy được con số và sự đánh đổi giữa sự tiện lợi, cảm giác thoải mái, thời gian và tiền bạc thay vì chỉ đoán mò.
+
+<div class="calculator-embed">
+
+  <iframe src="/embed/onetime-vi.html" title="Tính toán khoản muốn mua" loading="lazy"></iframe>
+
+  <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Dùng thử máy tính</a></div>
+
+</div>
 
 **Quy tắc 30 lần.** Trước khi lôi máy tính ra, đây là bài kiểm tra nhanh: nếu bạn không hình dung được mình sẽ dùng món đó ít nhất 30 lần, hãy suy nghĩ thật kỹ trước khi mua. Máy nướng bánh mì, máy ép chậm, cái thảm yoga v.v. - có thật là bạn sẽ dùng nó hơn 30 lần không? Nếu câu trả lời là "chắc là không", thì bạn đã có đáp án rồi.
 
