@@ -666,13 +666,11 @@
       html += '<div class="st-row st-can">' +
         '<div class="st-row-label">' + escapeHtml(t('canLabel')) + '</div>' +
         '<div class="st-row-value">' + fmt(r.canSave) + '<span>' + escapeHtml(t('perMonth')) + '</span></div>' +
-        '<div class="st-formula">' + fmt(r.income) + ' − ' + fmt(r.expenses) + ' − ' + fmt(r.buffer) + '</div>' +
       '</div>';
 
       html += '<div class="st-row st-need">' +
         '<div class="st-row-label">' + escapeHtml(t('needLabel')) + '</div>' +
         '<div class="st-row-value">' + fmt(r.needSave) + '<span>' + escapeHtml(t('perMonth')) + '</span></div>' +
-        '<div class="st-formula">' + fmt(r.goal) + ' ÷ ' + r.months + ' ' + escapeHtml(t('monthsWord')) + '</div>' +
       '</div>';
 
       if (onTrack) {
