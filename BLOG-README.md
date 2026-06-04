@@ -179,6 +179,50 @@ If you want a standalone calculator just for one blog post:
    </div>
    ```
 
+### Goal-Based Savings Target Calculator (`/embed/savings-target.html`)
+
+A reusable embed that runs two formulas in parallel — what you **CAN** save
+(total income − total expenses − buffer) vs. what you **NEED** to save (goal ÷ months) —
+shows the gap, and recommends clickable "levers" to close it (stretch the timeline,
+cut expenses, or shrink the goal). It's configured entirely via URL query params, so
+the same file serves many posts. Drop it in like any other embed:
+
+```html
+<div class="calculator-embed">
+  <iframe src="/embed/savings-target.html?currency=usd&goal=10000&months=18" title="Savings Target Calculator" loading="lazy"></iframe>
+</div>
+```
+
+**Itemized inputs.** Income and expenses are broken into categories rather than single
+totals: monthly income (salary + custom rows), yearly income (÷ 12), monthly expenses
+(rent / food / transport / other + custom rows), and yearly / irregular expenses
+(car maintenance / home repairs / insurance / other, entered as annual amounts and
+auto-divided by 12). Each section has an **+ Add line** button for custom items. The
+monthly buffer defaults to 5% of total income and can be overridden.
+
+**Bilingual + currency.** The USD ↔ VND toggle is also the language toggle: USD shows
+the whole UI in English, VND shows it in Vietnamese. Switching converts all entered
+values behind the scenes (fixed display rate, 1 USD = 25,000 VND) — nothing is lost.
+
+Query params (all optional):
+
+| Param | Example | Default |
+|---|---|---|
+| `currency` | `usd` or `vnd` (also sets the UI language) | `usd` |
+| `goal` | `goal=10000` (in the default currency) | `10000` USD / `250000000` VND |
+| `months` | `months=18` | `18` |
+| `title` | `title=Monthly+Savings+Calculator` (English heading) | built-in EN title |
+| `title_vi` | `title_vi=M%E1%BB%A5c+ti%C3%AAu+ti%E1%BA%BFt+ki%E1%BB%87m` (Vietnamese heading) | built-in VN title |
+| `subtitle` | `subtitle=Plug+in+your+numbers...` (English) | built-in EN subtitle |
+| `subtitle_vi` | `subtitle_vi=Nh%E1%BA%ADp+c%C3%A1c+con+s%E1%BB%91...` (Vietnamese) | built-in VN subtitle |
+
+`title`/`subtitle` apply to the English (USD) view; `title_vi`/`subtitle_vi` to the
+Vietnamese (VND) view. A language with no custom value falls back to its built-in
+default — so you only need to pass the one(s) you want to override.
+
+The iframe auto-resizes via `postMessage` (handled in `layouts/post.njk`), so no
+fixed height is needed.
+
 ---
 
 ## Tags

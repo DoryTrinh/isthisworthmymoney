@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savings Target Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="embed.css">
+  <style>
+    /* --- Savings-target-specific embed styles --- */
+    .embed-calc { max-width: 420px; }
+
+    .st-subtitle {
+      font-size: 13px;
+      color: #8A8580;
+      line-height: 1.5;
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    /* Currency / language toggle */
+    .st-toggle {
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid #EDEAE6;
+      margin-bottom: 6px;
+      width: fit-content;
+    }
+    .st-toggle-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6B6560;
+      background: white;
+      border: none;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .st-toggle-btn.active { background: #5B6AD0; color: white; }
+    .st-toggle-btn:focus-visible { outline: 2px solid #5B6AD0; outline-offset: 2px; }
+
+    /* Sections */
+    .st-section {
+      padding-top: 16px;
+      margin-top: 14px;
+      border-top: 1.5px solid #EDEAE6;
+    }
+    .st-section-head {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #D35233;
+      margin-bottom: 10px;
+    }
+    .st-subhead {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #8A8580;
+      margin: 12px 0 6px;
+    }
+
+    .st-helper {
+      font-size: 11px;
+      color: #A09A94;
+      line-height: 1.45;
+      margin-top: 5px;
+    }
+    .st-sub-helper { margin-top: -1px; margin-bottom: 8px; }
+
+    /* Line items (income / expense rows) */
+    .st-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .st-line-label {
+      flex: 1;
+      font-size: 13px;
+      color: #4A4540;
+      min-width: 0;
+    }
+    .st-line-name { flex: 1; min-width: 0; font-size: 13px; padding: 8px 10px; }
+    .st-line-cur {
+      font-size: 12px;
+      color: #8A8580;
+      width: 12px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .st-line-amt {
+      width: 130px;
+      flex-shrink: 0;
+      text-align: right;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    .st-months-input {
+      width: 70px;
+      flex-shrink: 0;
+      text-align: center;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    .st-line-remove {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1.5px solid #EDEAE6;
+      background: white;
+      color: #A09A94;
+      font-size: 17px;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .st-line-remove:hover { border-color: #D35233; color: #D35233; }
+    .st-line-remove:focus-visible { outline: 2px solid #D35233; outline-offset: 2px; }
+
+    .st-add {
+      background: none;
+      border: 1px dashed #D6D0CA;
+      color: #6B6560;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 2px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .st-add:hover { border-color: #5B6AD0; color: #5B6AD0; }
+    .st-add:focus-visible { outline: 2px solid #5B6AD0; outline-offset: 2px; }
+
+    /* --- Results --- */
+    .st-results { animation: fadeIn 0.3s ease; margin-top: 18px; }
+
+    .st-row {
+      background: #F5F3F0;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .st-row-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #8A8580;
+      margin-bottom: 4px;
+    }
+    .st-row-value { font-size: 26px; font-weight: 800; line-height: 1.1; }
+    .st-row-value span { font-size: 13px; font-weight: 600; color: #8A8580; }
+    .st-can .st-row-value { color: #5B6AD0; }
+    .st-need .st-row-value { color: #2D2A26; }
+    .st-formula {
+      font-size: 11px;
+      color: #A09A94;
+      margin-top: 5px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Gap banner */
+    .st-gap { border-radius: 14px; padding: 16px; margin: 4px 0 6px; }
+    .st-gap-ok { background: #F0F9F4; border: 1.5px solid #B8E6CC; }
+    .st-gap-short { background: #FFF5F0; border: 1.5px solid #F5C4B0; }
+    .st-gap-headline { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+    .st-gap-ok .st-gap-headline { color: #02875E; }
+    .st-gap-short .st-gap-headline { color: #D35233; }
+    .st-gap-sub { font-size: 13px; line-height: 1.5; color: #4A4540; }
+
+    /* Lever recommendations */
+    .st-levers { margin-top: 14px; }
+    .st-levers-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #6B6560;
+      margin-bottom: 4px;
+    }
+    .st-levers-hint { font-size: 11px; color: #A09A94; margin-bottom: 10px; }
+    .st-lever {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 1.5px solid #EDEAE6;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    }
+    .st-lever:hover { border-color: #5B6AD0; background: #F7F8FF; }
+    .st-lever:active { transform: scale(0.99); }
+    .st-lever:focus-visible { outline: 2px solid #5B6AD0; outline-offset: 2px; }
+    .st-lever-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #2D2A26;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .st-lever-title .st-lever-arrow { margin-left: auto; color: #5B6AD0; font-weight: 700; flex-shrink: 0; }
+    .st-lever-desc { font-size: 12px; line-height: 1.5; color: #6B6560; }
+    .st-lever-desc strong { color: #2D2A26; }
+    .st-lever[disabled] { cursor: default; opacity: 0.6; }
+    .st-lever[disabled]:hover { border-color: #EDEAE6; background: white; }
+
+    /* CTA */
+    .st-cta { margin-top: 14px; text-align: center; font-size: 12px; }
+    .st-cta a { color: #D35233; text-decoration: none; font-weight: 600; }
+    .st-cta a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div id="savings-embed" class="embed-calc">
+    <div id="st-form"></div>
+    <div id="emb-results"></div>
+  </div>
+
+  <script>
+  (function() {
+    'use strict';
+
+    /* ----------------------------------------------------------
+       Fixed exchange rate — FOR DISPLAY CONVERSION ONLY.
+       Lets the user flip the currency toggle without re-typing.
+       Not a live FX rate; just keeps the on-screen numbers sane.
+       ---------------------------------------------------------- */
+    var USD_TO_VND = 25000; // 1 USD = 25,000 VND
+    var BUFFER_PCT = 0.05;  // default monthly buffer = 5% of income
+
+    /* ----------------------------------------------------------
+       i18n — the currency toggle also switches the whole UI
+       language (USD = English, VND = Vietnamese).
+       ---------------------------------------------------------- */
+    var T = {
+      en: {
+        title: 'Monthly Savings Target Calculator',
+        subtitle: 'Plug in your numbers to see if your goal is on track — and what to change if it’s not.',
+        sectionIncome: 'Income',
+        sectionExpenses: 'Expenses',
+        sectionBuffer: 'Buffer',
+        sectionGoal: 'Your goal',
+        subMonthlyInc: 'Monthly income',
+        subYearlyInc: 'Yearly income (÷ 12)',
+        subMonthlyExp: 'Monthly expenses',
+        subYearlyExp: 'Yearly / irregular (÷ 12)',
+        yearlyIncomeHelper: 'Other income besides the monthly income above. Enter the yearly amount, the calculator will automatically assign it into monthly income.',
+        yearlyExpHelper: 'Enter the yearly cost and the calculator will automatically split it into monthly.',
+        bufferLabel: 'Monthly buffer',
+        bufferHelper: 'Small cushion for random small expenses. Defaults to 5% of income — override it if you like.',
+        goalLabel: 'Savings goal amount',
+        monthsLabel: 'Months until goal',
+        monthsUnit: 'months',
+        addLine: '+ Add line',
+        customName: 'Name this line',
+        calculate: 'Calculate',
+        canLabel: 'What you CAN save',
+        needLabel: 'What you NEED to save',
+        perMonth: '/mo',
+        monthsWord: 'months',
+        onTrackHead: 'You’re on track ✅',
+        onTrackSub: 'Set up the auto-transfer.',
+        toSpare: ' You’ve even got <strong>{x}/mo</strong> to spare.',
+        shortHead: 'You’re short by {x}/mo',
+        shortSub: 'At your current pace you won’t hit the goal in time. Pull one of the levers below.',
+        leversTitle: 'Close the gap',
+        leversHint: 'Tap a lever to apply it to your numbers and recalculate.',
+        stretchTitle: 'Stretch the timeline',
+        stretchDesc: 'Hit {goal} in <strong>{n} months</strong> instead of {orig} — no change to spending.',
+        stretchNo: 'Not possible — at your current rate you can’t save anything. Cut expenses first.',
+        cutTitle: 'Cut from expenses',
+        cutDesc: 'Trim <strong>{x}/mo</strong> from spending (every line reduced proportionally) to hit the goal on time.',
+        cutNo: 'Even cutting all {total} of expenses isn’t enough — you’d need to free up {x}/mo.',
+        shrinkTitle: 'Shrink the goal',
+        shrinkDesc: 'Aim for <strong>{x}</strong> instead of {goal} while keeping your {n}-month timeline.',
+        apply: 'Apply →',
+        cta: 'Try the full calculator →',
+        labels: {
+          salary: 'Salary (take-home)', otherIncome: 'Other income',
+          rent: 'Rent', food: 'Food', transport: 'Transport', otherMonthly: 'Other',
+          carMaint: 'Car maintenance', homeRepair: 'Home repairs', insurance: 'Insurance', otherYearly: 'Other'
+        }
+      },
+      vn: {
+        title: 'Tính toán mục tiêu tiết kiệm',
+        subtitle: 'Hãy thử xem mục tiêu tiết kiệm của bạn có đúng tiến độ không.',
+        sectionIncome: 'Thu nhập',
+        sectionExpenses: 'Chi phí',
+        sectionBuffer: 'Dự phòng',
+        sectionGoal: 'Mục tiêu',
+        subMonthlyInc: 'Thu nhập hàng tháng',
+        subYearlyInc: 'Thu nhập hàng năm (÷ 12)',
+        subMonthlyExp: 'Chi phí hàng tháng',
+        subYearlyExp: 'Hàng năm / không thường xuyên (÷ 12)',
+        yearlyIncomeHelper: 'Thu nhập thêm hằng năm ngoài khoản hằng tháng phía trên. Nhập số tổng hằng năm, máy tính sẽ tự động chia ra hằng tháng.',
+        yearlyExpHelper: 'Nhập chi phí của cả năm, máy tính sẽ tự chia ra cho hằng tháng.',
+        bufferLabel: 'Khoản dự phòng hàng tháng',
+        bufferHelper: 'Khoản chi phí phát sinh cho các khoản chi lặt vặt chưa được tính trên.',
+        goalLabel: 'Số tiền cần tiết kiệm',
+        monthsLabel: 'Số tháng để đạt mục tiêu',
+        monthsUnit: 'tháng',
+        addLine: '+ Thêm dòng',
+        customName: 'Đặt tên khoản này',
+        calculate: 'Tính toán',
+        canLabel: 'Bạn CÓ THỂ tiết kiệm',
+        needLabel: 'Bạn CẦN tiết kiệm',
+        perMonth: '/tháng',
+        monthsWord: 'tháng',
+        onTrackHead: 'Bạn đang đúng tiến độ, chúc mừng nhé!',
+        onTrackSub: '',
+        toSpare: '',
+        shortHead: 'Bạn còn thiếu {x}/tháng',
+        shortSub: 'Với tốc độ hiện tại, bạn sẽ không đạt mục tiêu đúng hạn. Hãy thử một cách bên dưới.',
+        leversTitle: 'Cách thu hẹp khoảng cách',
+        leversHint: 'Chạm vào một lựa chọn để áp dụng và tính lại.',
+        stretchTitle: 'Kéo dài thời gian',
+        stretchDesc: 'Đạt {goal} trong <strong>{n} tháng</strong> thay vì {orig} — không đổi chi tiêu.',
+        stretchNo: 'Không khả thi — với tốc độ hiện tại bạn không tiết kiệm được gì. Hãy cắt giảm chi phí trước.',
+        cutTitle: 'Cắt giảm chi phí',
+        cutDesc: 'Giảm <strong>{x}/tháng</strong> chi tiêu (mỗi khoản giảm theo tỷ lệ) để đạt mục tiêu đúng hạn.',
+        cutNo: 'Cắt hết {total} chi phí cũng chưa đủ — bạn cần thêm {x}/tháng.',
+        shrinkTitle: 'Giảm mục tiêu',
+        shrinkDesc: 'Đặt mục tiêu <strong>{x}</strong> thay vì {goal}, vẫn giữ kế hoạch {n} tháng.',
+        apply: 'Áp dụng →',
+        cta: 'Khám phá các máy tính khác',
+        labels: {
+          salary: 'Lương (thực nhận)', otherIncome: 'Thu nhập khác',
+          rent: 'Tiền nhà', food: 'Ăn uống', transport: 'Đi lại', otherMonthly: 'Khác',
+          carMaint: 'Bảo dưỡng xe', homeRepair: 'Sửa chữa nhà', insurance: 'Bảo hiểm', otherYearly: 'Khác'
+        }
+      }
+    };
+
+    /* ----------------------------------------------------------
+       Config from URL query params
+       ---------------------------------------------------------- */
+    var params = new URLSearchParams(window.location.search);
+
+    var currency = (params.get('currency') || 'usd').toLowerCase();
+    if (currency !== 'vnd') currency = 'usd';
+    function lang() { return currency === 'vnd' ? 'vn' : 'en'; }
+    function t(key) { return T[lang()][key]; }
+    function labelOf(key) { return T[lang()].labels[key]; }
+
+    // Custom heading params: title/subtitle (English), title_vi/subtitle_vi (Vietnamese).
+    // A missing language falls back to the built-in default for that language.
+    var titleEn = params.get('title');
+    var titleVi = params.get('title_vi');
+    var subEn = params.get('subtitle');
+    var subVi = params.get('subtitle_vi');
+    function curTitle() { return lang() === 'vn' ? (titleVi || T.vn.title) : (titleEn || T.en.title); }
+    function curSubtitle() { return lang() === 'vn' ? (subVi || T.vn.subtitle) : (subEn || T.en.subtitle); }
+
+    var goalDefault = parseInt((params.get('goal') || '').replace(/[^\d]/g, ''), 10);
+    if (isNaN(goalDefault)) goalDefault = currency === 'vnd' ? 250000000 : 10000;
+    var monthsDefault = parseInt((params.get('months') || '').replace(/[^\d]/g, ''), 10);
+    if (isNaN(monthsDefault) || monthsDefault < 1) monthsDefault = 18;
+
+    /* ----------------------------------------------------------
+       State (single source of truth; the DOM is just a view)
+       ---------------------------------------------------------- */
+    var nextId = 1;
+    function makeRow(key, custom, name, value) {
+      return { id: nextId++, key: key, custom: !!custom, name: name || '', value: value || 0 };
+    }
+
+    var rows = {
+      incMonthly: [makeRow('salary')],
+      incYearly: [makeRow('otherIncome')],
+      expMonthly: [makeRow('rent'), makeRow('food'), makeRow('transport'), makeRow('otherMonthly')],
+      expYearly: [makeRow('carMaint'), makeRow('homeRepair'), makeRow('insurance'), makeRow('otherYearly')]
+    };
+    var buffer = { value: 0, manual: false };
+    var goal = { value: goalDefault };
+    var months = monthsDefault;
+    var hasResults = false;
+
+    /* ----------------------------------------------------------
+       Formatting / parsing
+       ---------------------------------------------------------- */
+    function group(n, s) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, s); }
+    function sep() { return currency === 'vnd' ? '.' : ','; }
+    function symbol() { return currency === 'vnd' ? '₫' : '$'; }
+
+    function fmt(n) { // money with symbol, for display
+      n = Math.round(n);
+      var neg = n < 0;
+      var g = group(Math.abs(n), sep());
+      return currency === 'vnd' ? (neg ? '-' : '') + g + ' ₫' : (neg ? '-' : '') + '$' + g;
+    }
+    function fmtInput(n) { // grouped, no symbol, for input fields
+      var neg = n < 0;
+      return (neg ? '-' : '') + group(Math.abs(Math.round(n)), sep());
+    }
+    function parseAmt(str) {
+      var raw = String(str).replace(/[^\d-]/g, '');
+      var n = parseInt(raw, 10);
+      return isNaN(n) ? 0 : n;
+    }
+    function fill(str, map) {
+      return str.replace(/\{(\w+)\}/g, function(_, k) { return map[k]; });
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"]/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+
+    function sumRows(arr) { var s = 0; for (var i = 0; i < arr.length; i++) s += arr[i].value; return s; }
+    function totalIncome() { return sumRows(rows.incMonthly) + sumRows(rows.incYearly) / 12; }
+    function totalExpenses() { return sumRows(rows.expMonthly) + sumRows(rows.expYearly) / 12; }
+
+    function updateBufferDefault() {
+      if (buffer.manual) return;
+      buffer.value = Math.round(totalIncome() * BUFFER_PCT);
+      var el = document.getElementById('emb-buffer');
+      if (el) el.value = buffer.value ? fmtInput(buffer.value) : '';
+    }
+
+    function notifyParentHeight() {
+      if (window.parent !== window) {
+        setTimeout(function() {
+          window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight + 40 }, '*');
+        }, 50);
+      }
+    }
+
+    /* ----------------------------------------------------------
+       Render the form
+       ---------------------------------------------------------- */
+    var SECTION_KEYS = ['incMonthly', 'incYearly', 'expMonthly', 'expYearly'];
+
+    function lineItem(r, sec) {
+      var labelHtml = r.custom
+        ? '<input type="text" class="field-input st-line-name" id="name-' + r.id + '" placeholder="' +
+            escapeHtml(t('customName')) + '" value="' + escapeHtml(r.name) + '" aria-label="' + escapeHtml(t('customName')) + '">'
+        : '<span class="st-line-label">' + escapeHtml(labelOf(r.key)) + '</span>';
+      var aria = r.custom ? t('customName') : labelOf(r.key);
+      var remove = r.custom
+        ? '<button type="button" class="st-line-remove" data-remove="' + sec + ':' + r.id + '" aria-label="Remove line">×</button>'
+        : '';
+      return '<div class="st-line">' +
+        labelHtml +
+        '<span class="st-line-cur">' + symbol() + '</span>' +
+        '<input type="text" inputmode="numeric" class="field-input st-line-amt" id="amt-' + r.id + '" ' +
+          'value="' + (r.value ? fmtInput(r.value) : '') + '" aria-label="' + escapeHtml(aria) + '">' +
+        remove +
+      '</div>';
+    }
+
+    function subBlock(subKey, rowsKey, helperKey) {
+      var h = '<div class="st-subhead">' + escapeHtml(t(subKey)) + '</div>';
+      if (helperKey) h += '<div class="st-helper st-sub-helper">' + escapeHtml(t(helperKey)) + '</div>';
+      for (var i = 0; i < rows[rowsKey].length; i++) h += lineItem(rows[rowsKey][i], rowsKey);
+      h += '<button type="button" class="st-add" data-add="' + rowsKey + '">' + escapeHtml(t('addLine')) + '</button>';
+      return h;
+    }
+
+    function renderForm() {
+      var h = '';
+      h += '<div class="embed-title">' + escapeHtml(curTitle()) + '</div>';
+      if (curSubtitle()) h += '<div class="st-subtitle">' + escapeHtml(curSubtitle()) + '</div>';
+
+      h += '<div class="st-toggle" role="group" aria-label="Currency / language">' +
+        '<button type="button" class="st-toggle-btn' + (currency === 'usd' ? ' active' : '') +
+          '" data-cur="usd" aria-pressed="' + (currency === 'usd') + '">USD ($)</button>' +
+        '<button type="button" class="st-toggle-btn' + (currency === 'vnd' ? ' active' : '') +
+          '" data-cur="vnd" aria-pressed="' + (currency === 'vnd') + '">VND (₫)</button>' +
+      '</div>';
+
+      // Income
+      h += '<div class="st-section"><div class="st-section-head">' + escapeHtml(t('sectionIncome')) + '</div>' +
+        subBlock('subMonthlyInc', 'incMonthly', null) +
+        subBlock('subYearlyInc', 'incYearly', 'yearlyIncomeHelper') +
+      '</div>';
+
+      // Expenses
+      h += '<div class="st-section"><div class="st-section-head">' + escapeHtml(t('sectionExpenses')) + '</div>' +
+        subBlock('subMonthlyExp', 'expMonthly', null) +
+        subBlock('subYearlyExp', 'expYearly', 'yearlyExpHelper') +
+      '</div>';
+
+      // Buffer
+      h += '<div class="st-section"><div class="st-section-head">' + escapeHtml(t('sectionBuffer')) + '</div>' +
+        '<div class="st-line">' +
+          '<span class="st-line-label">' + escapeHtml(t('bufferLabel')) + '</span>' +
+          '<span class="st-line-cur">' + symbol() + '</span>' +
+          '<input type="text" inputmode="numeric" class="field-input st-line-amt" id="emb-buffer" ' +
+            'value="' + (buffer.value ? fmtInput(buffer.value) : '') + '" aria-label="' + escapeHtml(t('bufferLabel')) + '">' +
+        '</div>' +
+        '<div class="st-helper">' + escapeHtml(t('bufferHelper')) + '</div>' +
+      '</div>';
+
+      // Goal
+      h += '<div class="st-section"><div class="st-section-head">' + escapeHtml(t('sectionGoal')) + '</div>' +
+        '<div class="st-line">' +
+          '<span class="st-line-label">' + escapeHtml(t('goalLabel')) + '</span>' +
+          '<span class="st-line-cur">' + symbol() + '</span>' +
+          '<input type="text" inputmode="numeric" class="field-input st-line-amt" id="emb-goal" ' +
+            'value="' + (goal.value ? fmtInput(goal.value) : '') + '" aria-label="' + escapeHtml(t('goalLabel')) + '">' +
+        '</div>' +
+        '<div class="st-line">' +
+          '<span class="st-line-label">' + escapeHtml(t('monthsLabel')) + '</span>' +
+          '<input type="text" inputmode="numeric" class="field-input st-months-input" id="emb-months" ' +
+            'value="' + months + '" aria-label="' + escapeHtml(t('monthsLabel')) + '">' +
+          '<span class="st-line-cur" style="width:auto">' + escapeHtml(t('monthsUnit')) + '</span>' +
+        '</div>' +
+      '</div>';
+
+      h += '<button type="button" class="embed-btn" id="emb-calc-btn">' + escapeHtml(t('calculate')) + '</button>';
+
+      document.getElementById('st-form').innerHTML = h;
+      wireForm();
+    }
+
+    /* ----------------------------------------------------------
+       Wire up form events
+       ---------------------------------------------------------- */
+    function formatMoneyInput(el) {
+      var neg = el.value.charAt(0) === '-';
+      var raw = el.value.replace(/[^\d]/g, '');
+      el.value = raw ? (neg ? '-' : '') + group(parseInt(raw, 10), sep()) : (neg ? '-' : '');
+    }
+
+    function wireForm() {
+      var f = document.getElementById('st-form');
+
+      var toggles = f.querySelectorAll('.st-toggle-btn');
+      for (var i = 0; i < toggles.length; i++) {
+        toggles[i].addEventListener('click', function() { switchCurrency(this.getAttribute('data-cur')); });
+      }
+
+      // Row amount + custom-name inputs
+      for (var s = 0; s < SECTION_KEYS.length; s++) {
+        (function(sec) {
+          for (var j = 0; j < rows[sec].length; j++) {
+            (function(r) {
+              var amt = document.getElementById('amt-' + r.id);
+              amt.addEventListener('input', function() {
+                formatMoneyInput(this);
+                r.value = parseAmt(this.value);
+                if (sec === 'incMonthly' || sec === 'incYearly') updateBufferDefault();
+              });
+              if (r.custom) {
+                var nm = document.getElementById('name-' + r.id);
+                nm.addEventListener('input', function() { r.name = this.value; });
+              }
+            })(rows[sec][j]);
+          }
+        })(SECTION_KEYS[s]);
+      }
+
+      var b = document.getElementById('emb-buffer');
+      b.addEventListener('input', function() {
+        formatMoneyInput(this); buffer.manual = true; buffer.value = parseAmt(this.value);
+      });
+
+      var g = document.getElementById('emb-goal');
+      g.addEventListener('input', function() { formatMoneyInput(this); goal.value = parseAmt(this.value); });
+
+      var m = document.getElementById('emb-months');
+      m.addEventListener('input', function() {
+        this.value = this.value.replace(/[^\d]/g, ''); months = parseInt(this.value, 10) || 0;
+      });
+
+      var adds = f.querySelectorAll('[data-add]');
+      for (var a = 0; a < adds.length; a++) {
+        adds[a].addEventListener('click', function() { addRow(this.getAttribute('data-add')); });
+      }
+      var rems = f.querySelectorAll('[data-remove]');
+      for (var rI = 0; rI < rems.length; rI++) {
+        rems[rI].addEventListener('click', function() { removeRow(this.getAttribute('data-remove')); });
+      }
+
+      document.getElementById('emb-calc-btn').addEventListener('click', calculate);
+    }
+
+    function addRow(sec) {
+      rows[sec].push(makeRow('custom', true, '', 0));
+      renderForm();
+      var last = rows[sec][rows[sec].length - 1];
+      var el = document.getElementById('name-' + last.id);
+      if (el) el.focus();
+      notifyParentHeight();
+    }
+
+    function removeRow(token) {
+      var p = token.split(':'), sec = p[0], id = parseInt(p[1], 10);
+      rows[sec] = rows[sec].filter(function(r) { return r.id !== id; });
+      if (sec === 'incMonthly' || sec === 'incYearly') updateBufferDefault();
+      renderForm();
+      if (hasResults) calculate(); else notifyParentHeight();
+    }
+
+    /* ----------------------------------------------------------
+       Currency / language switch — convert values, relabel
+       ---------------------------------------------------------- */
+    function switchCurrency(next) {
+      if (next === currency) return;
+      var factor = next === 'vnd' ? USD_TO_VND : 1 / USD_TO_VND;
+      for (var s = 0; s < SECTION_KEYS.length; s++) {
+        var arr = rows[SECTION_KEYS[s]];
+        for (var j = 0; j < arr.length; j++) arr[j].value = Math.round(arr[j].value * factor);
+      }
+      buffer.value = Math.round(buffer.value * factor);
+      goal.value = Math.round(goal.value * factor);
+      currency = next;
+      renderForm();
+      if (hasResults) calculate(); else notifyParentHeight();
+    }
+
+    /* ----------------------------------------------------------
+       Calculate
+       ---------------------------------------------------------- */
+    function shake(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('shake');
+      void el.offsetWidth;
+      el.classList.add('shake');
+      el.addEventListener('animationend', function() { el.classList.remove('shake'); }, { once: true });
+    }
+
+    function calculate() {
+      var income = totalIncome();
+      var valid = true;
+      if (income <= 0) { shake('amt-' + rows.incMonthly[0].id); valid = false; }
+      if (months < 1) { shake('emb-months'); valid = false; }
+      if (!valid) return;
+
+      if (!buffer.manual) buffer.value = Math.round(income * BUFFER_PCT);
+      var expenses = totalExpenses();
+      var buf = buffer.value;
+      var canSave = income - expenses - buf;
+      var needSave = goal.value / months;
+
+      renderResults({
+        income: income, expenses: expenses, buffer: buf,
+        goal: goal.value, months: months, canSave: canSave, needSave: needSave
+      });
+    }
+
+    /* ----------------------------------------------------------
+       Render results + lever recommendations
+       ---------------------------------------------------------- */
+    function renderResults(r) {
+      var area = document.getElementById('emb-results');
+      var onTrack = r.canSave >= r.needSave;
+      var html = '<div class="st-results">';
+
+      html += '<div class="st-row st-can">' +
+        '<div class="st-row-label">' + escapeHtml(t('canLabel')) + '</div>' +
+        '<div class="st-row-value">' + fmt(r.canSave) + '<span>' + escapeHtml(t('perMonth')) + '</span></div>' +
+        '<div class="st-formula">' + fmt(r.income) + ' − ' + fmt(r.expenses) + ' − ' + fmt(r.buffer) + '</div>' +
+      '</div>';
+
+      html += '<div class="st-row st-need">' +
+        '<div class="st-row-label">' + escapeHtml(t('needLabel')) + '</div>' +
+        '<div class="st-row-value">' + fmt(r.needSave) + '<span>' + escapeHtml(t('perMonth')) + '</span></div>' +
+        '<div class="st-formula">' + fmt(r.goal) + ' ÷ ' + r.months + ' ' + escapeHtml(t('monthsWord')) + '</div>' +
+      '</div>';
+
+      if (onTrack) {
+        var surplus = r.canSave - r.needSave;
+        html += '<div class="st-gap st-gap-ok">' +
+          '<div class="st-gap-headline">' + t('onTrackHead') + '</div>' +
+          '<div class="st-gap-sub">' + t('onTrackSub') +
+            (surplus > 0 ? fill(t('toSpare'), { x: fmt(surplus) }) : '') +
+          '</div>' +
+        '</div>';
+      } else {
+        var shortBy = r.needSave - r.canSave;
+        html += '<div class="st-gap st-gap-short">' +
+          '<div class="st-gap-headline">' + fill(t('shortHead'), { x: fmt(shortBy) }) + '</div>' +
+          '<div class="st-gap-sub">' + t('shortSub') + '</div>' +
+        '</div>';
+        html += buildLevers(r);
+      }
+
+      html += '<div class="st-cta"><a href="https://isthisworthmymoney.com" target="_blank">' + escapeHtml(t('cta')) + '</a></div>';
+      html += '</div>';
+
+      area.innerHTML = html;
+      hasResults = true;
+      wireLevers(r);
+      area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      notifyParentHeight();
+    }
+
+    function buildLevers(r) {
+      var html = '<div class="st-levers">' +
+        '<div class="st-levers-title">' + escapeHtml(t('leversTitle')) + '</div>' +
+        '<div class="st-levers-hint">' + escapeHtml(t('leversHint')) + '</div>';
+
+      // 1) Stretch the timeline
+      if (r.canSave > 0) {
+        var newMonths = Math.ceil(r.goal / r.canSave);
+        html += lever('stretch', t('stretchTitle'),
+          fill(t('stretchDesc'), { goal: fmt(r.goal), n: newMonths, orig: r.months }), false);
+      } else {
+        html += lever('stretch', t('stretchTitle'), t('stretchNo'), true);
+      }
+
+      // 2) Cut from expenses (applied as a proportional trim across every line)
+      var cut = r.needSave - r.canSave;
+      if (r.expenses > 0 && cut <= r.expenses) {
+        html += lever('cut', t('cutTitle'), fill(t('cutDesc'), { x: fmt(cut) }), false);
+      } else {
+        html += lever('cut', t('cutTitle'), fill(t('cutNo'), { total: fmt(r.expenses), x: fmt(cut) }), true);
+      }
+
+      // 3) Shrink the goal
+      var newGoal = Math.max(0, r.canSave) * r.months;
+      html += lever('shrink', t('shrinkTitle'),
+        fill(t('shrinkDesc'), { x: fmt(newGoal), goal: fmt(r.goal), n: r.months }), r.canSave <= 0);
+
+      html += '</div>';
+      return html;
+    }
+
+    function lever(key, title, desc, disabled) {
+      return '<button type="button" class="st-lever" data-lever="' + key + '"' + (disabled ? ' disabled' : '') + '>' +
+        '<div class="st-lever-title">' + escapeHtml(title) +
+          (disabled ? '' : '<span class="st-lever-arrow">' + escapeHtml(t('apply')) + '</span>') +
+        '</div>' +
+        '<div class="st-lever-desc">' + desc + '</div>' +
+      '</button>';
+    }
+
+    function wireLevers(r) {
+      var btns = document.querySelectorAll('.st-lever');
+      for (var i = 0; i < btns.length; i++) {
+        if (btns[i].disabled) continue;
+        btns[i].addEventListener('click', (function(k) {
+          return function() { applyLever(k, r); };
+        })(btns[i].getAttribute('data-lever')));
+      }
+    }
+
+    function applyLever(key, r) {
+      if (key === 'stretch') {
+        months = Math.ceil(r.goal / r.canSave);
+      } else if (key === 'cut') {
+        var cut = r.needSave - r.canSave;
+        var factor = (r.expenses - cut) / r.expenses;
+        scaleExpenses(factor);
+      } else if (key === 'shrink') {
+        goal.value = Math.round(Math.max(0, r.canSave) * r.months);
+      }
+      renderForm();
+      calculate();
+    }
+
+    function scaleExpenses(factor) {
+      var keys = ['expMonthly', 'expYearly'];
+      for (var k = 0; k < keys.length; k++) {
+        var arr = rows[keys[k]];
+        for (var j = 0; j < arr.length; j++) arr[j].value = Math.round(arr[j].value * factor);
+      }
+    }
+
+    /* ----------------------------------------------------------
+       Boot
+       ---------------------------------------------------------- */
+    renderForm();
+    notifyParentHeight();
+  })();
+  </script>
+</body>
+</html>
