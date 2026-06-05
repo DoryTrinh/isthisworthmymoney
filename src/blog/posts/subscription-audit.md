@@ -4,13 +4,13 @@ description: The average person spends $200+/month on subscriptions they barely
   use. Here's how to find the ones you're paying for out of habit, not because
   they're worth it.
 customSlug: ""
-date: 2026-02-10
+date: 2026-06-05
 featuredImage: /blog/images/43.png
 tags:
   - spending habits
   - saving
   - guides
-translationSlug: kiem-soat-supscriptions/
+translationSlug: kiem-soat-subscriptions/
 lang: en
 ---
 Try to guess how many subscriptions you're paying for right now. Now add up what they cost per month. Got a number? Good. 
