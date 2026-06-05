@@ -119,11 +119,5 @@ The formula matters more than the percentage.
 So run your numbers through the calculator. Write down the target. Set up an automatic transfer for that exact amount on payday. The automation is the part most people skip,  and it's the part that decides whether the plan actually works.
 
 
+<div class="blog-callout"> <div class="blog-callout-title">Worth reading next</div> <div class="blog-callout-body"> <a href="/blog/is-buying-an-iphone-worth-it-the-real-cost-nobody-talks-about">Is buying an iPhone worth it?</a> - check if it's worth it to purchase an iPhone.<br> <a href="/blog/the-latte-factor">The Latte Factor</a> - How Small Daily Purchases Add Up. </div> </div>
 
-
-
-Worth reading next
-
-[The 50/30/20 Rule](https://isthisworthmymoney.com/blog/50-30-20-rule/)
-
-[How to Save Money: 11 Weird Tricks That Actually Work](https://isthisworthmymoney.com/blog/how-to-save-money-11-tricks/)
