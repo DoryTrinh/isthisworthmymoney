@@ -3,7 +3,7 @@ title: Cách Kiểm Soát Các Gói Đăng Ký Dịch Vụ (Subscriptions)
 description: Trung bình mỗi người chi gần 2 triệu/tháng cho các dịch vụ đăng ký
   mà họ gần như không đụng tới. Đây là cách tìm ra những gói đăng ký bạn đang
   trả vì thói quen chứ không phải vì nó đáng tiền.
-customSlug: kiem-soat-supscriptions
+customSlug: kiem-soat-subscriptions
 date: 2026-03-02
 featuredImage: /blog/images/43.1.vi.png
 tags:
