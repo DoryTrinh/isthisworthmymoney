@@ -20,8 +20,6 @@ Tuy nhiên, khi đã trải qua giai đoạn “mới” , bạn cần “nâng 
 
 Lúc này, bạn cần một công thức phức tạp hơn một chút. Nó dùng thu nhập, chi phí và mục tiêu thực tế của bạn. Hãy đọc bài viết này khi bạn đã sẵn sàng tốt nghiệp khỏi “khoá học tiết kiệm sơ cấp” và hướng đến “công thức tiết kiệm nâng cao”.
 
-
-
 ## **Câu trả lời ngắn gọn**
 
 > Hãy trả lời hai câu hỏi sau:
@@ -30,8 +28,6 @@ Lúc này, bạn cần một công thức phức tạp hơn một chút. Nó dù
 > 2. **Mình *cần* tiết kiệm bao nhiêu?** *(Mục tiêu của bạn chia cho số tháng từ bây giờ đến lúc cần đạt được số tiền đó.)*
 
 Nếu 2 con số này không khớp nhau, nghĩa là bạn phải ngồi lại và tự thoả hiệp với chính mình: thời hạn, mục tiêu, hoặc một khoản chi tiêu nào đó cần được điều chỉnh để các con số cân bằng nhau.
-
-
 
 ## **2 công thức tính**
 
@@ -42,8 +38,6 @@ Phương pháp nâng cao đưa ra cho bạn 2 câu hỏi, khi bạn trả lời 
 ![2 công thức tính toán khoản tết kiệm hằng tháng](/blog/images/6.vi.2.png)
 
 Nếu thói quen tiết kiệm 20% cơ bản bạn vẫn chưa nắm được, hãy bắt đầu với [bài viết về quy tắc 50/30/20](https://isthisworthmymoney.com/blog/vi/quy-tac-50-30-20/) trước, rồi quay lại đây khi muốn đi sâu hơn.
-
-
 
 ## **Những chi phí hằng năm đang âm thầm phá hoại mục tiêu tiết kiệm của bạn**
 
@@ -103,8 +97,6 @@ Thay vì ngồi tính giấy, bạn có thể nhập số liệu của mình và
 
 Bài [tổng hợp app quản lý chi tiêu](https://isthisworthmymoney.com/blog/vi/app-quan-ly-chi-tieu/) cho bạn thêm vài lựa chọn nữa nếu bạn cần đối chiếu với những công cụ máy tính khác.
 
-
-
 ## **Khi phép tính nói "mục tiêu không thể thực hiện được"**
 
 Nếu hai con số của bạn không khớp nhau và khoảng cách còn khá lớn, đừng nản chí, bạn không thất bại đâu. Bạn đang làm phép tính mà phần lớn mọi người bỏ qua.
@@ -123,10 +115,6 @@ Sai lầm tệ hơn cả việc tiết kiệm quá ít là không tiết kiệm 
 
 Không có một câu trả lời đúng cho tất cả mọi người về việc nên tiết kiệm bao nhiêu mỗi tháng. Hãy tự tính toán dựa trên thu nhập, chi phí thực tế và mục tiêu mà bạn đã đặt ra.
 
-Nếu muốn bắt đầu một cách đơn giản nhất, hãy tiết kiệm 15% - 20% thu nhập hằng tháng. Khi quen dần, hãy nâng cấp ngân sách lên bằng cách tính toán kỹ hơn và “gọi tên” những mục tiêu tiết kiệm của bạn. 
-
-
-
-
+Nếu muốn bắt đầu một cách đơn giản nhất, hãy tiết kiệm 15% - 20% thu nhập hằng tháng. Khi quen dần, hãy nâng cấp ngân sách lên bằng cách tính toán kỹ hơn và “gọi tên” những mục tiêu tiết kiệm của bạn.
 
 <div class="blog-callout"> <div class="blog-callout-title">Có thể bạn muốn tham khảo</div> <div class="blog-callout-body"> <a href="/blog/vi/**kiem-soat-subscriptions/**">**Cách kiểm soát các gói đăng ký app**</a> <br> <a href="/blog/vi/**app-quan-ly-chi-tieu**">**Các ứng dụng quản lý chi tiêu cá nhân**</a> </div> </div>
