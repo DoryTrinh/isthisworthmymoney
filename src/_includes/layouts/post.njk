@@ -5,7 +5,7 @@ layout: base.njk
 {% set currentLang = lang or "en" %}
 {% set t = i18n[currentLang] %}
 {% set blogBase = "/blog/vi" if currentLang == "vi" else "/blog" %}
-{% set processedContent = content | addHeadingIds %}
+{% set processedContent = content | addHeadingIds | wrapTables %}
 {% set tocHtml = processedContent | toc(currentLang) %}
 
 <div class="progress-bar" id="progressBar"></div>
