@@ -180,6 +180,14 @@ module.exports = function(eleventyConfig) {
     return monthsEn[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
   });
 
+  // Reading time filter — ~200 words per minute
+  eleventyConfig.addFilter("readingTime", function(content) {
+    if (!content) return 1;
+    var text = String(content).replace(/<[^>]+>/g, " ");
+    var words = text.trim().split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / 200));
+  });
+
   // Filter to get posts by tag
   eleventyConfig.addFilter("filterByTag", function(posts, tag) {
     return posts.filter(function(post) {
