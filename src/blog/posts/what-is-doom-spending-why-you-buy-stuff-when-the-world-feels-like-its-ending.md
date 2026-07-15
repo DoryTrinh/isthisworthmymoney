@@ -70,11 +70,9 @@ None of these makes you irresponsible. They just mean stress found the easiest e
 
 Small stress purchases hide because they're small. They only get scary once you see them added up into a single yearly figure.
 
-
-
 <div class="calc-cta"><div class="calc-cta-icon">🧮</div><div class="calc-cta-text"><strong>What's your number?</strong>Plug in your own numbers and see how much you've been spending</div><a class="calc-cta-btn" href="https://isthisworthmymoney.com/">Try the calculator</a></div>
 
-Try it with a typical week: the $6 candle after Sunday's doomscroll, the $15 phone case on Tuesday, a couple of $4 app purchases you barely registered. Call it $30 a week. That's about $1,500 a year, which for a lot of people is the emergency fund they keep saying they can't afford to build.
+**Try it with a typical week:** the $6 candle after Sunday's doomscroll, the $15 phone case on Tuesday, a couple of $4 app purchases you barely registered. Call it $30 a week. That's about $1,500 a year, which for a lot of people is the emergency fund they keep saying they can't afford to build.
 
 ![Doom spending expenses](/blog/images/51.4.png "Doom spending expenses")
 
@@ -98,6 +96,4 @@ You can't control the economy or the news. You can control the 30 seconds betwee
 
 So forget aiming for zero impulse purchases. That's a diet nobody keeps. Make your stress spending slow and deliberate instead of fast and automatic: add the friction, give yourself a small guilt free lane, and above all, know your number. Once you've seen what a year of "little" stress buys adds up to, the habit gets a lot easier to break.</p></div>
 
-
-
-<div class="read-next"><div class="read-next-title">Worth reading next</div><div class="read-next-grid"><a class="read-next-card" href="How to Save Money: 11 Weird Tricks That Actually Work"><div class="rn-label">Saving</div><div class="rn-title">How to Save Money</div></a><a class="read-next-card" href="https://isthisworthmymoney.com/blog/50-30-20-rule/"><div class="rn-label">Budgeting</div><div class="rn-title">The 50/30/20 rule</div></a></div></div>
+<div class="read-next"><div class="read-next-title">Worth reading next</div><div class="read-next-grid"><a class="read-next-card" href="https://isthisworthmymoney.com/blog/how-to-save-money-11-tricks/"><div class="rn-label">Saving</div><div class="rn-title">How to Save Money: 11 Weird Tricks That Actually Work</div></a><a class="read-next-card" href="https://isthisworthmymoney.com/blog/50-30-20-rule/"><div class="rn-label">Budgeting</div><div class="rn-title">The 50/30/20 rule</div></a></div></div>
