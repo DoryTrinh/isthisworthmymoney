@@ -13,7 +13,7 @@ tags:
 translationSlug: doom-spending-la-gi
 lang: en
 ---
-> **Everyone jokes about "treating yourself." But at some point the treats stop being celebrations and start being painkillers.**
+<p class="lead-quote">Everyone jokes about "treating yourself." But at some point the treats stop being celebrations and start being painkillers.</p>
 
 From the outside, doom spending looks exactly like normal shopping. The difference is what's driving it, and how you feel once the box is open and the novelty wears off.
 
@@ -37,11 +37,11 @@ The name is a cousin of *doomscrolling* for a reason. Anxious scrolling and shop
 
 **Why does the brain fall for it?** When everything feels out of control, a purchase offers the opposite: something fast, something you chose, with a small guaranteed payoff at the end. You can't fix the economy, but you can get that thing shipped by Thursday.
 
-> About 27% of Americans admit to doom spending to cope with stress, and that jumps to 37% of Gen Z and 39% of millennials, according to a Credit Karma survey. More than half of Gen Z say bad news online is what pushes them to spend in the first place.
+<p class="lead-quote">About 27% of Americans admit to doom spending to cope with stress, and that jumps to 37% of Gen Z and 39% of millennials, according to a Credit Karma survey. More than half of Gen Z say bad news online is what pushes them to spend in the first place.</p>
 
 It's the same quiet math behind [the latte factor](https://isthisworthmymoney.com/blog/the-latte-factor/): no single stress purchase feels like much, until you add up a whole anxious year of them.
 
-> Younger generations are hit hardest. Roughly 1 in 3 Gen Zers and millennials say they doom spend to cope with stress.
+<p class="lead-quote">Younger generations are hit hardest. Roughly 1 in 3 Gen Zers and millennials say they doom spend to cope with stress.</p>
 
 ## **Doom spending vs retail therapy: what's the difference?**
 
@@ -70,7 +70,9 @@ None of these makes you irresponsible. They just mean stress found the easiest e
 
 Small stress purchases hide because they're small. They only get scary once you see them added up into a single yearly figure.
 
-[Check out the calculator](https://isthisworthmymoney.com/)
+
+
+<div class="calc-cta"><div class="calc-cta-icon">🧮</div><div class="calc-cta-text"><strong>What's your number?</strong>Plug in your own numbers and see how much you've been spendin</div><a class="calc-cta-btn" href="https://isthisworthmymoney.com/">Try the calculator</a></div>
 
 Try it with a typical week: the $6 candle after Sunday's doomscroll, the $15 phone case on Tuesday, a couple of $4 app purchases you barely registered. Call it $30 a week. That's about $1,500 a year, which for a lot of people is the emergency fund they keep saying they can't afford to build.
 
@@ -90,12 +92,10 @@ Five tactics:
 
 *Willpower is overrated here. Friction between the feeling and the "buy" button does most of the work.*
 
-## **The Verdict**
-
-Doom spending is real, it's understandable, and it's still quietly costing you money you'll want later. When the world feels like it's on fire, buying something is one of the few moves that's fast and entirely within your control. That instinct is human. It's also expensive.
-
+<div class="verdict-card"><span class="verdict-label">Our verdict</span><p><strong>Doom spending is real, it's understandable, and it's still quietly costing you money you'll want later.</strong> When the world feels like it's on fire, buying something is one of the few moves that's fast and entirely within your control. That instinct is human. It's also expensive.
 You can't control the economy or the news. You can control the 30 seconds between feeling anxious and tapping "buy."
+So forget aiming for zero impulse purchases. That's a diet nobody keeps. Make your stress spending slow and deliberate instead of fast and automatic: add the friction, give yourself a small guilt free lane, and above all, know your number. Once you've seen what a year of "little" stress buys adds up to, the habit gets a lot easier to break.</p></div>
 
-So forget aiming for zero impulse purchases. That's a diet nobody keeps. Make your stress spending slow and deliberate instead of fast and automatic: add the friction, give yourself a small guilt free lane, and above all, know your number. Once you've seen what a year of "little" stress buys adds up to, the habit gets a lot easier to break.
 
-<div class="blog-callout"> <div class="blog-callout-title">Worth reading next</div> <div class="blog-callout-body"> <a href="/blog/how-to-save-money-11-tricks/">How to Save Money</a> - 11 Weird Tricks That Actually Work.<br> <a href="/blog/what-is-the-50-30-20-rule">What is the 50/30/20 budgeting rule?</a> - the framework behind most budget calculators. </div> </div>
+
+<div class="read-next"><div class="read-next-title">Worth reading next</div><div class="read-next-grid"><a class="read-next-card" href="How to Save Money: 11 Weird Tricks That Actually Work"><div class="rn-label">Saving</div><div class="rn-title">How to Save Money</div></a><a class="read-next-card" href="https://isthisworthmymoney.com/blog/50-30-20-rule/"><div class="rn-label">Budgeting</div><div class="rn-title">The 50/30/20 rule</div></a><a class="read-next-card" href="https://isthisworthmymoney.com/blog/the-real-cost-of-owning-a-cat/"><div class="rn-label">Expenses</div><div class="rn-title">Cost of owning a cat</div></a></div></div>
