@@ -7,5 +7,196 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    /* ============================================
+       Custom blocks — insert via the editor's "+" menu
+       Each outputs raw HTML styled by blog.css
+       ============================================ */
+
+    function esc(s) { return (s || "").trim(); }
+
+    /* --- Callout (Tip / Watch out / Note) --- */
+    CMS.registerEditorComponent({
+      id: "callout",
+      label: "Callout (Tip / Watch out / Note)",
+      fields: [
+        { name: "type", label: "Type", widget: "select", options: ["tip", "warn", "note"], default: "tip" },
+        { name: "label", label: "Chip label (e.g. 'Tip · The aftermath test')", widget: "string", default: "Tip" },
+        { name: "body", label: "Body text", widget: "text" }
+      ],
+      pattern: /^<div class="callout callout-(\w+)"><span class="callout-label">([\s\S]*?)<\/span><p>([\s\S]*?)<\/p><\/div>$/,
+      fromBlock: function(match) {
+        return { type: match[1], label: match[2], body: match[3] };
+      },
+      toBlock: function(data) {
+        return '<div class="callout callout-' + (data.type || "tip") + '"><span class="callout-label">' + esc(data.label) + '</span><p>' + esc(data.body) + '</p></div>';
+      },
+      toPreview: function(data) {
+        return '<div style="background:#FAF9F7;border:1px solid #EDEAE6;border-radius:14px;padding:16px"><strong style="font-size:11px;text-transform:uppercase">' + esc(data.label) + '</strong><p>' + esc(data.body) + '</p></div>';
+      }
+    });
+
+    /* --- Verdict card --- */
+    CMS.registerEditorComponent({
+      id: "verdict",
+      label: "Verdict card",
+      fields: [
+        { name: "label", label: "Chip label", widget: "string", default: "Our verdict", hint: "Use 'Kết luận' for Vietnamese posts" },
+        { name: "headline", label: "Bold opening line", widget: "string" },
+        { name: "body", label: "Rest of the verdict", widget: "text" }
+      ],
+      pattern: /^<div class="verdict-card"><span class="verdict-label">([\s\S]*?)<\/span><p><strong>([\s\S]*?)<\/strong> ([\s\S]*?)<\/p><\/div>$/,
+      fromBlock: function(match) {
+        return { label: match[1], headline: match[2], body: match[3] };
+      },
+      toBlock: function(data) {
+        return '<div class="verdict-card"><span class="verdict-label">' + esc(data.label || "Our verdict") + '</span><p><strong>' + esc(data.headline) + '</strong> ' + esc(data.body) + '</p></div>';
+      },
+      toPreview: function(data) {
+        return '<div style="background:#FAF9F7;border:1.5px solid #EDEAE6;border-radius:18px;padding:20px"><strong style="color:#027A5C;font-size:11px;text-transform:uppercase">' + esc(data.label || "Our verdict") + '</strong><p><strong>' + esc(data.headline) + '</strong> ' + esc(data.body) + '</p></div>';
+      }
+    });
+
+    /* --- Stat strip (2–4 numbers) --- */
+    CMS.registerEditorComponent({
+      id: "stat-strip",
+      label: "Stat strip (big numbers)",
+      fields: [
+        {
+          name: "stats", label: "Stats", widget: "list", min: 2, max: 4,
+          fields: [
+            { name: "num", label: "Number (e.g. 27%)", widget: "string" },
+            { name: "label", label: "Label", widget: "string" }
+          ]
+        }
+      ],
+      pattern: /^<div class="stat-row(?: stats-(\d))?">([\s\S]*?)<\/div>\s*$/,
+      fromBlock: function(match) {
+        var stats = [];
+        var re = /<div class="stat-box"><div class="stat-num">([\s\S]*?)<\/div><div class="stat-label">([\s\S]*?)<\/div><\/div>/g;
+        var m;
+        while ((m = re.exec(match[2])) !== null) {
+          stats.push({ num: m[1], label: m[2] });
+        }
+        return { stats: stats };
+      },
+      toBlock: function(data) {
+        var stats = data.stats || [];
+        var cls = "stat-row";
+        if (stats.length === 2) cls += " stats-2";
+        if (stats.length === 4) cls += " stats-4";
+        var inner = stats.map(function(s) {
+          return '<div class="stat-box"><div class="stat-num">' + esc(s.num) + '</div><div class="stat-label">' + esc(s.label) + '</div></div>';
+        }).join("");
+        return '<div class="' + cls + '">' + inner + '</div>';
+      },
+      toPreview: function(data) {
+        var stats = data.stats || [];
+        return '<div style="display:flex;gap:10px">' + stats.map(function(s) {
+          return '<div style="background:#F5F3F0;border-radius:14px;padding:12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#E85D3A">' + esc(s.num) + '</div><div style="font-size:12px">' + esc(s.label) + '</div></div>';
+        }).join("") + '</div>';
+      }
+    });
+
+    /* --- Calculator CTA banner --- */
+    CMS.registerEditorComponent({
+      id: "calc-cta",
+      label: "Calculator CTA banner",
+      fields: [
+        { name: "title", label: "Title", widget: "string", default: "What's your number?" },
+        { name: "text", label: "Text", widget: "string", default: "Plug in your own numbers and see the yearly total." },
+        { name: "button", label: "Button label", widget: "string", default: "Try the calculator" },
+        { name: "url", label: "Button URL", widget: "string", default: "https://isthisworthmymoney.com/" }
+      ],
+      pattern: /^<div class="calc-cta"><div class="calc-cta-icon">🧮<\/div><div class="calc-cta-text"><strong>([\s\S]*?)<\/strong>([\s\S]*?)<\/div><a class="calc-cta-btn" href="([\s\S]*?)">([\s\S]*?)<\/a><\/div>$/,
+      fromBlock: function(match) {
+        return { title: match[1], text: match[2], url: match[3], button: match[4] };
+      },
+      toBlock: function(data) {
+        return '<div class="calc-cta"><div class="calc-cta-icon">🧮</div><div class="calc-cta-text"><strong>' + esc(data.title) + '</strong>' + esc(data.text) + '</div><a class="calc-cta-btn" href="' + esc(data.url) + '">' + esc(data.button) + '</a></div>';
+      },
+      toPreview: function(data) {
+        return '<div style="background:#FFF8E7;border:1.5px solid #F0E6C8;border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px"><span>🧮</span><span><strong>' + esc(data.title) + '</strong> ' + esc(data.text) + '</span><span style="background:#E85D3A;color:#fff;border-radius:100px;padding:6px 14px;font-size:13px;margin-left:auto">' + esc(data.button) + '</span></div>';
+      }
+    });
+
+    /* --- Quote with source --- */
+    CMS.registerEditorComponent({
+      id: "quote-cited",
+      label: "Quote with source",
+      fields: [
+        { name: "quote", label: "Quote", widget: "text" },
+        { name: "source", label: "Source (e.g. Credit Karma survey)", widget: "string", required: false }
+      ],
+      pattern: /^<blockquote>([\s\S]*?)(?:<cite>— ([\s\S]*?)<\/cite>)?<\/blockquote>$/,
+      fromBlock: function(match) {
+        return { quote: match[1], source: match[2] || "" };
+      },
+      toBlock: function(data) {
+        var cite = esc(data.source) ? '<cite>— ' + esc(data.source) + '</cite>' : '';
+        return '<blockquote>' + esc(data.quote) + cite + '</blockquote>';
+      },
+      toPreview: function(data) {
+        return '<blockquote style="border-left:3px solid #C9C7FF;padding-left:16px;font-weight:700">' + esc(data.quote) + (esc(data.source) ? '<br><small style="color:#A09A94;text-transform:uppercase">— ' + esc(data.source) + '</small>' : '') + '</blockquote>';
+      }
+    });
+
+    /* --- Lead quote (opening hook) --- */
+    CMS.registerEditorComponent({
+      id: "lead-quote",
+      label: "Lead quote (opening hook)",
+      fields: [
+        { name: "text", label: "Hook text", widget: "text" }
+      ],
+      pattern: /^<p class="lead-quote">([\s\S]*?)<\/p>$/,
+      fromBlock: function(match) {
+        return { text: match[1] };
+      },
+      toBlock: function(data) {
+        return '<p class="lead-quote">' + esc(data.text) + '</p>';
+      },
+      toPreview: function(data) {
+        return '<p style="border-left:3px solid #2D2A26;padding-left:16px;font-weight:800;font-size:17px">' + esc(data.text) + '</p>';
+      }
+    });
+
+    /* --- Worth reading next --- */
+    CMS.registerEditorComponent({
+      id: "read-next",
+      label: "Worth reading next",
+      fields: [
+        { name: "heading", label: "Section heading", widget: "string", default: "Worth reading next", hint: "Use 'Đọc tiếp' for Vietnamese posts" },
+        {
+          name: "links", label: "Articles", widget: "list", min: 1, max: 4,
+          fields: [
+            { name: "label", label: "Category label (e.g. Saving)", widget: "string" },
+            { name: "title", label: "Article title", widget: "string" },
+            { name: "url", label: "URL", widget: "string" }
+          ]
+        }
+      ],
+      pattern: /^<div class="read-next"><div class="read-next-title">([\s\S]*?)<\/div><div class="read-next-grid">([\s\S]*?)<\/div><\/div>$/,
+      fromBlock: function(match) {
+        var links = [];
+        var re = /<a class="read-next-card" href="([\s\S]*?)"><div class="rn-label">([\s\S]*?)<\/div><div class="rn-title">([\s\S]*?)<\/div><\/a>/g;
+        var m;
+        while ((m = re.exec(match[2])) !== null) {
+          links.push({ url: m[1], label: m[2], title: m[3] });
+        }
+        return { heading: match[1], links: links };
+      },
+      toBlock: function(data) {
+        var inner = (data.links || []).map(function(l) {
+          return '<a class="read-next-card" href="' + esc(l.url) + '"><div class="rn-label">' + esc(l.label) + '</div><div class="rn-title">' + esc(l.title) + '</div></a>';
+        }).join("");
+        return '<div class="read-next"><div class="read-next-title">' + esc(data.heading || "Worth reading next") + '</div><div class="read-next-grid">' + inner + '</div></div>';
+      },
+      toPreview: function(data) {
+        return '<div><strong style="font-size:12px;text-transform:uppercase;color:#A09A94">' + esc(data.heading || "Worth reading next") + '</strong><div style="display:flex;gap:10px;margin-top:8px">' + (data.links || []).map(function(l) {
+          return '<div style="background:#F5F3F0;border-radius:14px;padding:12px;flex:1"><div style="font-size:11px;color:#5B5BD6;text-transform:uppercase;font-weight:800">' + esc(l.label) + '</div><strong style="font-size:14px">' + esc(l.title) + '</strong></div>';
+        }).join("") + '</div></div>';
+      }
+    });
+  </script>
 </body>
 </html>
