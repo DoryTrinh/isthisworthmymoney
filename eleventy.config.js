@@ -180,6 +180,15 @@ module.exports = function(eleventyConfig) {
     return monthsEn[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
   });
 
+  // Wrap tables in a scrollable container so wide tables scroll instead of clipping
+  eleventyConfig.addFilter("wrapTables", function(content) {
+    if (!content) return content;
+    return content.replace(/(<div class="table-wrapper">\s*)?<table[\s\S]*?<\/table>/gi, function(match, alreadyWrapped) {
+      if (alreadyWrapped) return match;
+      return '<div class="table-wrapper">' + match + '</div>';
+    });
+  });
+
   // Reading time filter — ~200 words per minute
   eleventyConfig.addFilter("readingTime", function(content) {
     if (!content) return 1;
