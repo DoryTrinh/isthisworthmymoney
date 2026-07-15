@@ -4,7 +4,7 @@ description: >
   An honest comparison of the best free budget calculators available in 2026:
   what each one does well, where it falls short, and which one fits your
   situation.
-date: 2026-02-25
+date: 2026-07-15
 featuredImage: /blog/images/1.png
 tags:
   - budgeting
