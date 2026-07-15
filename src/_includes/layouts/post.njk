@@ -8,6 +8,8 @@ layout: base.njk
 {% set processedContent = content | addHeadingIds %}
 {% set tocHtml = processedContent | toc(currentLang) %}
 
+<div class="progress-bar" id="progressBar"></div>
+
 <div class="blog-post-layout">
   {% if tocHtml %}
   <aside class="blog-toc">
@@ -19,6 +21,8 @@ layout: base.njk
     <div class="blog-post-header">
       <div class="blog-post-meta">
         <time datetime="{{ date }}">{{ date | readableDate(currentLang) }}</time>
+        <span class="meta-dot"></span>
+        <span>{{ content | readingTime }} {{ "phút đọc" if currentLang == "vi" else "min read" }}</span>
       </div>
       <h1 class="blog-post-title">{{ title }}</h1>
       {% if description %}
@@ -65,6 +69,18 @@ layout: base.njk
   </article>
 </div>
 
+<script>
+(function() {
+  var bar = document.getElementById('progressBar');
+  if (bar) {
+    window.addEventListener('scroll', function() {
+      var h = document.documentElement;
+      var pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+      bar.style.width = pct + '%';
+    });
+  }
+})();
+</script>
 <script>
 (function() {
   var tocLinks = document.querySelectorAll('.blog-toc .toc-list a, .blog-toc-mobile .toc-list a');
