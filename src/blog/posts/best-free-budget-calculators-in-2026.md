@@ -5,7 +5,7 @@ description: >
   what each one does well, where it falls short, and which one fits your
   situation.
 date: 2026-07-15
-featuredImage: /blog/images/1.png
+featuredImage: /blog/images/budget-calculators-cover-selection.png
 tags:
   - budgeting
   - tools
