@@ -91,7 +91,7 @@ The table above only covers essentials. Eating out, coffee, clothes and the gym 
 
 **Most extras cost about the same in dollars, but take longer to earn in Germany.** Clothes are the exception: Levi’s cost $90 in Germany vs $54 in the US, more than twice the work time.
 
-### **So how much do people actually save?**
+## **So how much do people actually save?**
 
 "Left over" isn’t the same as "saved." Here’s what people really keep:
 
