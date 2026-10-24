@@ -157,7 +157,7 @@ To reach $2,000 in 12 months, you need to save $166.67 a month before interest, 
 
 <div class="calculator-embed">
 
-  <iframe src="/embed/compare.html?config=[calculator-id]" title="Savings Target Calculator" loading="lazy"></iframe>
+<iframe src="/embed/savings-target.html?currency=usd&goal=2000&months=12" title="Savings Target Calculator" loading="lazy"></iframe>
 
   <div class="calculator-embed-caption"><a href="https://isthisworthmymoney.com" target="_blank">Check out the calculator</a></div>
 
