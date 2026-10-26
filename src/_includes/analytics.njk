@@ -1,0 +1,24 @@
+  <!-- Google tag (gtag.js), same property as the calculator homepage -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H6DMX2Z62"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-9H6DMX2Z62', { content_group: 'Blog' });
+
+    // Record when a blog reader clicks through to the calculator
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest && e.target.closest('a[href]');
+      if (!link) return;
+      var url;
+      try { url = new URL(link.href, location.href); } catch (err) { return; }
+      if (url.host !== location.host) return;
+      if (url.pathname === '/' || url.pathname === '/index.html') {
+        gtag('event', 'blog_to_calculator', {
+          link_text: ((link.textContent || '').trim() || link.getAttribute('aria-label') || '').slice(0, 100),
+          link_url: url.pathname + url.search
+        });
+      }
+    });
+  </script>
