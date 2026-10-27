@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Cost Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="embed.css">
+  <style>
+    /* --- Trip-cost-specific embed styles --- */
+    .embed-calc { max-width: 420px; }
+
+    .tc-subtitle {
+      font-size: 13px;
+      color: #8A8580;
+      line-height: 1.5;
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    .tc-section {
+      padding-top: 16px;
+      margin-top: 14px;
+      border-top: 1.5px solid #EDEAE6;
+    }
+    .tc-section.tc-first { border-top: none; margin-top: 0; padding-top: 0; }
+    .tc-section-head {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #D35233;
+      margin-bottom: 10px;
+    }
+    .tc-section-hint { font-size: 11px; color: #A09A94; margin: -4px 0 10px; line-height: 1.45; }
+
+    /* Setup rows */
+    .tc-setup-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .tc-setup-label { font-size: 13px; color: #4A4540; flex-shrink: 0; }
+    .tc-select { width: 170px; padding: 8px 10px; font-size: 13px; cursor: pointer; }
+    .tc-select.small { width: 110px; }
+
+    /* Stepper */
+    .tc-stepper { display: flex; align-items: center; gap: 6px; }
+    .tc-step-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1.5px solid #EDEAE6;
+      background: white;
+      color: #4A4540;
+      font-size: 17px;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .tc-step-btn:hover { border-color: #D35233; color: #D35233; }
+    .tc-step-btn:focus-visible { outline: 2px solid #D35233; outline-offset: 2px; }
+    .tc-step-val { width: 52px; text-align: center; padding: 7px 6px; font-size: 14px; font-weight: 600; }
+
+    /* Travel style segmented control */
+    .tc-seg {
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid #EDEAE6;
+      margin-bottom: 6px;
+    }
+    .tc-seg-btn {
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6B6560;
+      background: white;
+      border: none;
+      padding: 9px 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tc-seg-btn + .tc-seg-btn { border-left: 1.5px solid #EDEAE6; }
+    .tc-seg-btn.active { background: #5B6AD0; color: white; }
+    .tc-seg-btn:focus-visible { outline: 2px solid #5B6AD0; outline-offset: -2px; }
+    .tc-style-note { font-size: 11px; color: #A09A94; line-height: 1.45; }
+
+    /* Cost lines */
+    .tc-line { margin-bottom: 12px; }
+    .tc-line-top { display: flex; align-items: center; gap: 8px; }
+    .tc-line-text { flex: 1; min-width: 0; }
+    .tc-line-label { font-size: 13px; color: #2D2A26; font-weight: 600; }
+    .tc-line-unit { font-size: 11px; color: #8A8580; }
+    .tc-line-cur { font-size: 12px; color: #8A8580; flex-shrink: 0; min-width: 14px; text-align: right; }
+    .tc-line-amt { width: 104px; flex-shrink: 0; text-align: right; padding: 8px 10px; font-size: 14px; }
+    .tc-line-hint { font-size: 11px; color: #A09A94; line-height: 1.45; margin-top: 3px; }
+    .tc-line-hint.warn { color: #D35233; }
+
+    /* Per-line result */
+    .tc-line-calc {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .tc-line-math { font-size: 11px; color: #8A8580; }
+    .tc-line-total { font-size: 13px; font-weight: 700; color: #2D2A26; white-space: nowrap; }
+    .tc-bar { height: 4px; background: #EDEAE6; border-radius: 2px; margin-top: 4px; overflow: hidden; }
+    .tc-bar-fill { height: 100%; width: 0; background: #D35233; border-radius: 2px; transition: width 0.25s ease; }
+
+    .tc-total-row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1.5px dashed #D6D0CA;
+      font-size: 15px;
+      font-weight: 800;
+      color: #2D2A26;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* --- Total card --- */
+    .tc-hero {
+      background: #5B6AD0;
+      color: white;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-top: 16px;
+    }
+    .tc-hero-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85; }
+    .tc-hero-value { font-size: 32px; font-weight: 800; line-height: 1.15; margin: 2px 0 6px; font-variant-numeric: tabular-nums; }
+    .tc-hero-sub { font-size: 13px; opacity: 0.92; line-height: 1.5; }
+    .tc-hero-sub strong { font-weight: 700; }
+
+    .tc-missing {
+      display: none;
+      background: #FFF5F0;
+      border: 1.5px solid #F5C4B0;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #D35233;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    /* --- Saving for it --- */
+    .tc-save-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4A4540; margin-bottom: 8px; }
+    .tc-months { width: 58px; text-align: center; padding: 7px 6px; font-size: 14px; }
+    .tc-save-value { font-size: 24px; font-weight: 800; color: #02875E; font-variant-numeric: tabular-nums; }
+    .tc-save-unit { font-size: 13px; font-weight: 600; color: #8A8580; }
+    .tc-save-sub { font-size: 12px; color: #6B6560; margin-top: 2px; }
+
+    .tc-notes { font-size: 11px; color: #A09A94; line-height: 1.55; margin-top: 16px; }
+    .tc-notes p + p { margin-top: 4px; }
+
+    .tc-cta { margin-top: 14px; text-align: center; font-size: 12px; }
+    .tc-cta a { color: #D35233; text-decoration: none; font-weight: 600; }
+    .tc-cta a:hover { text-decoration: underline; }
+
+    .tc-error { font-size: 14px; color: #D35233; padding: 20px 0; }
+  </style>
+</head>
+<body>
+
+  <div id="trip-embed" class="embed-calc">
+    <div id="tc-app"></div>
+  </div>
+
+  <script src="trip-data.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    /* ----------------------------------------------------------
+       Config from URL query params
+         country = key in TRIP_DATA (default: thailand)
+         days    = trip length in days (default: country.defaultDays)
+         origin  = lax | nyc | yyz | lon | fra | other (default: lax)
+         style   = budget | mid | comfort (default: mid)
+         travelers = 1-20 (default: 1)
+       ---------------------------------------------------------- */
+    var params = new URLSearchParams(window.location.search);
+    var countryKey = (params.get('country') || 'thailand').toLowerCase();
+    var C = TRIP_DATA[countryKey];
+
+    if (!C) {
+      document.getElementById('tc-app').innerHTML =
+        '<div class="tc-error">Unknown country "' + escapeHtml(countryKey) + '".</div>';
+      return;
+    }
+
+    var STYLES = [
+      { key: 'budget', label: 'Budget' },
+      { key: 'mid', label: 'Mid-range' },
+      { key: 'comfort', label: 'Comfort' }
+    ];
+    var STYLE_NOTES = {
+      budget: 'Guesthouses, street food, public transport, trains where possible.',
+      mid: '3-star hotels, restaurants, Grab rides, budget airlines between cities.',
+      comfort: '4–5 star hotels, nicer restaurants, private transfers, full-service flights.'
+    };
+    var CURRENCIES = {
+      USD: { symbol: '$', label: 'USD ($)' },
+      CAD: { symbol: 'CA$', label: 'CAD (CA$)' },
+      GBP: { symbol: '£', label: 'GBP (£)' },
+      EUR: { symbol: '€', label: 'EUR (€)' }
+    };
+    var UNIT_TEXT = {
+      perPerson: 'per person, whole trip',
+      perPersonPerDay: 'per person, per day',
+      perRoomPerNight: 'per room, per night',
+      perCar: 'per car, whole trip'
+    };
+    var PEOPLE_PER_ROOM = 2;
+    var PEOPLE_PER_CAR = 3;
+
+    /* ----------------------------------------------------------
+       State. Money is stored in USD; inputs show the display currency.
+       ---------------------------------------------------------- */
+    function intParam(name, def, min, max) {
+      var n = parseInt(params.get(name), 10);
+      if (isNaN(n)) return def;
+      return Math.min(max, Math.max(min, n));
+    }
+    function originByKey(k) {
+      for (var i = 0; i < TRIP_ORIGINS.length; i++) if (TRIP_ORIGINS[i].key === k) return TRIP_ORIGINS[i];
+      return null;
+    }
+
+    var initOrigin = (params.get('origin') || 'lax').toLowerCase();
+    if (initOrigin !== 'other' && !originByKey(initOrigin)) initOrigin = 'lax';
+    var initStyle = (params.get('style') || 'mid').toLowerCase();
+    if (!STYLE_NOTES[initStyle]) initStyle = 'mid';
+
+    var state = {
+      origin: initOrigin,
+      currency: initOrigin === 'other' ? 'USD' : originByKey(initOrigin).currency,
+      travelers: intParam('travelers', 1, 1, 20),
+      days: intParam('days', C.defaultDays || 10, 1, 60),
+      style: initStyle,
+      flightUsd: null,       // null = not entered (only possible for "other")
+      lines: {},             // lineKey -> USD amount
+      months: 6
+    };
+
+    // A price the reader typed for "Other" survives a style change;
+    // switching to "Other" from a listed city clears it.
+    function resetFlight(originChanged) {
+      if (state.origin === 'other') {
+        if (originChanged) state.flightUsd = null;
+        return;
+      }
+      state.flightUsd = C.flights[state.origin][state.style];
+    }
+    function resetLines() {
+      for (var i = 0; i < C.lines.length; i++) state.lines[C.lines[i].key] = C.lines[i][state.style];
+    }
+    resetFlight(true);
+    resetLines();
+
+    /* ----------------------------------------------------------
+       Formatting helpers
+       ---------------------------------------------------------- */
+    function rate() { return TRIP_RATES[state.currency] || 1; }
+    function sym() { return CURRENCIES[state.currency].symbol; }
+    function toDisplay(usd) { return usd * rate(); }
+    function toUsd(display) { return display / rate(); }
+    function group(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+    function fmt(usd) { return sym() + group(toDisplay(usd)); }
+    // Totals are computed from the rounded amounts shown in the inputs,
+    // so "CA$1,660 × 2" always equals "CA$3,320" on screen.
+    function d(usd) { return Math.round(toDisplay(usd)); }
+    function fmtD(n) { return sym() + group(n); }
+    function fmtInput(usd) { return usd === null ? '' : group(toDisplay(usd)); }
+    function parseAmt(str) {
+      var raw = String(str).replace(/[^\d]/g, '');
+      return raw === '' ? null : parseInt(raw, 10);
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"]/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+    function notifyParentHeight() {
+      if (window.parent !== window) {
+        setTimeout(function() {
+          window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight + 40 }, '*');
+        }, 50);
+      }
+    }
+
+    /* ----------------------------------------------------------
+       Math
+       ---------------------------------------------------------- */
+    function nights() { return Math.max(state.days - 1, 0); }
+    function rooms() { return Math.ceil(state.travelers / PEOPLE_PER_ROOM); }
+    function cars() { return Math.ceil(state.travelers / PEOPLE_PER_CAR); }
+
+    function lineTotal(line, amt) {
+      var t = state.travelers;
+      switch (line.unit) {
+        case 'perPerson': return amt * t;
+        case 'perPersonPerDay': return amt * t * state.days;
+        case 'perRoomPerNight': return amt * rooms() * nights();
+        case 'perCar': return amt * cars();
+      }
+      return 0;
+    }
+
+    function lineMath(line, amt) {
+      var t = state.travelers;
+      switch (line.unit) {
+        case 'perPerson': return fmtD(amt) + ' × ' + plural(t, 'person', 'people');
+        case 'perPersonPerDay': return fmtD(amt) + ' × ' + plural(t, 'person', 'people') + ' × ' + plural(state.days, 'day', 'days');
+        case 'perRoomPerNight': return fmtD(amt) + ' × ' + plural(rooms(), 'room', 'rooms') + ' × ' + plural(nights(), 'night', 'nights');
+        case 'perCar': return fmtD(amt) + ' × ' + plural(cars(), 'car', 'cars');
+      }
+      return '';
+    }
+
+    function compute() {
+      var lines = {};
+      var ground = 0;
+      for (var i = 0; i < C.lines.length; i++) {
+        var line = C.lines[i];
+        var amt = d(state.lines[line.key] || 0);
+        var total = lineTotal(line, amt);
+        ground += total;
+        lines[line.key] = { total: total, math: lineMath(line, amt) };
+      }
+      var buffer = ground * (C.bufferPct || 0);
+      buffer = Math.round(buffer);
+      var flightD = state.flightUsd === null ? 0 : d(state.flightUsd);
+      var flights = flightD * state.travelers;
+      lines.flight = {
+        total: flights,
+        math: state.flightUsd === null ? 'Not entered yet' : fmtD(flightD) + ' × ' + plural(state.travelers, 'person', 'people')
+      };
+      lines.buffer = { total: buffer, math: Math.round((C.bufferPct || 0) * 100) + '% of everything except flights' };
+      var grand = flights + ground + buffer;
+      return { lines: lines, grand: grand, perPerson: grand / state.travelers };
+    }
+
+    function lineKeys() {
+      var keys = ['flight'];
+      for (var i = 0; i < C.lines.length; i++) keys.push(C.lines[i].key);
+      if (C.bufferPct) keys.push('buffer');
+      return keys;
+    }
+
+    /* ----------------------------------------------------------
+       Render (full). Called when the inputs themselves must change:
+       boot, origin, currency, style. Typing only calls update().
+       ---------------------------------------------------------- */
+    function flightHint() {
+      if (state.origin === 'other') {
+        return state.flightUsd === null
+          ? '<div class="tc-line-hint warn" id="tc-flight-hint">Enter the round-trip price you found, per person.</div>'
+          : '<div class="tc-line-hint" id="tc-flight-hint">The round-trip price you found, per person.</div>';
+      }
+      var f = C.flights[state.origin];
+      var o = originByKey(state.origin);
+      return '<div class="tc-line-hint" id="tc-flight-hint">Typical from ' + escapeHtml(o.label) + ': ' + fmt(f.budget) + '–' + fmt(f.comfort) +
+        '. ' + escapeHtml(f.peakMonth) + ' averages ' + fmt(f.peak) + '.</div>';
+    }
+
+    function costLine(key, label, unit, valueUsd, hintHtml, readOnly) {
+      var input = readOnly ? '' :
+        '<span class="tc-line-cur">' + escapeHtml(sym()) + '</span>' +
+        '<input type="text" inputmode="numeric" class="field-input tc-line-amt" id="tc-in-' + key + '" value="' +
+          fmtInput(valueUsd) + '" aria-label="' + escapeHtml(label + ', ' + unit) + '"' +
+          (valueUsd === null ? ' placeholder="0"' : '') + '>';
+      return '<div class="tc-line">' +
+        '<div class="tc-line-top">' +
+          '<div class="tc-line-text">' +
+            '<div class="tc-line-label">' + escapeHtml(label) + '</div>' +
+            (unit ? '<div class="tc-line-unit">' + escapeHtml(unit) + '</div>' : '') +
+          '</div>' + input +
+        '</div>' +
+        hintHtml +
+        '<div class="tc-line-calc">' +
+          '<span class="tc-line-math" id="tc-math-' + key + '"></span>' +
+          '<span class="tc-line-total" id="tc-total-' + key + '"></span>' +
+        '</div>' +
+        '<div class="tc-bar"><div class="tc-bar-fill" id="tc-bar-' + key + '"></div></div>' +
+      '</div>';
+    }
+
+    function renderAll() {
+      var h = '';
+      h += '<div class="embed-title">' + escapeHtml(params.get('title') || C.title) + '</div>';
+      var sub = params.get('subtitle') || C.subtitle;
+      if (sub) h += '<div class="tc-subtitle">' + escapeHtml(sub) + '</div>';
+
+      // --- Your trip ---
+      h += '<div class="tc-section tc-first"><div class="tc-section-head">Your trip</div>';
+
+      h += '<div class="tc-setup-row"><label class="tc-setup-label" for="tc-origin">Flying from</label>' +
+        '<select class="field-input tc-select" id="tc-origin">';
+      for (var i = 0; i < TRIP_ORIGINS.length; i++) {
+        var o = TRIP_ORIGINS[i];
+        h += '<option value="' + o.key + '"' + (state.origin === o.key ? ' selected' : '') + '>' + escapeHtml(o.label) + '</option>';
+      }
+      h += '<option value="other"' + (state.origin === 'other' ? ' selected' : '') + '>Other (enter your own)</option>';
+      h += '</select></div>';
+
+      h += '<div class="tc-setup-row"><label class="tc-setup-label" for="tc-currency">Show prices in</label>' +
+        '<select class="field-input tc-select small" id="tc-currency">';
+      for (var c in CURRENCIES) {
+        h += '<option value="' + c + '"' + (state.currency === c ? ' selected' : '') + '>' + CURRENCIES[c].label + '</option>';
+      }
+      h += '</select></div>';
+
+      h += stepper('travelers', 'Travelers', 'travelers');
+      h += stepper('days', 'Days in ' + C.name, 'days');
+
+      h += '<div class="tc-seg" role="group" aria-label="Travel style">';
+      for (var s = 0; s < STYLES.length; s++) {
+        var st = STYLES[s];
+        h += '<button type="button" class="tc-seg-btn' + (state.style === st.key ? ' active' : '') + '" data-style="' + st.key +
+          '" aria-pressed="' + (state.style === st.key) + '">' + st.label + '</button>';
+      }
+      h += '</div><div class="tc-style-note">' + escapeHtml(STYLE_NOTES[state.style]) + '</div>';
+      h += '</div>';
+
+      // --- Total ---
+      h += '<div class="tc-hero" aria-live="polite">' +
+        '<div class="tc-hero-label" id="tc-hero-label"></div>' +
+        '<div class="tc-hero-value" id="tc-hero-value"></div>' +
+        '<div class="tc-hero-sub" id="tc-hero-sub"></div>' +
+      '</div>' +
+      '<div class="tc-missing" id="tc-missing">This total doesn\'t include flights yet. Add your round-trip price below.</div>';
+
+      // --- Costs ---
+      var styleLabel = STYLES.filter(function(x) { return x.key === state.style; })[0].label.toLowerCase();
+      h += '<div class="tc-section"><div class="tc-section-head">Where the money goes</div>' +
+        '<div class="tc-section-hint">Prefilled for the ' + escapeHtml(styleLabel) +
+        ' style. Change any number and the total updates. Picking another style or city resets them.</div>';
+      h += costLine('flight', 'Round-trip flight', 'per person, economy', state.flightUsd, flightHint(), false);
+      for (var l = 0; l < C.lines.length; l++) {
+        var line = C.lines[l];
+        h += costLine(line.key, line.label, UNIT_TEXT[line.unit], state.lines[line.key],
+          line.hint ? '<div class="tc-line-hint">' + escapeHtml(line.hint) + '</div>' : '', false);
+      }
+      if (C.bufferPct) {
+        h += costLine('buffer', 'Buffer for surprises', '', 0,
+          '<div class="tc-line-hint">Lost sunglasses, a last-minute tour, the taxi that cost double.</div>', true);
+      }
+      h += '<div class="tc-total-row"><span>Total</span><span id="tc-total-grand"></span></div>';
+      h += '</div>';
+
+      // --- Saving for it ---
+      h += '<div class="tc-section"><div class="tc-section-head">Saving for it</div>' +
+        '<div class="tc-save-row"><label for="tc-months">Trip in</label>' +
+          '<input type="text" inputmode="numeric" class="field-input tc-months" id="tc-months" value="' + state.months + '">' +
+          '<span>months</span></div>' +
+        '<div class="tc-save-value"><span id="tc-save-month"></span><span class="tc-save-unit">/month</span></div>' +
+        '<div class="tc-save-sub" id="tc-save-sub"></div>' +
+      '</div>';
+
+      // --- Notes ---
+      h += '<div class="tc-notes">' +
+        '<p>Route: ' + escapeHtml(C.itinerary) + ' <span id="tc-nights-note"></span></p>' +
+        '<p>Rooms fit ' + PEOPLE_PER_ROOM + ' people and cars fit ' + PEOPLE_PER_CAR + ', so those costs split as your group grows.</p>' +
+        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(TRIP_RATES.date) + '.</p>' : '') +
+        '<p>Prices last checked ' + escapeHtml(C.lastUpdated) + '.</p>' +
+      '</div>';
+
+      h += '<div class="tc-cta"><a href="https://isthisworthmymoney.com" target="_blank">Try the full calculator →</a></div>';
+
+      document.getElementById('tc-app').innerHTML = h;
+      wire();
+      update();
+    }
+
+    function stepper(field, label, noun) {
+      return '<div class="tc-setup-row"><span class="tc-setup-label" id="tc-' + field + '-label">' + escapeHtml(label) + '</span>' +
+        '<div class="tc-stepper" role="group" aria-labelledby="tc-' + field + '-label">' +
+          '<button type="button" class="tc-step-btn" data-step="' + field + ':-1" aria-label="Fewer ' + noun + '">−</button>' +
+          '<input type="text" inputmode="numeric" class="field-input tc-step-val" id="tc-' + field + '" value="' + state[field] + '" aria-label="Number of ' + noun + '">' +
+          '<button type="button" class="tc-step-btn" data-step="' + field + ':1" aria-label="More ' + noun + '">+</button>' +
+        '</div></div>';
+    }
+
+    /* ----------------------------------------------------------
+       Update (numbers only, never touches inputs)
+       ---------------------------------------------------------- */
+    function setText(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; }
+
+    function update() {
+      var r = compute();
+      var t = state.travelers;
+
+      setText('tc-hero-label', 'Total for ' + plural(t, 'traveler', 'travelers') + ', ' + plural(state.days, 'day', 'days'));
+      setText('tc-hero-value', fmtD(r.grand));
+      document.getElementById('tc-hero-sub').innerHTML =
+        (t > 1 ? '<strong>' + fmtD(r.perPerson) + '</strong> per person · ' : '') +
+        '<strong>' + fmtD(r.perPerson / state.days) + '</strong> per person per day';
+      document.getElementById('tc-missing').style.display = state.flightUsd === null ? 'block' : 'none';
+
+      var keys = lineKeys();
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i], row = r.lines[k];
+        var pct = r.grand > 0 ? Math.round(row.total / r.grand * 100) : 0;
+        setText('tc-math-' + k, row.math + (pct > 0 ? ' · ' + pct + '%' : ''));
+        setText('tc-total-' + k, '= ' + fmtD(row.total));
+        document.getElementById('tc-bar-' + k).style.width = pct + '%';
+      }
+      setText('tc-total-grand', fmtD(r.grand));
+
+      var m = Math.max(1, state.months);
+      setText('tc-save-month', fmtD(r.grand / m));
+      setText('tc-save-sub', t > 1 ? fmtD(r.grand / m / t) + '/month each if you split it ' + t + ' ways' : '');
+      setText('tc-nights-note', plural(state.days, 'day', 'days') + ' means ' + plural(nights(), 'night', 'nights') + ' of hotel.');
+
+      notifyParentHeight();
+    }
+
+    /* ----------------------------------------------------------
+       Events
+       ---------------------------------------------------------- */
+    function formatMoneyInput(el) {
+      var raw = el.value.replace(/[^\d]/g, '');
+      el.value = raw ? group(parseInt(raw, 10)) : '';
+    }
+
+    function setCount(field, value) {
+      var max = field === 'travelers' ? 20 : 60;
+      state[field] = Math.min(max, Math.max(1, value));
+    }
+
+    function wire() {
+      var app = document.getElementById('tc-app');
+
+      document.getElementById('tc-origin').addEventListener('change', function() {
+        state.origin = this.value;
+        if (state.origin !== 'other') state.currency = originByKey(state.origin).currency;
+        resetFlight(true);
+        renderAll();
+        if (state.origin === 'other') document.getElementById('tc-in-flight').focus();
+      });
+
+      document.getElementById('tc-currency').addEventListener('change', function() {
+        state.currency = this.value;
+        renderAll();
+      });
+
+      var steps = app.querySelectorAll('[data-step]');
+      for (var i = 0; i < steps.length; i++) {
+        steps[i].addEventListener('click', function() {
+          var p = this.getAttribute('data-step').split(':');
+          setCount(p[0], state[p[0]] + parseInt(p[1], 10));
+          document.getElementById('tc-' + p[0]).value = state[p[0]];
+          update();
+        });
+      }
+      ['travelers', 'days'].forEach(function(field) {
+        var el = document.getElementById('tc-' + field);
+        el.addEventListener('input', function() {
+          this.value = this.value.replace(/[^\d]/g, '');
+          var n = parseInt(this.value, 10);
+          if (!isNaN(n) && n >= 1) { setCount(field, n); update(); }
+        });
+        el.addEventListener('blur', function() { this.value = state[field]; });
+      });
+
+      var segs = app.querySelectorAll('[data-style]');
+      for (var s = 0; s < segs.length; s++) {
+        segs[s].addEventListener('click', function() {
+          state.style = this.getAttribute('data-style');
+          resetFlight(false); resetLines();
+          renderAll();
+        });
+      }
+
+      document.getElementById('tc-in-flight').addEventListener('input', function() {
+        formatMoneyInput(this);
+        var v = parseAmt(this.value);
+        state.flightUsd = v === null ? (state.origin === 'other' ? null : 0) : toUsd(v);
+        if (state.origin === 'other') document.getElementById('tc-flight-hint').outerHTML = flightHint();
+        update();
+      });
+
+      C.lines.forEach(function(line) {
+        document.getElementById('tc-in-' + line.key).addEventListener('input', function() {
+          formatMoneyInput(this);
+          var v = parseAmt(this.value);
+          state.lines[line.key] = v === null ? 0 : toUsd(v);
+          update();
+        });
+      });
+
+      var mo = document.getElementById('tc-months');
+      mo.addEventListener('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '');
+        var n = parseInt(this.value, 10);
+        if (!isNaN(n) && n >= 1) { state.months = Math.min(120, n); update(); }
+      });
+      mo.addEventListener('blur', function() { this.value = state.months; });
+    }
+
+    /* ----------------------------------------------------------
+       Boot
+       ---------------------------------------------------------- */
+    renderAll();
+  })();
+  </script>
+</body>
+</html>

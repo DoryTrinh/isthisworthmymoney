@@ -223,6 +223,42 @@ default — so you only need to pass the one(s) you want to override.
 The iframe auto-resizes via `postMessage` (handled in `layouts/post.njk`), so no
 fixed height is needed.
 
+### Trip Cost Calculator (`/embed/trip-cost.html`)
+
+A reusable embed for the "How much does a 10-day trip to [country] cost?" series.
+The reader picks where they fly from (Los Angeles, New York, Toronto, London,
+Frankfurt, or **Other** to type their own flight price), the display currency
+(USD / CAD / GBP / EUR, auto-set from the departure city), number of travelers,
+number of days and a travel style (Budget / Mid-range / Comfort). Every cost line
+is prefilled for that style and editable; the total, per-person, per-day and
+"save X per month" figures update live.
+
+Shared costs split automatically: accommodation is priced per room (2 people per
+room) and airport transfers per car (3 people per car). Everything else is per
+person. A 10% buffer is added to everything except flights.
+
+```html
+<div class="calculator-embed">
+  <iframe src="/embed/trip-cost.html?country=thailand" title="Thailand Trip Cost Calculator" loading="lazy"></iframe>
+</div>
+```
+
+| Param | Example | Default |
+|---|---|---|
+| `country` | `thailand` (key in `embed/trip-data.js`) | `thailand` |
+| `origin` | `lax`, `nyc`, `yyz`, `lon`, `fra`, `other` | `lax` |
+| `style` | `budget`, `mid`, `comfort` | `mid` |
+| `travelers` | `2` | `1` |
+| `days` | `10` | country's `defaultDays` |
+| `title` / `subtitle` | custom heading text | from the country config |
+
+**Adding a country:** all numbers live in `embed/trip-data.js`. Copy the
+`thailand` block, rename the key (e.g. `vietnam`), replace the flight prices (USD,
+round trip, economy: low end of KAYAK's typical range / 12-month average / high end
+/ peak month) and the cost lines, update `itinerary`, `lastUpdated` and `sources`.
+No changes to the HTML are needed. Exchange rates are fixed in `TRIP_RATES` at the
+top of the same file; refresh them when you refresh prices.
+
 ---
 
 ## Tags
