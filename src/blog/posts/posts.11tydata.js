@@ -4,7 +4,7 @@ module.exports = {
   lang: "en",
   eleventyComputed: {
     permalink: function(data) {
-      var slug = data.customSlug || data.page.fileSlug;
+      var slug = String(data.customSlug || data.page.fileSlug).trim();
       if (data.lang === "vi") {
         return "/blog/vi/" + slug + "/";
       }

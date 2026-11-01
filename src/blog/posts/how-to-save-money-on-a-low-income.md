@@ -5,7 +5,7 @@ description: "Only 20% of US adults with family income under $25,000 often or
   $100,000 or more. So if you're working out how to save money on a low income,
   start at 1% to 5% of take home pay, not 20%: $83.33 a month builds a $1,000
   starter buffer in 12 months."
-customSlug: " how-to-save-money-on-a-low-income"
+customSlug: "how-to-save-money-on-a-low-income"
 date: 2026-10-28
 featuredImage: /blog/images/55.1.png
 tags:
