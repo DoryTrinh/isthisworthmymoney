@@ -341,17 +341,25 @@
         ground += total;
         lines[line.key] = { total: total, math: lineMath(line, amt) };
       }
-      var buffer = ground * (C.bufferPct || 0);
-      buffer = Math.round(buffer);
+      var t = state.travelers;
+      var buffer = Math.round(ground * (C.bufferPct || 0));
       var flightD = state.flightUsd === null ? 0 : d(state.flightUsd);
-      var flights = flightD * state.travelers;
+      var flights = flightD * t;
       lines.flight = {
         total: flights,
-        math: state.flightUsd === null ? 'Not entered yet' : fmtD(flightD) + ' × ' + plural(state.travelers, 'person', 'people')
+        math: state.flightUsd === null ? 'Not entered yet' : fmtD(flightD) + ' × ' + plural(t, 'person', 'people')
       };
+
+      // Per person first: the group total is always exactly per person × travelers.
+      // Every line above keeps its exact on-screen math; the buffer (already a
+      // rounded 10%) absorbs the rounding, at most half a unit per traveler.
+      // (A country without a buffer has no line to absorb it, so it keeps plain rounding.)
       lines.buffer = { total: buffer, math: Math.round((C.bufferPct || 0) * 100) + '% of everything except flights' };
-      var grand = flights + ground + buffer;
-      return { lines: lines, grand: grand, perPerson: grand / state.travelers };
+      if (!C.bufferPct) return { lines: lines, grand: flights + ground, perPerson: (flights + ground) / t };
+      var perPerson = Math.round((flights + ground + buffer) / t);
+      while (perPerson * t < flights + ground) perPerson++; // never a negative buffer
+      lines.buffer.total = perPerson * t - flights - ground;
+      return { lines: lines, grand: perPerson * t, perPerson: perPerson };
     }
 
     function lineKeys() {
