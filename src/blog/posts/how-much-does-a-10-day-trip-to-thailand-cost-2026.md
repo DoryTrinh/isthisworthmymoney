@@ -9,22 +9,7 @@ tags:
   - budgeting
   - expenses
   - lifestyle
-  - "guidesA glance at the answer A 10-day trip to Thailand costs about $1,490
-    per person on a budget, $2,560 at mid-range and $4,980 in comfort, flying
-    from Los Angeles. Couples who share a room pay about $2,190 each at
-    mid-range. Flights are roughly a third of the bill, and going in December
-    adds $540 to $670. Skip to the calculator to price your own trip. How we
-    compared: One traveler, or two sharing a room. 10 days in Thailand means 9
-    hotel nights. Route: Bangkok, Chiang Mai and Phuket, 3 nights each, flying
-    back to Bangkok for the flight home. Round trip economy flights from KAYAK's
-    12-month data for Los Angeles, New York, Toronto, London and Frankfurt,
-    checked 27 October 2026. A 10% buffer on everything except flights. Rooms
-    fit 2 people and airport cars fit 3, so those costs split when you travel
-    together. Exchange rates from the Banque de France, 19 October 2026: $1 =
-    ฿33.55 = CA$1.41 = £0.75 = €0.89. How much does a 10-day trip to Thailand
-    cost in total? About $2,560 per person at mid-range if you fly from Los
-    Angeles, and $1,490 if you travel on a budget. Where you fly from moves the
-    total more than most choices you make once you land."
+  - guides
 lang: en
 ---
 ## **A glance at the answer**
