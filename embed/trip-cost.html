@@ -195,16 +195,21 @@
       return;
     }
 
+    // Each country can carry its own FX snapshot; older entries fall back to the shared TRIP_RATES.
+    var RATES = C.rates || TRIP_RATES;
+
     var STYLES = [
       { key: 'budget', label: 'Budget' },
       { key: 'mid', label: 'Mid-range' },
       { key: 'comfort', label: 'Comfort' }
     ];
+    // Default style descriptions; a country can replace any of them with C.styleNotes.
     var STYLE_NOTES = {
       budget: 'Guesthouses, street food, public transport, trains where possible.',
       mid: '3-star hotels, restaurants, Grab rides, budget airlines between cities.',
       comfort: '4–5 star hotels, nicer restaurants, private transfers, full-service flights.'
     };
+    function styleNote(key) { return (C.styleNotes && C.styleNotes[key]) || STYLE_NOTES[key]; }
     var CURRENCIES = {
       USD: { symbol: '$', label: 'USD ($)' },
       CAD: { symbol: 'CA$', label: 'CAD (CA$)' },
@@ -267,7 +272,7 @@
     /* ----------------------------------------------------------
        Formatting helpers
        ---------------------------------------------------------- */
-    function rate() { return TRIP_RATES[state.currency] || 1; }
+    function rate() { return RATES[state.currency] || 1; }
     function sym() { return CURRENCIES[state.currency].symbol; }
     function toDisplay(usd) { return usd * rate(); }
     function toUsd(display) { return display / rate(); }
@@ -428,7 +433,7 @@
         h += '<button type="button" class="tc-seg-btn' + (state.style === st.key ? ' active' : '') + '" data-style="' + st.key +
           '" aria-pressed="' + (state.style === st.key) + '">' + st.label + '</button>';
       }
-      h += '</div><div class="tc-style-note">' + escapeHtml(STYLE_NOTES[state.style]) + '</div>';
+      h += '</div><div class="tc-style-note">' + escapeHtml(styleNote(state.style)) + '</div>';
       h += '</div>';
 
       // --- Total ---
@@ -470,7 +475,7 @@
       h += '<div class="tc-notes">' +
         '<p>Route: ' + escapeHtml(C.itinerary) + ' <span id="tc-nights-note"></span></p>' +
         '<p>Rooms fit ' + PEOPLE_PER_ROOM + ' people and cars fit ' + PEOPLE_PER_CAR + ', so those costs split as your group grows.</p>' +
-        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(TRIP_RATES.date) + '.</p>' : '') +
+        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(RATES.date) + '.</p>' : '') +
         '<p>Prices last checked ' + escapeHtml(C.lastUpdated) + '.</p>' +
       '</div>';
 
