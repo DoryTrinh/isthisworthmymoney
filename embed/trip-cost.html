@@ -530,8 +530,10 @@
       setText('tc-total-grand', fmtD(r.grand));
 
       var m = Math.max(1, state.months);
-      setText('tc-save-month', fmtD(r.grand / m));
-      setText('tc-save-sub', t > 1 ? fmtD(r.grand / m / t) + '/month each if you split it ' + t + ' ways' : '');
+      // Same rule as the total: the monthly figure is "each" × travelers.
+      var eachMonth = Math.round(r.perPerson / m);
+      setText('tc-save-month', fmtD(eachMonth * t));
+      setText('tc-save-sub', t > 1 ? fmtD(eachMonth) + '/month each if you split it ' + t + ' ways' : '');
       setText('tc-nights-note', plural(state.days, 'day', 'days') + ' means ' + plural(nights(), 'night', 'nights') + ' of hotel.');
 
       notifyParentHeight();
