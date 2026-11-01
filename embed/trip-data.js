@@ -61,7 +61,7 @@ var TRIP_DATA = {
 
     lines: [
       { key: 'stay', label: 'Accommodation', unit: 'perRoomPerNight',
-        hint: 'Guesthouse private room / 3-star hotel / 4–5 star hotel. Solo travelers pay the whole room.',
+        hint: 'Guesthouse private room / 3-star hotel / 4 or 5 star hotel. Solo travelers pay the whole room.',
         budget: 25, mid: 65, comfort: 180 },
       { key: 'food', label: 'Food & drinks', unit: 'perPersonPerDay',
         hint: 'Street food and local spots / sit-down restaurants / hotel and fine dining.',
@@ -136,7 +136,7 @@ var TRIP_DATA = {
     styleNotes: {
       budget: 'Guesthouses, street food, metro and autorickshaws, trains where possible.',
       mid: '3-star hotels, restaurants, Uber and Ola rides, fast trains and domestic flights.',
-      comfort: '4–5 star hotels, hotel dining, executive class trains and domestic flights.'
+      comfort: '4 or 5 star hotels, hotel dining, executive class trains and domestic flights.'
     },
 
     // Round trip, economy, per person, USD.
@@ -150,7 +150,7 @@ var TRIP_DATA = {
 
     lines: [
       { key: 'stay', label: 'Accommodation', unit: 'perRoomPerNight',
-        hint: 'Guesthouse private room / 3-star hotel / 4–5 star hotel, with India\'s 5% hotel GST (18% on rooms over ₹7,500). Solo travelers pay the whole room.',
+        hint: 'Guesthouse private room / 3-star hotel / 4 or 5 star hotel, with India\'s 5% hotel GST (18% on rooms over ₹7,500). Solo travelers pay the whole room.',
         budget: 27, mid: 63, comfort: 189 },
       { key: 'food', label: 'Food & drinks', unit: 'perPersonPerDay',
         hint: 'Local restaurants and street food / sit-down restaurants / hotel dining with drinks.',
@@ -162,7 +162,7 @@ var TRIP_DATA = {
         hint: '4 legs: Delhi → Agra (train), Agra → Jaipur (train), Jaipur → Udaipur (train or flight), Udaipur → Delhi (flight).',
         budget: 58, mid: 150, comfort: 201 },
       { key: 'transfers', label: 'Airport & station transfers', unit: 'perCar',
-        hint: 'About 8 rides for the whole trip (Uber from Delhi airport to the centre is ₹350–700). One car fits up to 3 people.',
+        hint: 'About 8 rides for the whole trip (Uber from Delhi airport to the centre is ₹350 to ₹700). One car fits up to 3 people.',
         budget: 29, mid: 59, comfort: 118 },
       { key: 'activities', label: 'Tours & activities', unit: 'perPerson',
         hint: 'Foreigner tickets: Taj Mahal ₹1,100 + ₹200 for the mausoleum, Red Fort, Qutub Minar, Agra Fort, Amber Fort and more. A guide, boat ride and cooking class from mid-range up.',
