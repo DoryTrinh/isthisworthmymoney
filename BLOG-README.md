@@ -226,6 +226,7 @@ fixed height is needed.
 ### Trip Cost Calculator (`/embed/trip-cost.html`)
 
 A reusable embed for the "How much does a 10-day trip to [country] cost?" series.
+Countries so far: **Thailand** (`thailand`, post #56) and **India** (`india`, post #60).
 The reader picks where they fly from (Los Angeles, New York, Toronto, London,
 Frankfurt, or **Other** to type their own flight price), the display currency
 (USD / CAD / GBP / EUR, auto-set from the departure city), number of travelers,
@@ -241,23 +242,68 @@ person. A 10% buffer is added to everything except flights.
 <div class="calculator-embed">
   <iframe src="/embed/trip-cost.html?country=thailand" title="Thailand Trip Cost Calculator" loading="lazy"></iframe>
 </div>
+
+<div class="calculator-embed">
+  <iframe src="/embed/trip-cost.html?country=india" title="India Trip Cost Calculator" loading="lazy"></iframe>
+</div>
 ```
 
 | Param | Example | Default |
 |---|---|---|
-| `country` | `thailand` (key in `embed/trip-data.js`) | `thailand` |
+| `country` | `thailand`, `india` (key in `embed/trip-data.js`) | `thailand` |
 | `origin` | `lax`, `nyc`, `yyz`, `lon`, `fra`, `other` | `lax` |
 | `style` | `budget`, `mid`, `comfort` | `mid` |
 | `travelers` | `2` | `1` |
 | `days` | `10` | country's `defaultDays` |
 | `title` / `subtitle` | custom heading text | from the country config |
 
-**Adding a country:** all numbers live in `embed/trip-data.js`. Copy the
-`thailand` block, rename the key (e.g. `vietnam`), replace the flight prices (USD,
-round trip, economy: low end of KAYAK's typical range / 12-month average / high end
-/ peak month) and the cost lines, update `itinerary`, `lastUpdated` and `sources`.
-No changes to the HTML are needed. Exchange rates are fixed in `TRIP_RATES` at the
-top of the same file; refresh them when you refresh prices.
+**Exchange rates are per country.** All amounts are stored in USD and converted
+with fixed rates. A country with its own `rates` object uses it (India: Banque de
+France, 30 Oct 2026); a country without one falls back to the shared `TRIP_RATES`
+at the top of `trip-data.js` (Thailand: 19 Oct 2026). This way, refreshing FX for a
+new post never changes the numbers in a post that is already live. The "Converted
+from USD at fixed rates from …" note under the calculator shows the date of the
+rates in use (it appears when the display currency is not USD). Extra currencies in
+`rates` (such as `INR`) are for reference only; the display currencies are USD,
+CAD, GBP and EUR.
+
+**Rounding rule: the group total is always travelers × the per-person figure.**
+Each cost line is shown with exact math on screen ("$63 × 1 room × 9 nights =
+$567"). The per-person total is rounded first, and the group total is per person ×
+travelers, so a couple total is always exactly 2 × the per-person figure. The
+buffer line (already a rounded 10%) absorbs the difference, which is at most half a
+unit per traveler and never makes the buffer negative. The "Saving for it" box
+follows the same rule: "/month each" is rounded first and the group figure is that
+amount × travelers. Solo results are the same as plain rounding. When you quote
+numbers in a post, take them from the calculator (or the research stage's Python
+replica of it), never by halving or doubling a figure by hand. A country must have
+a `bufferPct` above 0 for this rule to apply.
+
+**Adding the next country:** all numbers live in `embed/trip-data.js`; no HTML
+changes are needed.
+
+1. Copy the `india` block and rename the key (e.g. `vietnam`). The key is the
+   `?country=` value.
+2. Set `name` (used in "Days in Vietnam"), `title`, `subtitle`, `itinerary`,
+   `defaultDays` and `lastUpdated`.
+3. Replace `rates` with that day's Banque de France rates converted to USD base
+   (2 decimals) and their `date`. Do not edit `TRIP_RATES`; that would move
+   Thailand's published numbers.
+4. Replace the flight prices for all 5 origins (USD, round trip, economy: low end
+   of KAYAK's typical range / 12-month average / high end / peak month). Convert a
+   price found in EUR with the country's own EUR rate and note the original in a
+   comment.
+5. Replace the 10 cost lines (`stay`, `food`, `local`, `intercity`, `transfers`,
+   `activities`, `sim`, `atm`, `insurance`, `visa`): keep each `key` and `unit`,
+   update `budget` / `mid` / `comfort` and the `hint` (the visa hint is where the
+   entry rules go).
+6. Update `styleNotes` (the line under the Budget / Mid-range / Comfort buttons) so
+   it names local transport. Leave it out to use the default text.
+7. Keep `bufferPct: 0.10` and update `sources`.
+8. Check `/embed/trip-cost.html?country=<key>` at phone and desktop width, then
+   embed it with the iframe above.
+
+---
 
 ---
 

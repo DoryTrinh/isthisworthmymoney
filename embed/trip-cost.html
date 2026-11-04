@@ -195,16 +195,21 @@
       return;
     }
 
+    // Each country can carry its own FX snapshot; older entries fall back to the shared TRIP_RATES.
+    var RATES = C.rates || TRIP_RATES;
+
     var STYLES = [
       { key: 'budget', label: 'Budget' },
       { key: 'mid', label: 'Mid-range' },
       { key: 'comfort', label: 'Comfort' }
     ];
+    // Default style descriptions; a country can replace any of them with C.styleNotes.
     var STYLE_NOTES = {
       budget: 'Guesthouses, street food, public transport, trains where possible.',
       mid: '3-star hotels, restaurants, Grab rides, budget airlines between cities.',
       comfort: '4–5 star hotels, nicer restaurants, private transfers, full-service flights.'
     };
+    function styleNote(key) { return (C.styleNotes && C.styleNotes[key]) || STYLE_NOTES[key]; }
     var CURRENCIES = {
       USD: { symbol: '$', label: 'USD ($)' },
       CAD: { symbol: 'CA$', label: 'CAD (CA$)' },
@@ -267,7 +272,7 @@
     /* ----------------------------------------------------------
        Formatting helpers
        ---------------------------------------------------------- */
-    function rate() { return TRIP_RATES[state.currency] || 1; }
+    function rate() { return RATES[state.currency] || 1; }
     function sym() { return CURRENCIES[state.currency].symbol; }
     function toDisplay(usd) { return usd * rate(); }
     function toUsd(display) { return display / rate(); }
@@ -336,17 +341,25 @@
         ground += total;
         lines[line.key] = { total: total, math: lineMath(line, amt) };
       }
-      var buffer = ground * (C.bufferPct || 0);
-      buffer = Math.round(buffer);
+      var t = state.travelers;
+      var buffer = Math.round(ground * (C.bufferPct || 0));
       var flightD = state.flightUsd === null ? 0 : d(state.flightUsd);
-      var flights = flightD * state.travelers;
+      var flights = flightD * t;
       lines.flight = {
         total: flights,
-        math: state.flightUsd === null ? 'Not entered yet' : fmtD(flightD) + ' × ' + plural(state.travelers, 'person', 'people')
+        math: state.flightUsd === null ? 'Not entered yet' : fmtD(flightD) + ' × ' + plural(t, 'person', 'people')
       };
+
+      // Per person first: the group total is always exactly per person × travelers.
+      // Every line above keeps its exact on-screen math; the buffer (already a
+      // rounded 10%) absorbs the rounding, at most half a unit per traveler.
+      // (A country without a buffer has no line to absorb it, so it keeps plain rounding.)
       lines.buffer = { total: buffer, math: Math.round((C.bufferPct || 0) * 100) + '% of everything except flights' };
-      var grand = flights + ground + buffer;
-      return { lines: lines, grand: grand, perPerson: grand / state.travelers };
+      if (!C.bufferPct) return { lines: lines, grand: flights + ground, perPerson: (flights + ground) / t };
+      var perPerson = Math.round((flights + ground + buffer) / t);
+      while (perPerson * t < flights + ground) perPerson++; // never a negative buffer
+      lines.buffer.total = perPerson * t - flights - ground;
+      return { lines: lines, grand: perPerson * t, perPerson: perPerson };
     }
 
     function lineKeys() {
@@ -428,7 +441,7 @@
         h += '<button type="button" class="tc-seg-btn' + (state.style === st.key ? ' active' : '') + '" data-style="' + st.key +
           '" aria-pressed="' + (state.style === st.key) + '">' + st.label + '</button>';
       }
-      h += '</div><div class="tc-style-note">' + escapeHtml(STYLE_NOTES[state.style]) + '</div>';
+      h += '</div><div class="tc-style-note">' + escapeHtml(styleNote(state.style)) + '</div>';
       h += '</div>';
 
       // --- Total ---
@@ -470,7 +483,7 @@
       h += '<div class="tc-notes">' +
         '<p>Route: ' + escapeHtml(C.itinerary) + ' <span id="tc-nights-note"></span></p>' +
         '<p>Rooms fit ' + PEOPLE_PER_ROOM + ' people and cars fit ' + PEOPLE_PER_CAR + ', so those costs split as your group grows.</p>' +
-        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(TRIP_RATES.date) + '.</p>' : '') +
+        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(RATES.date) + '.</p>' : '') +
         '<p>Prices last checked ' + escapeHtml(C.lastUpdated) + '.</p>' +
       '</div>';
 
@@ -517,8 +530,10 @@
       setText('tc-total-grand', fmtD(r.grand));
 
       var m = Math.max(1, state.months);
-      setText('tc-save-month', fmtD(r.grand / m));
-      setText('tc-save-sub', t > 1 ? fmtD(r.grand / m / t) + '/month each if you split it ' + t + ' ways' : '');
+      // Same rule as the total: the monthly figure is "each" × travelers.
+      var eachMonth = Math.round(r.perPerson / m);
+      setText('tc-save-month', fmtD(eachMonth * t));
+      setText('tc-save-sub', t > 1 ? fmtD(eachMonth) + '/month each if you split it ' + t + ' ways' : '');
       setText('tc-nights-note', plural(state.days, 'day', 'days') + ' means ' + plural(nights(), 'night', 'nights') + ' of hotel.');
 
       notifyParentHeight();
