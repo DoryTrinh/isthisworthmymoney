@@ -195,6 +195,10 @@
       return;
     }
 
+    // A country can carry its own exchange rates (the rates its article used);
+    // otherwise the shared TRIP_RATES apply.
+    var RATES = C.rates || TRIP_RATES;
+
     var STYLES = [
       { key: 'budget', label: 'Budget' },
       { key: 'mid', label: 'Mid-range' },
@@ -267,7 +271,7 @@
     /* ----------------------------------------------------------
        Formatting helpers
        ---------------------------------------------------------- */
-    function rate() { return TRIP_RATES[state.currency] || 1; }
+    function rate() { return RATES[state.currency] || 1; }
     function sym() { return CURRENCIES[state.currency].symbol; }
     function toDisplay(usd) { return usd * rate(); }
     function toUsd(display) { return display / rate(); }
@@ -470,7 +474,7 @@
       h += '<div class="tc-notes">' +
         '<p>Route: ' + escapeHtml(C.itinerary) + ' <span id="tc-nights-note"></span></p>' +
         '<p>Rooms fit ' + PEOPLE_PER_ROOM + ' people and cars fit ' + PEOPLE_PER_CAR + ', so those costs split as your group grows.</p>' +
-        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(TRIP_RATES.date) + '.</p>' : '') +
+        (state.currency !== 'USD' ? '<p>Converted from USD at fixed rates from ' + escapeHtml(RATES.date) + '.</p>' : '') +
         '<p>Prices last checked ' + escapeHtml(C.lastUpdated) + '.</p>' +
       '</div>';
 
